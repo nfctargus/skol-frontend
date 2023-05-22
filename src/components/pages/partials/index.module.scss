@@ -1,0 +1,28 @@
+.chatSideBarLayout {
+    width:75%;
+    height:100%;
+    display:flex;
+    flex-direction: column;
+    gap:0.6rem;
+    text-align: left;
+    font-size:0.7rem;
+}
+.chatUserAvatar {
+    width:25%;
+}
+.messagePanelUserInfo {
+    display:flex;
+    flex-direction:column;    
+    justify-content: center;
+    gap:0.5rem;
+}
+.messagePanelUserInfo h1,h2 {
+    font-size:1rem;
+    font-weight:500;
+    margin:0;
+}
+.messagePanelUserInfo h2 {
+    font-size:0.8rem;
+    color:#2c982e;
+
+}

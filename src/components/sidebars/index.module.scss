@@ -1,0 +1,49 @@
+.profilePicContainer {
+    width:100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+}
+.navIconBar {
+    display: flex;
+    align-items: center;
+	flex-direction: column;
+    justify-content: space-around;
+    gap:1.5rem;
+    height:20%;
+    margin:2rem 0 0 0;
+    width:80%;
+}
+.sideBarSearchContainer {
+    padding:0 0.5rem;
+    
+}
+.sideBarSearchContainer h1 {
+    font-size:1.1rem;
+    font-weight:400;
+
+}
+.sideBarSearchHeader {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 1rem;
+}
+.sideBarSearchHeader section {
+    border: 0.1rem solid #a4a4a475;
+    display:grid;
+    place-items:center;
+    padding:0.2rem;
+    border-radius:0.4rem;  
+}
+.sideBarSearchHeader section:hover {
+    cursor: pointer;
+    background:#a4a4a475;
+    transition: all 0.2s ease;
+}
+.sideBarItemContainer {
+    padding:0.5rem;
+}
