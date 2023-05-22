@@ -4,24 +4,21 @@ import styles from './index.module.scss';
 import avatar from '../../../assets/sampleUser.jpg';
 import { shortenString } from '../../../utils/helpers';
 import { useNavigate } from 'react-router-dom';
+import { User } from '../../../utils/types';
 
 type Props = {
-    userId:number;
-    userName:string;
-    avatarPath:string;
-    lastMessage:string;
-    lastMessageSentAt:string;
+    user:User;
 }
-const ChatSideBarItem:FC<Props> = ({userId,userName,avatarPath,lastMessage,lastMessageSentAt}) => {
+const ChatSideBarItem:FC<Props> = ({user}) => {
     const navigate = useNavigate();
   return (
-    <ChatSideBarItemContainer onClick={() => navigate(`/chats/${userId}`)}>
+    <ChatSideBarItemContainer onClick={() => navigate(`/chats/${user.id}`)}>
         <div className={styles.chatUserAvatar}><ChatUserAvatarStyle src={avatar}/></div>
         <div className={styles.chatSideBarLayout}>
             <ChatSideBarItemStyle>
-                <h1>{shortenString(userName,14)}</h1><h2>{lastMessageSentAt}</h2>
+                <h1>{shortenString(user.name,14)}</h1><h2>{user.lastMessageSentAt}</h2>
             </ChatSideBarItemStyle>
-            <section>{shortenString(lastMessage,26)}</section>
+            <section>{shortenString(user.lastMessage,26)}</section>
         </div>
     </ChatSideBarItemContainer>
   )

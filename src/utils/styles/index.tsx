@@ -1,4 +1,5 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import { ContextMenuProps } from './styleTypes';
 
 export const Page = styled.div`
     background-color: #1a1a1a;
@@ -63,6 +64,7 @@ export const MessageContainerStyle = styled.div`
     display: flex;
     flex-direction: column-reverse;
     overflow-y: scroll;
+    scrollbar-width: none;
     &::-webkit-scrollbar {
         display: none;
     }
@@ -222,4 +224,43 @@ export const ChatUserAvatarStyle = styled.img`
     aspect-ratio:1/1;
     border-radius: 50%;
     padding:0.5rem;
+`;
+export const ContextMenuStyle = styled.div<ContextMenuProps>`
+    border-radius: 1rem;
+    box-sizing: border-box;
+    position: fixed;
+    width: 20rem;
+    padding:1rem;
+    background-color: #fff;
+    border:1px solid #a4a4a475;
+    ${(props) => css`
+        top: ${props.top}px;
+        left: ${props.left}px;
+    `}
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 10px;
+    }
+    ul li {
+        padding: 14px 16px;
+        border-radius: 8px;
+    }
+    ul li:hover {
+        cursor: pointer;
+        background-color: #F6F6F6;
+    }
+    .chatProfileContainer {
+        img {
+            aspect-ratio:1/1;
+            max-height:2.5rem;
+            border-radius:50%;
+        }   
+        display:flex;
+        align-items:center;
+        justify-content:space-evenly;
+        padding:0 1rem;
+        
+    }
+    
 `;
