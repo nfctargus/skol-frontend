@@ -1,0 +1,22 @@
+form {
+    width: 100%;
+    margin: 0 2rem;
+}
+.loginImg {
+    max-width: 25rem;
+    aspect-ratio: 1/1;
+}
+.footerText {
+    font-size:1rem;
+    & :last-child {
+        text-decoration: underline;
+        color: #353840;
+        font-weight:500;
+    }
+    margin: 0.5rem 0;
+    text-align: center;
+  }
+  .welcome {
+    text-align: center;
+    font-size:1.4rem;
+  }

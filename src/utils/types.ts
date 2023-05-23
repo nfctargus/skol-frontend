@@ -5,3 +5,14 @@ export type User = {
     lastMessage:string;
     lastMessageSentAt:string;
 }
+export type CreateUserParams = {
+	email: string;
+	firstName: string;
+	lastName: string;
+    username:string;
+	password: string;
+};
+export type UserCredentialsParams = {
+	email: string;
+	password: string;
+};

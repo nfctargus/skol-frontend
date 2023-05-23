@@ -1,13 +1,23 @@
 import styled, { css } from 'styled-components';
-import { ContextMenuProps } from './styleTypes';
+import { ContextMenuProps, PageProps } from './styleTypes';
 
-export const Page = styled.div`
-    background-color: #1a1a1a;
+
+export const Page = styled.div<PageProps>`
+    background-color: #E2EDF9;
     height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: ${(props) => props.display};
+    justify-content: ${(props) => props.justifyContent};
+    align-items: ${(props) => props.alignItems};
 `;
+export const PageInnerContainer = styled.div`
+    height:80%;
+    width:60%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#F6F6F6;
+    border-radius:1rem;
+`
 export const NavSideBarStyle = styled.div`
 	height: 100%;
 	background-color: #353840;
@@ -264,3 +274,69 @@ export const ContextMenuStyle = styled.div<ContextMenuProps>`
     }
     
 `;
+export const InputContainerStyle = styled.div`
+    background-color: #F6F6F6;
+    border:0.1rem solid #ccc;
+    padding: 12px 16px;
+    border-radius: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 1rem 0;
+    &:focus-within {
+        border:0.1rem solid #353840;
+    }
+`;
+export const InputLabel = styled.label`
+    display: block;
+    color: #8f8f8f;
+    font-weight:500;
+    font-size: 1rem;
+    margin: 0.2rem 0;
+`;
+export const InputField = styled.input`
+    font-family: 'Inter';
+    outline: none;
+    border: none;
+    background-color: inherit;
+    font-size: 1.2rem;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0.3rem 0;
+`;
+
+export const Button = styled.button`
+    width: 100%;
+    outline: none;
+    border: none;
+    font-family: 'Inter';
+    font-size: 16px;
+    background-color: #353840;
+    color: #fff;
+    border-radius: 10px;
+    padding: 25px 0;
+    font-weight: 500;
+    transition: 250ms background-color ease;
+    &:hover {
+        cursor: pointer;
+        opacity: 0.8;
+    }
+    &:active {
+        opacity: 0.8;
+    }
+    &:focus {
+        opacity: 0.8;
+    }
+`;
+export const LoginPageImageContainer = styled.div`
+    height:100%;
+    margin:0;
+    margin-right:auto;
+    
+    img {
+        border-top-left-radius:1rem;
+        border-bottom-left-radius:1rem;
+        max-height: 100%;
+        aspect-ratio:2/3;
+    }
+`
