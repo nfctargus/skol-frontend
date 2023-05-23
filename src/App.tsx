@@ -4,6 +4,7 @@ import AppPage from './components/AppPage';
 import ChatPage from './components/pages/ChatsPage';
 import ActiveChatPage from './components/pages/ActiveChatPage';
 import { LoginPage } from './components/pages/LoginPage';
+import { ReigsterPage } from './components/pages/RegisterPage';
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
                 </Route>
             </Route>
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<ReigsterPage />} />
         </Routes>
     );
 }

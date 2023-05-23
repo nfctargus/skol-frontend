@@ -7,16 +7,28 @@ form {
     aspect-ratio: 1/1;
 }
 .footerText {
-    font-size:1rem;
+    font-size:1.1rem;
+    margin: 0.7rem 0;
+    text-align: center;
     & :last-child {
         text-decoration: underline;
         color: #353840;
         font-weight:500;
+
     }
-    margin: 0.5rem 0;
+    & :last-child:hover {
+        opacity:0.8; 
+    }
+}
+.welcome {
     text-align: center;
-  }
-  .welcome {
-    text-align: center;
-    font-size:1.4rem;
-  }
+    font-size:2rem;
+    margin-bottom:1rem;
+}
+.nameFieldRow {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+  

@@ -277,8 +277,8 @@ export const ContextMenuStyle = styled.div<ContextMenuProps>`
 export const InputContainerStyle = styled.div`
     background-color: #F6F6F6;
     border:0.1rem solid #ccc;
-    padding: 12px 16px;
-    border-radius: 10px;
+    padding: 0.7rem 0.8rem;
+    border-radius: 0.5rem;
     width: 100%;
     box-sizing: border-box;
     margin: 1rem 0;
@@ -310,11 +310,11 @@ export const Button = styled.button`
     outline: none;
     border: none;
     font-family: 'Inter';
-    font-size: 16px;
+    font-size: 1.2rem;
     background-color: #353840;
     color: #fff;
-    border-radius: 10px;
-    padding: 25px 0;
+    border-radius: 0.5rem;
+    padding: 2rem 0;
     font-weight: 500;
     transition: 250ms background-color ease;
     &:hover {
@@ -332,7 +332,6 @@ export const LoginPageImageContainer = styled.div`
     height:100%;
     margin:0;
     margin-right:auto;
-    
     img {
         border-top-left-radius:1rem;
         border-bottom-left-radius:1rem;
