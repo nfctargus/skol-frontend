@@ -7,7 +7,7 @@ export const LoginPage = () => {
         <Page display="flex" justifyContent="center" alignItems="center">
             <PageInnerContainer>
                 <LoginPageImageContainer>
-                    <img src={bg} />
+                    <img className="splashImage" src={bg} alt="Splash Art" />
                 </LoginPageImageContainer>
                 <LoginForm />
             </PageInnerContainer>

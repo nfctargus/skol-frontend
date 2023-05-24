@@ -1,5 +1,4 @@
 import { LoginPageImageContainer, Page, PageInnerContainer } from "../../utils/styles";
-import { LoginForm } from "../forms/LoginForm";
 import bg from '../../assets/login-splash-bg.jpg';
 import { RegisterForm } from "../forms/RegisterForm";
 
@@ -8,7 +7,7 @@ export const ReigsterPage = () => {
         <Page display="flex" justifyContent="center" alignItems="center">
             <PageInnerContainer>
                 <LoginPageImageContainer>
-                    <img src={bg} />
+                <img className="splashImage" src={bg} alt="Splash Art" />
                 </LoginPageImageContainer>
                 <RegisterForm />
             </PageInnerContainer>

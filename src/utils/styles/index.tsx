@@ -9,14 +9,33 @@ export const Page = styled.div<PageProps>`
     justify-content: ${(props) => props.justifyContent};
     align-items: ${(props) => props.alignItems};
 `;
+export const FormContainerStyle = styled.form`
+    width: 50%;
+    margin: 0 2rem;
+`
 export const PageInnerContainer = styled.div`
-    height:80%;
-    width:60%;
+    height:80vh;
+    width:80vw;
     display:flex;
     justify-content:center;
     align-items:center;
     background:#F6F6F6;
     border-radius:1rem;
+`
+export const LoginPageImageContainer = styled.div`
+    height:100%;
+    
+    margin-right: auto;
+    width:50%;
+
+    .splashImage {
+        border-top-left-radius: 1rem;
+        border-bottom-left-radius: 1rem;
+        object-fit: cover;
+        width: 100%;
+        height:100%;
+        
+    }
 `
 export const NavSideBarStyle = styled.div`
 	height: 100%;
@@ -328,14 +347,3 @@ export const Button = styled.button`
         opacity: 0.8;
     }
 `;
-export const LoginPageImageContainer = styled.div`
-    height:100%;
-    margin:0;
-    margin-right:auto;
-    img {
-        border-top-left-radius:1rem;
-        border-bottom-left-radius:1rem;
-        max-height: 100%;
-        aspect-ratio:2/3;
-    }
-`

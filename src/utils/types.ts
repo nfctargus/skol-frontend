@@ -1,9 +1,9 @@
 export type User = {
-    id:number;
-    name:string;
-    avatar:string;
-    lastMessage:string;
-    lastMessageSentAt:string;
+    id: string;
+	email: string;
+    username:string;
+	firstName: string;
+	lastName: string;
 }
 export type CreateUserParams = {
 	email: string;

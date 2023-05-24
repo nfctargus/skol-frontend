@@ -4,19 +4,23 @@ import ChatSideBarHeader from '../pages/partials/ChatSideBarHeader'
 import styles from './index.module.scss';
 import { MoreVerticalFill } from 'akar-icons';
 import ChatSideBarItem from '../pages/partials/ChatSideBarItem';
-import { sampleUsers } from '../sampleData';
+
 import { User } from '../../utils/types';
 const ChatSideBar = () => {
     const [users,setUsers] = useState<User[]>([]);
     useEffect(() => {
-        setUsers(sampleUsers);
+        //setUsers(sampleUsers);
     },[])
     const chatFilter = (e: React.ChangeEvent<HTMLInputElement>) => {
         const searchTerm = e.target.value
         if(searchTerm.length > 0) {
-            const filteredUsers = users.filter((u) => u.name.toLowerCase().includes(searchTerm.toLowerCase()))
+            const filteredUsers = users.filter(
+                (u) => u.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                u.lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                u.username.toLowerCase().includes(searchTerm.toLowerCase())
+            )
             setUsers(filteredUsers)
-        } else setUsers(sampleUsers);
+        } else setUsers([]);
     }
     return (
         <>

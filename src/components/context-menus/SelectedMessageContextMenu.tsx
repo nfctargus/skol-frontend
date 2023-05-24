@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 
 import { ContextMenuStyle } from '../../utils/styles';
 import { User } from '../../utils/types';
-import { sampleUsers } from '../sampleData';
+
 import recipientAvatar from '../../assets/sampleUser.jpg';
 type Props = {
     points: { x: number; y: number };
@@ -11,11 +11,11 @@ type Props = {
 
 export const SelectedMessageContextMenu: FC<Props> = ({ points }) => {
     const { id } = useParams();
-    const currentUser:User | undefined = sampleUsers.find((u:any) => u.id === parseInt(id!))
+    //const currentUser:User | undefined = sampleUsers.find((u:any) => u.id === parseInt(id!))
 
     return (
         <ContextMenuStyle top={points.y} left={points.x}>
-            <div className='chatProfileContainer'><img src={recipientAvatar} />{currentUser?.name}</div>
+            <div className='chatProfileContainer'><img src={recipientAvatar} />{/* currentUser?.name */}</div>
             <ul>
                 
                 <li>Edit</li>

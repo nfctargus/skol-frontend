@@ -16,9 +16,10 @@ const ChatSideBarItem:FC<Props> = ({user}) => {
         <div className={styles.chatUserAvatar}><ChatUserAvatarStyle src={avatar}/></div>
         <div className={styles.chatSideBarLayout}>
             <ChatSideBarItemStyle>
-                <h1>{shortenString(user.name,14)}</h1><h2>{user.lastMessageSentAt}</h2>
+                <h1>{shortenString(user.firstName + user.lastName,14)}</h1>
+                <h2>Date</h2>
             </ChatSideBarItemStyle>
-            <section>{shortenString(user.lastMessage,26)}</section>
+            <section>Hello{/* {shortenString(user.lastMessage,26)} */}</section>
         </div>
     </ChatSideBarItemContainer>
   )

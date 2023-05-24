@@ -2,26 +2,29 @@ import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { CreateUserParams } from "../../utils/types";
 import styles from './index.module.scss';
-import { Button, InputContainerStyle, InputField, InputLabel } from "../../utils/styles";
+import { Button, FormContainerStyle, InputContainerStyle, InputField, InputLabel } from "../../utils/styles";
+import { toast } from 'react-toastify';
+import { postRegisterUser } from "../../utils/api";
 
 export const RegisterForm = () => {
     const {register,handleSubmit,formState: { errors }} = useForm<CreateUserParams>();
     const navigate = useNavigate();
-
     const onSubmit = async (data: CreateUserParams) => {
+        
 		try {
-			//await postRegisterUser(data);
+            await postRegisterUser(data);
 			navigate('/login');
-			//toast.clearWaitingQueue();
-			//toast('Account created!', { type: 'success', icon: true });
-		} catch (err) {
-			console.log(err);
-			//toast.clearWaitingQueue();
-     		//toast('Error creating user', { type: 'error', icon: true });
+			toast.clearWaitingQueue();
+			toast('Account created!', { type: 'success', icon: true });
+		} catch (err:any) {
+            const {message:errMessage } = err.response.data
+			toast.clearWaitingQueue();
+            if(errMessage) toast(errMessage, { type: 'error', icon: true }); 
+            else toast("An error has occured during registration process. Please try again later.", { type: 'error', icon: true }); 
 		}
 	};
     return (
-        <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+        <FormContainerStyle className={styles.form} onSubmit={handleSubmit(onSubmit)}>
             <div className={styles.welcome}>Hi There!</div>
             <section className={styles.nameFieldRow}>
 				<InputContainerStyle>
@@ -52,6 +55,6 @@ export const RegisterForm = () => {
 					<span>Login</span>
 				</Link>
 			</div>
-		</form>
+		</FormContainerStyle>
     );
 }

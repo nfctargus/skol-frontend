@@ -1,20 +1,20 @@
 import { useParams } from 'react-router-dom';
 import { ChatUserAvatarStyle, CurrentChatInfoPageOptions, CurrentChatInfoPageStyle } from '../../utils/styles'
 import { User } from '../../utils/types';
-import { sampleUsers } from '../sampleData';
+
 import avatar from '../../assets/sampleUser.jpg';
 import styles from './index.module.scss';
 import { Person, Phone,Search,File,Filter } from 'akar-icons';
 
 const CurrentChatInfoPage = () => {
     const { id } = useParams();
-    const currentUser:User | undefined = sampleUsers.find((u:any) => u.id === parseInt(id!))
+    //const currentUser:User | undefined = sampleUsers.find((u:any) => u.id === parseInt(id!))
 
     return (
         <CurrentChatInfoPageStyle>
             <div className={styles.userPic}>
                 <ChatUserAvatarStyle src={avatar}/>
-                {currentUser?.name}
+                {/* {currentUser?.name} */}
             </div>
             <CurrentChatInfoPageOptions>
                 <li><Person strokeWidth={2} size={24} />Profile</li>
