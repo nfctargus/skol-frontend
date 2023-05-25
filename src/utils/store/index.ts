@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
-
+import friendReducer from './friends/friendSlice';
 
 export const store = configureStore({
     reducer: {
-        //auth:authReducer
+        friend:friendReducer
     },
     middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ serializableCheck: false }),

@@ -1,0 +1,11 @@
+.addFriendButton:hover {
+    cursor: pointer;
+    opacity:0.8;
+}
+.selectedFriendWrapper {
+    display:flex;
+    margin-right: auto;
+    align-items: center;
+    gap:0.5rem;
+    width:50%;
+}

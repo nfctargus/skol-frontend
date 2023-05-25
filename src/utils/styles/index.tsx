@@ -8,8 +8,6 @@ export const Page = styled.div<PageProps>`
     display: ${(props) => props.display};
     justify-content: ${(props) => props.justifyContent};
     align-items: ${(props) => props.alignItems};
-
-
 `;
 export const FormContainerStyle = styled.form`
     width: 50%;
@@ -402,5 +400,107 @@ export const LoadingContainerStyle = styled.div`
         border: 0.5rem solid #353840;
         border-color: #353840 transparent #353840 transparent;
         animation: ${spinAnimation} 1.5s linear infinite;
+    }
+`
+export const OverlayWindowStyle = styled.div`
+    height: 100%;
+    width: 100%;
+    background-color: #00000088;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+`;
+export const FriendModalStyle = styled.div`
+    position: relative;
+    background-color: #F6F6F6;
+    width: 40%;
+    box-sizing: border-box;
+    border-radius: 1rem;
+
+`;
+export const ModalHeader = styled.header`
+    text-align:center;
+    font-size:2rem;
+    margin:1rem 2rem;
+    display:flex;
+    justify-content: space-between;
+    div:hover {
+        cursor:pointer;
+        opacity:0.8;
+    }
+`
+export const ModalSectionStyle = styled.div`
+    background:#fff;
+    padding:1rem;
+    margin:1rem;
+    border-radius:0.5rem;
+    font-size:0.8rem;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    gap:1rem;
+`
+export const ModalButton = styled.button`
+    width: 50%;
+    outline: none;
+    border: none;
+    background-color: #353840;
+    color: #fff;
+    border-radius: 0.5rem;
+    padding: 0.3rem 0;
+    font-weight: 500;
+    transition: 250ms background-color ease;
+    &:hover {
+        cursor: pointer;
+        opacity: 0.8;
+    }
+    &:focus {
+        opacity: 0.8;
+    }
+`;
+
+export const RecipientResultContainerStyle = styled.div`
+	position: absolute;
+	background-color: #ccc;
+	right: 0;
+	left: 0;
+	margin: 0 1rem;
+    border-radius: 0.5rem;
+`;
+
+export const RecipientScrollableItemContainer = styled.div`
+	max-height: 8rem;
+	overflow: scroll;
+    scrollbar-width: none;
+	&::-webkit-scrollbar {
+		display: none;
+	}
+`;
+export const RecipientResultItem = styled.div`
+	padding: 0.6rem 1rem;
+	box-sizing: border-box;
+    
+	&:hover {
+		cursor: pointer;
+		background:#ffffffaa
+	}
+`;
+export const SelectedFriendContainer = styled.div`
+    display:flex;
+    align-items: center;
+    justify-content: space-evenly;
+    gap:0.2rem;
+    border-radius:0.5rem;
+    border:1px solid #ccc;
+    padding:0.3rem 1rem;
+    div {
+        display: grid;
+        place-items: center;
+    }
+    div:hover {
+        opacity:0.8;
+        cursor: pointer;
     }
 `

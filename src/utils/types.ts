@@ -1,5 +1,5 @@
 export type User = {
-    id: string;
+    id: number;
 	email: string;
     username:string;
 	firstName: string;
@@ -15,4 +15,10 @@ export type CreateUserParams = {
 export type UserCredentialsParams = {
 	email: string;
 	password: string;
+};
+export type Friend = {
+    id: number;
+    userOne: User;
+    userTwo: User;
+    createdAt: number;
 };

@@ -11,10 +11,21 @@
     align-items: center;
 	flex-direction: column;
     justify-content: space-around;
-    gap:1.5rem;
+    gap:0.8rem;
     height:20%;
     margin:2rem 0 0 0;
     width:80%;
+    
+}
+.navIcons {
+    display: grid;
+    place-items:center;
+    width:100%;
+    padding:0.5rem;
+}
+.navIcons:hover {
+    background:#cccccc73;
+    cursor: pointer;
 }
 .sideBarSearchContainer {
     padding:0 0.5rem;
