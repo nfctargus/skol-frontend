@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled, { css,keyframes  } from 'styled-components';
 import { ContextMenuProps, PageProps } from './styleTypes';
 
 
@@ -8,10 +8,17 @@ export const Page = styled.div<PageProps>`
     display: ${(props) => props.display};
     justify-content: ${(props) => props.justifyContent};
     align-items: ${(props) => props.alignItems};
+
+
 `;
 export const FormContainerStyle = styled.form`
     width: 50%;
     margin: 0 2rem;
+
+    @media screen and (max-width:768px) {
+        width: 90%;
+        margin: 0.5rem 0 4rem 0;
+    }
 `
 export const PageInnerContainer = styled.div`
     height:80vh;
@@ -21,10 +28,14 @@ export const PageInnerContainer = styled.div`
     align-items:center;
     background:#F6F6F6;
     border-radius:1rem;
+
+    @media screen and (max-width:480px) {
+        flex-direction: column;
+        width:95%;
+    }
 `
 export const LoginPageImageContainer = styled.div`
     height:100%;
-    
     margin-right: auto;
     width:50%;
 
@@ -34,7 +45,17 @@ export const LoginPageImageContainer = styled.div`
         object-fit: cover;
         width: 100%;
         height:100%;
-        
+    }
+
+    @media screen and (max-width:480px) {
+        width:100%;
+        height:25%;
+        margin-bottom:auto;
+        .splashImage { 
+            border-radius:0;
+            border-top-left-radius: 1rem;
+            border-top-right-radius: 1rem;
+        }
     }
 `
 export const NavSideBarStyle = styled.div`
@@ -141,6 +162,8 @@ export const MessageInputContainerStyle = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+
+    
 `;
 export const MessageInputField = styled.input`
     width: 100%;
@@ -154,6 +177,7 @@ export const MessageInputField = styled.input`
     &:focus {
         outline:0.1rem solid #353840;   
     }
+    
 `;
 export const CurrentChatInfoPageStyle = styled.div`
     width:20vw;
@@ -304,6 +328,10 @@ export const InputContainerStyle = styled.div`
     &:focus-within {
         border:0.1rem solid #353840;
     }
+    @media screen and (max-width:768px) {
+        padding: 0.3rem 0.8rem;
+        margin: 0.5rem 0;
+    }
 `;
 export const InputLabel = styled.label`
     display: block;
@@ -347,3 +375,32 @@ export const Button = styled.button`
         opacity: 0.8;
     }
 `;
+const spinAnimation = keyframes`
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+`
+
+export const LoadingContainerStyle = styled.div`
+    background-color: #f6f6f66f;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .spinner {
+        display: inline-block;
+        width: 10rem;
+        height: 10rem;
+    }
+    .spinner:after {
+        content: " ";
+        display: block;
+        width: 6rem;
+        height: 6rem;
+        margin: 1rem;
+        border-radius: 50%;
+        border: 0.5rem solid #353840;
+        border-color: #353840 transparent #353840 transparent;
+        animation: ${spinAnimation} 1.5s linear infinite;
+    }
+`
