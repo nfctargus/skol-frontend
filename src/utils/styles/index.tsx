@@ -466,12 +466,12 @@ export const RecipientResultContainerStyle = styled.div`
 	background-color: #ccc;
 	right: 0;
 	left: 0;
-	margin: 0 1rem;
+	margin: 5rem 1rem;
     border-radius: 0.5rem;
 `;
 
 export const RecipientScrollableItemContainer = styled.div`
-	max-height: 8rem;
+	max-height: 11rem;
 	overflow: scroll;
     scrollbar-width: none;
 	&::-webkit-scrollbar {

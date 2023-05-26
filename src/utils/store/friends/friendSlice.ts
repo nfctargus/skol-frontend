@@ -1,7 +1,6 @@
-import { createSelector, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { Friend } from "../../types";
-import { addFriendThunk, getFriendsThunk } from "./friendThunk";
-import { RootState } from "..";
+import { addFriendThunk, deleteFriendThunk, getFriendsThunk } from "./friendThunk";
 
 export interface FriendState {
     friends:Friend[];
@@ -21,9 +20,12 @@ export const friendSlice = createSlice({
             state.friends = action.payload.data
         })
         .addCase(addFriendThunk.fulfilled,(state,action) => {
-
-            console.log(action.payload.data)
-            //state.friends.push = action.payload.data
+            state.friends.push(action.payload.data)
+        })
+        .addCase(deleteFriendThunk.fulfilled,(state,action) => {
+            const { id } = action.payload.data;
+            const friendIndex = state.friends.findIndex((friend) => friend.id === id);
+            state.friends.splice(friendIndex,1);
         })
     },
 });
