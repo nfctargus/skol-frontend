@@ -1,5 +1,5 @@
 import { Dispatch, FC, createRef, useContext, useEffect, useState } from "react";
-import { ModalButton, FriendModalStyle, MessageInputField, ModalHeader, ModalSectionStyle, OverlayWindowStyle, InputLabel, SelectedFriendContainer } from "../../utils/styles";
+import { ModalButton, ModalStyle, MessageInputField, ModalHeader, ModalSectionStyle, OverlayWindowStyle, InputLabel, SelectedFriendContainer } from "../../utils/styles";
 import { Cross } from "akar-icons";
 import styles from './index.module.scss';
 import { useDispatch, useSelector } from "react-redux";
@@ -55,7 +55,7 @@ const FriendsModal:FC<Props> = ({setShowFriendsModal}) => {
     
     return (
         <OverlayWindowStyle ref={ref} onClick={handleOverlayClick}>
-            <FriendModalStyle>
+            <ModalStyle>
                 <ModalHeader>Friends<div onClick={() => setShowFriendsModal(false)}><Cross size={30}/></div></ModalHeader>
                 {!selectedUser && (
 				    <RecipientResultContainer userResults={userResults} handleUserSelect={handleUserSelect}  />
@@ -72,7 +72,7 @@ const FriendsModal:FC<Props> = ({setShowFriendsModal}) => {
                     </div> : <MessageInputField id="friendAdd" onChange={handleFriendSearchInput}/>}
                 </ModalSectionStyle>
                 {myFriends && myFriends.map((friend) => (<FriendListItem key={friend.id} friend={friend} />))}
-            </FriendModalStyle>
+            </ModalStyle>
         </OverlayWindowStyle>
     )
 }

@@ -1,10 +1,14 @@
-import React from 'react'
+import React, { FC } from 'react'
 import { ReceivedMessageContainerStyle } from '../../../utils/styles'
 
-const ReceivedMessageContainer = () => {
+type Props = {
+    messageContent:string;
+    timeStamp:number;
+}
+const ReceivedMessageContainer:FC<Props> = ({messageContent,timeStamp}) => {
     return (
         <ReceivedMessageContainerStyle>
-            Received Message 
+            {messageContent}
         </ReceivedMessageContainerStyle>
     )
 }

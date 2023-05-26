@@ -64,7 +64,6 @@ export const NavSideBarStyle = styled.div`
 	flex: 0 0 5rem;
 	align-items: center;
 	flex-direction: column;
-    
 `;
 export const AppPageStyle = styled.div`
 	height: 100%;
@@ -89,6 +88,7 @@ export const ChatSideBarStyle = styled.div`
 	flex-direction: column;
 	height: 100%;
 	width: 15vw;
+    min-width:15rem;
 	background-color: #fff;
 `;
 export const ActiveChatPageStyle = styled.div`
@@ -339,7 +339,6 @@ export const InputLabel = styled.label`
     margin: 0.2rem 0;
 `;
 export const InputField = styled.input`
-    font-family: 'Inter';
     outline: none;
     border: none;
     background-color: inherit;
@@ -348,6 +347,22 @@ export const InputField = styled.input`
     box-sizing: border-box;
     padding: 0;
     margin: 0.3rem 0;
+`;
+export const InputTextArea = styled.textarea`
+    font-family:'Inter';
+    outline: none;
+    border: none;
+    background-color: inherit;
+    font-size: 1.2rem;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0.3rem 0;
+    resize:none;
+    scrollbar-width: none;
+    ::-webkit-scrollbar {
+        display: none;
+    }
 `;
 
 export const Button = styled.button`
@@ -412,13 +427,12 @@ export const OverlayWindowStyle = styled.div`
     align-items: center;
     z-index: 999;
 `;
-export const FriendModalStyle = styled.div`
+export const ModalStyle = styled.div`
     position: relative;
     background-color: #F6F6F6;
     width: 40%;
     box-sizing: border-box;
     border-radius: 1rem;
-
 `;
 export const ModalHeader = styled.header`
     text-align:center;
@@ -503,4 +517,8 @@ export const SelectedFriendContainer = styled.div`
         opacity:0.8;
         cursor: pointer;
     }
+`
+export const CreateChatForm = styled.form`
+    padding:1rem;
+
 `

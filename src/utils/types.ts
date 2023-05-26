@@ -22,3 +22,22 @@ export type Friend = {
     userTwo: User;
     createdAt: number;
 };
+export type PrivateMessage = {
+    id:number;
+    messageContent:string;
+    createdAt:number;
+    author:User;
+    chat:Chat;
+}
+export type Chat = {
+    id:number;
+    creator:User;
+    recipient:User;
+    messages:PrivateMessage[];
+    createdAt:number;
+    lastMessageSent:PrivateMessage;
+    lastMessageSentAt:number;
+}
+export type CreateChatParams = {
+    
+}

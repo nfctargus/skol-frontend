@@ -1,28 +1,35 @@
-import React, { FC } from 'react'
+import { FC, useContext } from 'react'
 import { ChatSideBarItemContainer, ChatSideBarItemStyle, ChatUserAvatarStyle } from '../../../utils/styles'
 import styles from './index.module.scss';
 import avatar from '../../../assets/sampleUser.jpg';
-import { shortenString } from '../../../utils/helpers';
+import { getChatRecipient, shortenString } from '../../../utils/helpers';
 import { useNavigate } from 'react-router-dom';
-import { User } from '../../../utils/types';
+import { Chat } from '../../../utils/types';
+import { AuthContext } from '../../../utils/context/AuthContext';
+import { enAU } from 'date-fns/locale'
+import setDefaultOptions from 'date-fns/setDefaultOptions';
+import format from 'date-fns/format';
+setDefaultOptions({ locale: enAU })
 
 type Props = {
-    user:User;
+    chat:Chat;
 }
-const ChatSideBarItem:FC<Props> = ({user}) => {
+const ChatSideBarItem:FC<Props> = ({chat}) => {
     const navigate = useNavigate();
-  return (
-    <ChatSideBarItemContainer onClick={() => navigate(`/chats/${user.id}`)}>
-        <div className={styles.chatUserAvatar}><ChatUserAvatarStyle src={avatar}/></div>
-        <div className={styles.chatSideBarLayout}>
-            <ChatSideBarItemStyle>
-                <h1>{shortenString(user.firstName + user.lastName,14)}</h1>
-                <h2>Date</h2>
-            </ChatSideBarItemStyle>
-            <section>Hello{/* {shortenString(user.lastMessage,26)} */}</section>
-        </div>
-    </ChatSideBarItemContainer>
-  )
+    const {user} = useContext(AuthContext)
+    const recipient = getChatRecipient(chat,user)
+    return (
+        <ChatSideBarItemContainer onClick={() => navigate(`/chats/${chat.id}`)}>
+            <div className={styles.chatUserAvatar}><ChatUserAvatarStyle src={avatar}/></div>
+            <div className={styles.chatSideBarLayout}>
+                <ChatSideBarItemStyle>
+                    <h1>{recipient && shortenString(recipient.username,14)}</h1>
+                    <h2>{format(new Date(chat.lastMessageSentAt),"dd-LL")}</h2>
+                </ChatSideBarItemStyle>
+                <section>{chat.lastMessageSent ? shortenString(chat.lastMessageSent.messageContent,26) : "No message history"}</section>
+            </div>
+        </ChatSideBarItemContainer>
+    )
 }
 
 export default ChatSideBarItem

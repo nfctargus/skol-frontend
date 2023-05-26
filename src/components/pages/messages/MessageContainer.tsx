@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from 'react'
-import { ChatUserAvatarStyle, MessageContainerStyle, MessageWrapperStyle } from '../../../utils/styles'
+import React, { FC, useEffect, useState } from 'react'
+import { MessageContainerStyle, MessageWrapperStyle } from '../../../utils/styles'
 import ReceivedMessageContainer from './ReceivedMessageContainer'
 import SentMessageContainer from './SentMessageContainer'
 import recipientAvatar from '../../../assets/sampleUser.jpg';
 import yourAvatar from '../../../assets/testPFP.png';
 import { SelectedMessageContextMenu } from '../../context-menus/SelectedMessageContextMenu';
-
-const MessageContainer = () => {
+import { PrivateMessage } from '../../../utils/types';
+type Props = {
+    messages?:PrivateMessage[];
+}
+const MessageContainer:FC<Props> = ({messages}) => {
     const [showMenu, setShowMenu] = useState(false);
     const [points, setPoints] = useState({ x: 0, y: 0 });
     
@@ -23,14 +26,19 @@ const MessageContainer = () => {
 
   return (
     <MessageContainerStyle>
-        <MessageWrapperStyle onContextMenu={(e) => onContextMenu(e)}>
-            <img src={recipientAvatar} />
-            <ReceivedMessageContainer />
-        </MessageWrapperStyle>
-        <MessageWrapperStyle onContextMenu={(e) => onContextMenu(e)}>
-            <SentMessageContainer />
-            <img src={yourAvatar} />
-        </MessageWrapperStyle>
+        {messages && messages.map((message) => (
+            <>
+                <MessageWrapperStyle onContextMenu={(e) => onContextMenu(e)}>
+                    <img src={recipientAvatar} />
+                    <ReceivedMessageContainer messageContent={message.messageContent} timeStamp={message.createdAt}/>
+                </MessageWrapperStyle>
+                {/* <MessageWrapperStyle onContextMenu={(e) => onContextMenu(e)}>
+                    <SentMessageContainer />
+                    <img src={yourAvatar} />
+                </MessageWrapperStyle> */}
+            </>
+        ))}
+        
         
         {showMenu && <SelectedMessageContextMenu points={points} />}
     </MessageContainerStyle>

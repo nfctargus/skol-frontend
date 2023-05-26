@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig } from 'axios';
-import { CreateUserParams, Friend, User, UserCredentialsParams } from './types';
+import { Chat, CreateUserParams, Friend, PrivateMessage, User, UserCredentialsParams } from './types';
 
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -19,3 +19,7 @@ export const addFriend = (id:number) => axiosClient.post<Friend>(`/friends/${id}
 export const deleteFriend = (id:number) => axiosClient.delete(`/friends/${id}`,config);
 
 export const searchUsers = (query: string) => axiosClient.get<User[]>(`/users/search?query=${query}`, config);
+
+export const getChats = () => axiosClient.get<Chat[]>(`/chats`,config);
+
+export const getPrivateMessages = (id:number) => axiosClient.get<PrivateMessage[]>(`/chats/${id}/messages`,config)
