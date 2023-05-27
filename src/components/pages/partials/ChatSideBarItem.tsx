@@ -8,7 +8,7 @@ import { Chat } from '../../../utils/types';
 import { AuthContext } from '../../../utils/context/AuthContext';
 import { enAU } from 'date-fns/locale'
 import setDefaultOptions from 'date-fns/setDefaultOptions';
-import format from 'date-fns/format';
+import formatRelative from 'date-fns/format';
 setDefaultOptions({ locale: enAU })
 
 type Props = {
@@ -24,7 +24,7 @@ const ChatSideBarItem:FC<Props> = ({chat}) => {
             <div className={styles.chatSideBarLayout}>
                 <ChatSideBarItemStyle>
                     <h1>{recipient && shortenString(recipient.username,14)}</h1>
-                    <h2>{format(new Date(chat.lastMessageSentAt),"dd-LL")}</h2>
+                    <h2>{formatRelative(new Date(chat.lastMessageSentAt),"dd-LL")}</h2>
                 </ChatSideBarItemStyle>
                 <section>{chat.lastMessageSent ? shortenString(chat.lastMessageSent.messageContent,26) : "No message history"}</section>
             </div>

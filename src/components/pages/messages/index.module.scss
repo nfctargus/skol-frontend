@@ -1,0 +1,22 @@
+.messageContainerStyle {
+    display:flex;
+    flex-direction:column;
+    width:80%;
+    gap:0.2rem;
+}
+.messageSenderContainerStyle {
+    display:flex;
+    justify-content: space-between;
+    width:50%;
+     
+}
+.messageSenderContainerStyle h3 {
+    margin:0;
+    font-size:0.8rem;
+    font-weight:500;
+}
+.messageSenderContainerStyle small {
+    margin:0;
+    font-size:0.6rem;
+    font-weight:400;
+}

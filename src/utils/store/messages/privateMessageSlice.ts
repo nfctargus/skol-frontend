@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { PrivateMessage } from "../../types";
-import { getPrivateMessagesThunk } from "./privateMessageThunk";
+import { getPrivateMessagesThunk, postPrivateMessageThunk } from "./privateMessageThunk";
+import { updateChat } from "../chats/chatSlice";
 
 export interface PrivateMessageState {
     messages:PrivateMessage[];
@@ -15,6 +16,9 @@ export const privateMessageSlice = createSlice({
     extraReducers(builder) {
         builder.addCase(getPrivateMessagesThunk.fulfilled,(state,action) =>{
             state.messages = action.payload.data
+        })
+        builder.addCase(postPrivateMessageThunk.fulfilled, (state,action) => {
+            state.messages.unshift(action.payload.data.message);
         })
     },
 })

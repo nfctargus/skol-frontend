@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 import { Chat } from "../../types";
 import { getChatsThunk } from "./chatThunk";
 
@@ -12,7 +12,16 @@ export const chatSlice = createSlice({
     name:'chats',
     initialState,
     reducers:{
-
+        addChat:(state,action:PayloadAction<Chat>) => {
+            state.chats.unshift(action.payload)
+        },
+        updateChat:(state,action:PayloadAction<Chat>) => {
+            console.log('updating chat')
+            const updatedChat = action.payload;
+            const chatIndex = state.chats.findIndex((chat) => chat.id === updatedChat.id);
+            state.chats.splice(chatIndex,1);
+            state.chats.unshift(updatedChat);
+        },
     },
     extraReducers(builder) {
         builder.addCase(getChatsThunk.fulfilled,(state,action) => {
@@ -21,5 +30,5 @@ export const chatSlice = createSlice({
     },
 })
 
-export const { } = chatSlice.actions;
+export const { addChat,updateChat } = chatSlice.actions;
 export default chatSlice.reducer;

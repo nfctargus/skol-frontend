@@ -41,3 +41,11 @@ export type Chat = {
 export type CreateChatParams = {
     
 }
+export type CreatePrivateMessageParams = {
+    id:number;
+    messageContent:string;
+}
+export type CreatePrivateMessageResponse = {
+    message:PrivateMessage;
+    chat:Chat;
+}

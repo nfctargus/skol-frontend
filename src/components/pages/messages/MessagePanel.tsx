@@ -3,24 +3,35 @@ import MessageContainer from './MessageContainer'
 import MessageInputContainer from './MessageInputContainer'
 import MessagePanelHeader from '../partials/MessagePanelHeader'
 
-import { useSelector } from 'react-redux'
-import { RootState } from '../../../utils/store'
+import { useDispatch, useSelector } from 'react-redux'
+import { AppDispatch, RootState } from '../../../utils/store'
 import { useParams } from 'react-router-dom'
 import { getChatRecipient } from '../../../utils/helpers'
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { AuthContext } from '../../../utils/context/AuthContext'
+import { postPrivateMessageThunk } from '../../../utils/store/messages/privateMessageThunk'
 
 const MessagePanel = () => {
-    const { id } = useParams();
+    const { id:chatId } = useParams();
     const { user } = useContext(AuthContext);
-    const currentChat = useSelector((state:RootState) => state.chat.chats.find((chat) => chat.id === parseInt(id!)));
-    console.log(currentChat)
+    const currentChat = useSelector((state:RootState) => state.chat.chats.find((chat) => chat.id === parseInt(chatId!)));
     const recipient = getChatRecipient(currentChat!,user);
+    const messages = useSelector((state:RootState) => state.privateMessage.messages);
+    const [content, setContent] = useState('');
+    const dispatch = useDispatch<AppDispatch>();
+
+    const handleMessageSend = (e:React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const id = parseInt(chatId!);
+        if(!content || !id) return;
+        dispatch(postPrivateMessageThunk({id,messageContent:content}))
+        setContent('');
+    }
     return (
         <MessagePanelStyle>
             <MessagePanelHeader user={recipient}/>
-            <MessageContainer messages={currentChat?.messages} />
-            <MessageInputContainer />
+            <MessageContainer messages={messages} />
+            <MessageInputContainer handleMessageSend={handleMessageSend} chatRecipient={recipient} content={content} setContent={setContent}/>
         </MessagePanelStyle>
     )
 }

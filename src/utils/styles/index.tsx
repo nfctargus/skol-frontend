@@ -118,9 +118,11 @@ export const MessageContainerStyle = styled.div`
     }
 `;
 export const ReceivedMessageContainerStyle = styled.div`
+    font-size:0.9rem;
     padding:1rem;
     box-sizing: border-box;
     display: flex;
+    width:fit-content;
     max-width:80%;
     border:1px solid #E2EDF9;
     background:#E2EDF9;
@@ -129,18 +131,23 @@ export const ReceivedMessageContainerStyle = styled.div`
     border-bottom-right-radius:0.5rem;
 `;
 export const SentMessageContainerStyle = styled.div`
+    font-size:0.9rem;
     padding:1rem;
     box-sizing: border-box;
     display: flex;
+    width:fit-content;
     max-width:80%;
-    margin-left:auto;
-    justify-content: end;
-    padding:1rem;
     border:1px solid #0000002e;
     background:#fff;
+    border-top-right-radius:0.5rem;
+    border-bottom-left-radius:0.5rem;
+    border-bottom-right-radius:0.5rem;
+        /* margin-left:auto;
+    justify-content: end; 
     border-top-left-radius:0.5rem;
     border-bottom-left-radius:0.5rem;
     border-bottom-right-radius:0.5rem;
+    */
 `;
 export const MessageWrapperStyle = styled.div`
     display:flex;
@@ -152,7 +159,7 @@ export const MessageWrapperStyle = styled.div`
         border-radius: 50%;
     }
 `;
-export const MessageInputContainerStyle = styled.div`
+export const MessageInputContainerStyle = styled.form`
     box-sizing: border-box;
     border-radius: 1rem;
     width: 100%;

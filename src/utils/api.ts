@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig } from 'axios';
-import { Chat, CreateUserParams, Friend, PrivateMessage, User, UserCredentialsParams } from './types';
+import { Chat, CreatePrivateMessageParams, CreatePrivateMessageResponse, CreateUserParams, Friend, PrivateMessage, User, UserCredentialsParams } from './types';
 
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -23,3 +23,6 @@ export const searchUsers = (query: string) => axiosClient.get<User[]>(`/users/se
 export const getChats = () => axiosClient.get<Chat[]>(`/chats`,config);
 
 export const getPrivateMessages = (id:number) => axiosClient.get<PrivateMessage[]>(`/chats/${id}/messages`,config)
+
+export const postPrivateMessage = ({id,messageContent}:CreatePrivateMessageParams) => axiosClient.post<CreatePrivateMessageResponse>(`/chats/${id}/messages`,{messageContent},config);
+
