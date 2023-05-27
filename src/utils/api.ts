@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig } from 'axios';
-import { Chat, CreatePrivateMessageParams, CreatePrivateMessageResponse, CreateUserParams, Friend, PrivateMessage, User, UserCredentialsParams } from './types';
+import { Chat, CreateChatParams, CreatePrivateMessageParams, CreatePrivateMessageResponse, CreateUserParams, Friend, PrivateMessage, User, UserCredentialsParams } from './types';
 
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -9,6 +9,8 @@ const config: AxiosRequestConfig = { withCredentials: true };
 export const postRegisterUser = (data: CreateUserParams) => axiosClient.post<User>(`/auth/register`, data, config);
 
 export const postLoginUser = (credentials: UserCredentialsParams) => axiosClient.post(`/auth/login`, credentials, config);
+
+export const postLogoutUser = () => axiosClient.post('/auth/logout', {}, config);
 
 export const getAuthUser = () => axiosClient.get<User>(`/auth/status`, config);
 
@@ -22,7 +24,10 @@ export const searchUsers = (query: string) => axiosClient.get<User[]>(`/users/se
 
 export const getChats = () => axiosClient.get<Chat[]>(`/chats`,config);
 
+export const postNewChat = (data:CreateChatParams) => axiosClient.post<Chat>(`/chats`,data,config)
+
 export const getPrivateMessages = (id:number) => axiosClient.get<PrivateMessage[]>(`/chats/${id}/messages`,config)
 
 export const postPrivateMessage = ({id,messageContent}:CreatePrivateMessageParams) => axiosClient.post<CreatePrivateMessageResponse>(`/chats/${id}/messages`,{messageContent},config);
+
 

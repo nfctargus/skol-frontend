@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 import { Chat } from "../../types";
-import { getChatsThunk } from "./chatThunk";
+import { getChatsThunk, postNewChatThunk } from "./chatThunk";
 
 export interface ChatState {
     chats:Chat[];
@@ -25,7 +25,10 @@ export const chatSlice = createSlice({
     },
     extraReducers(builder) {
         builder.addCase(getChatsThunk.fulfilled,(state,action) => {
-            state.chats = action.payload.data
+            state.chats = action.payload.data;
+        })
+        builder.addCase(postNewChatThunk.fulfilled,(state,action) => {
+            //state.chats.unshift(action.payload.data);
         })
     },
 })

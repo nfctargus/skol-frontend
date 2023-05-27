@@ -10,6 +10,7 @@ import { getChatRecipient } from '../../../utils/helpers'
 import { useContext, useState } from 'react'
 import { AuthContext } from '../../../utils/context/AuthContext'
 import { postPrivateMessageThunk } from '../../../utils/store/messages/privateMessageThunk'
+import { updateChat } from '../../../utils/store/chats/chatSlice'
 
 const MessagePanel = () => {
     const { id:chatId } = useParams();
@@ -24,8 +25,10 @@ const MessagePanel = () => {
         e.preventDefault();
         const id = parseInt(chatId!);
         if(!content || !id) return;
-        dispatch(postPrivateMessageThunk({id,messageContent:content}))
-        setContent('');
+        return dispatch(postPrivateMessageThunk({id,messageContent:content})).unwrap().then(({ data }) => {
+            updateChat(data.chat);
+            setContent('');
+		}).catch((err) => console.log(err));
     }
     return (
         <MessagePanelStyle>

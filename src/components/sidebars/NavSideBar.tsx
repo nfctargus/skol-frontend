@@ -5,12 +5,19 @@ import { ChatDots, Gear, Door, PeopleMultiple  } from 'akar-icons';
 import styles from './index.module.scss';
 import FriendsModal from '../modals/FriendsModal';
 import CreateChatModal from '../modals/CreateChatModal';
+import { postLogoutUser } from '../../utils/api';
+import { useNavigate } from 'react-router-dom';
 
 const NavSideBar = () => {
     const [showFriendsModal, setShowFriendsModal] = useState(false);
     const [showCreateChatModal, setShowCreateChatModal] = useState(false);
     const ICON_SIZE = 32;
     const ICON_STROKE = 1;
+    const navigate = useNavigate();
+
+    const logoutUser = () => {
+        postLogoutUser().finally(() => navigate('/login'));
+      };
     return (
         <>
         {showFriendsModal && <FriendsModal setShowFriendsModal={setShowFriendsModal}/>}
@@ -24,7 +31,7 @@ const NavSideBar = () => {
                     <div className={styles.navIcons} onClick={() => setShowFriendsModal(!showFriendsModal)}><PeopleMultiple  size={ICON_SIZE} strokeWidth={ICON_STROKE} /></div>
                     <div className={styles.navIcons} onClick={() => setShowCreateChatModal(!showCreateChatModal)}><ChatDots size={ICON_SIZE} strokeWidth={ICON_STROKE} /></div>
                     <div className={styles.navIcons}><Gear size={ICON_SIZE} strokeWidth={ICON_STROKE}/></div>
-                    <div className={styles.navIcons}><Door size={ICON_SIZE} strokeWidth={ICON_STROKE}/></div>
+                    <div className={styles.navIcons}><Door size={ICON_SIZE} strokeWidth={ICON_STROKE} onClick={() => logoutUser()}/></div>
                 </div>
             </NavSideBarStyle>
         </>

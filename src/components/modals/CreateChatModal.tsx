@@ -6,14 +6,18 @@ import { CreateChatParams, User } from '../../utils/types';
 import { searchUsers } from '../../utils/api';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../utils/store';
+import { postNewChatThunk } from '../../utils/store/chats/chatThunk';
 
 type Props = {
     setShowCreateChatModal:Dispatch<React.SetStateAction<boolean>>;
 }
 
 const CreateChatModal:FC<Props> = ({setShowCreateChatModal}) => {
-    const {handleSubmit,formState: { errors }} = useForm<CreateChatParams>();
+    const [message,setMessage] = useState('');
     const navigate = useNavigate();
+    const dispatch = useDispatch<AppDispatch>();
     const ref = createRef<HTMLDivElement>();
     const [selectedUser, setSelectedUser] = useState<User>();
     const [userResults, setUserResults] = useState<User[]>([]);
@@ -31,18 +35,23 @@ const CreateChatModal:FC<Props> = ({setShowCreateChatModal}) => {
 		setSelectedUser(user);
 		setUserResults([]);
 	};
-    const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if(e.target.value) searchUsers(e.target.value)
         .then(({ data }) => {
             setUserResults(data);
         })
         else setUserResults([])
     };
-    const onSubmit = async (data: CreateChatParams) => {   
-		try {
-            //await postRegisterUser(data);
-			//navigate('/chats/');
-
+    const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {   
+        const {email} = selectedUser!;
+		try {	
+            return dispatch(postNewChatThunk({email,message}))
+            .unwrap().then(({ data }) => {
+                console.log(data)
+                setShowCreateChatModal(false);
+                navigate('/chats/');
+            }).catch((err) => console.log(err));
+            
 		} catch (err) {
            console.log(err)
 		}
@@ -52,7 +61,7 @@ const CreateChatModal:FC<Props> = ({setShowCreateChatModal}) => {
         <OverlayWindowStyle ref={ref} onClick={handleOverlayClick}>
             <ModalStyle>
                 <ModalHeader>Create a new Chat<div onClick={() => setShowCreateChatModal(false)}><Cross size={30}/></div></ModalHeader>
-                <CreateChatForm onSubmit={handleSubmit(onSubmit)}>
+                <CreateChatForm onSubmit={onSubmit}>
                     {!selectedUser && (
                         <RecipientResultContainer userResults={userResults} handleUserSelect={handleUserSelect}  />
                     )}
@@ -64,12 +73,12 @@ const CreateChatModal:FC<Props> = ({setShowCreateChatModal}) => {
                     ) : (
                         <InputContainerStyle>
                             <InputLabel htmlFor='email'>Email</InputLabel>
-                            <InputField id='email' onChange={handleSearchInputChange}/>
+                            <InputField id='email' onChange={handleChange}/>
                         </InputContainerStyle>
                     )}
                     <InputContainerStyle>
                         <InputLabel htmlFor='message'>Message</InputLabel>
-                        <InputTextArea id='message' />
+                        <InputTextArea id='message' value={message} onChange={(e) => setMessage(e.target.value)} />
                     </InputContainerStyle>
                     <Button>Send</Button>
                 </CreateChatForm>

@@ -39,7 +39,8 @@ export type Chat = {
     lastMessageSentAt:number;
 }
 export type CreateChatParams = {
-    
+    email:string;
+    message:string;
 }
 export type CreatePrivateMessageParams = {
     id:number;
