@@ -50,3 +50,12 @@ export type CreatePrivateMessageResponse = {
     message:PrivateMessage;
     chat:Chat;
 }
+export type EditPrivateMessageResponse = {
+    messageId:number;
+    message:PrivateMessage;
+}
+export type EditMessagePayload = {
+    chatId:number;
+    messageId:number;
+    messageContent:string;
+}

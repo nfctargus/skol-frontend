@@ -1,6 +1,5 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { ActiveChatPageStyle } from '../../utils/styles'
-import CurrentChatInfoPage from './CurrentChatInfoPage'
 import MessagePanel from './messages/MessagePanel'
 import { useParams } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
@@ -8,7 +7,6 @@ import { AppDispatch } from '../../utils/store'
 import { getPrivateMessagesThunk } from '../../utils/store/messages/privateMessageThunk'
 
 const ActiveChatPage = () => {
-    const [showModal,setShowModal] = useState(true);
     const { id } = useParams();
     const dispatch = useDispatch<AppDispatch>();
     useEffect(() => {
@@ -17,7 +15,6 @@ const ActiveChatPage = () => {
     return (
         <ActiveChatPageStyle>
             <MessagePanel />
-            {showModal && <CurrentChatInfoPage/> } 
         </ActiveChatPageStyle>
     )
 }

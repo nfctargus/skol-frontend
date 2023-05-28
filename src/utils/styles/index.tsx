@@ -17,7 +17,7 @@ export const FormContainerStyle = styled.form`
         width: 90%;
         margin: 0.5rem 0 4rem 0;
     }
-`
+`;
 export const PageInnerContainer = styled.div`
     height:80vh;
     width:80vw;
@@ -31,7 +31,7 @@ export const PageInnerContainer = styled.div`
         flex-direction: column;
         width:95%;
     }
-`
+`;
 export const LoginPageImageContainer = styled.div`
     height:100%;
     margin-right: auto;
@@ -55,7 +55,7 @@ export const LoginPageImageContainer = styled.div`
             border-top-right-radius: 1rem;
         }
     }
-`
+`;
 export const NavSideBarStyle = styled.div`
 	height: 100%;
 	background-color: #353840;
@@ -82,14 +82,26 @@ export const SideBarDivider = styled.hr`
 	background-color: #84848432;
 	height: 0.1rem;
 	border: none;
-`
+`;
 export const ChatSideBarStyle = styled.div`
 	display: flex;
 	flex-direction: column;
 	height: 100%;
-	width: 15vw;
+	width: 20vw;
     min-width:15rem;
 	background-color: #fff;
+    border-right: 1px solid #a4a4a475;  
+`;
+export const ChatSideBarHeaderStyle = styled.div`
+    width:100%;
+    height:7vh;
+    border-bottom: 1px solid #a4a4a475;  
+    font-size:1.9rem;
+    display:flex;
+    padding: 0 1rem;
+    align-items:center;
+    text-align: start;
+    box-sizing: border-box;
 `;
 export const ActiveChatPageStyle = styled.div`
     height: 100%;
@@ -189,7 +201,7 @@ export const CurrentChatInfoPageStyle = styled.div`
     transition:all 0.3s ease;
     background-color: #353840;
     color:#fff;
-`
+`;
 export const CurrentChatInfoPageOptions = styled.ul`
     list-style: none;
     font-size:1rem;
@@ -202,40 +214,16 @@ export const CurrentChatInfoPageOptions = styled.ul`
         padding:1rem;
         border-bottom: 1px solid #ffffff41;
     }
-`
+`;
 export const MessagePanelHeaderStyle = styled.div`
-    width:100%;
     height:7vh;
     border-bottom: 1px solid #a4a4a475;
     display:flex;
     flex-direction: row;
     align-items: center;
     padding:0 2rem;
-`
-export const MessagePanelUserInfoStyle = styled.div`
-    width:90%;
-    height:100%;
-    display: flex;
-    align-items: center;
-
-`
-export const MessagePanelUserActionsStyle = styled.div`
-    width:10%;
-    display: flex;
-    flex-direction: row;
-    gap:1rem;
-`
-export const ChatSideBarHeaderStyle = styled.div`
-    width:100%;
-    height:7vh;
-    border-bottom: 1px solid #a4a4a475;  
-    font-size:1.9rem;
-    display:flex;
-    padding: 0 1rem;
-    align-items:center;
-    text-align: start;
     box-sizing: border-box;
-`
+`;
 export const SideBarSearchInput = styled.input`
     width:100%;
     border-radius:0.5rem;
@@ -246,7 +234,7 @@ export const SideBarSearchInput = styled.input`
     &:focus {
         outline:0.1rem solid #353840;   
     }
-`
+`;
 export const ChatSideBarItemContainer = styled.div`
     width:100%;
     padding:0rem 0.5rem;
@@ -257,7 +245,7 @@ export const ChatSideBarItemContainer = styled.div`
     display:flex;
     gap:1rem;
     align-items:center;
-`
+`;
 export const ChatSideBarItemStyle = styled.div`
     display:flex;
     width:100%;
@@ -274,7 +262,7 @@ export const ChatSideBarItemStyle = styled.div`
         font-size:0.6rem;
         font-weight:400;
     }
-`
+`;
 export const ChatUserAvatarStyle = styled.img`
     max-width: 100%;
     max-height: 100%;
@@ -287,8 +275,8 @@ export const ContextMenuStyle = styled.div<ContextMenuProps>`
     border-radius: 1rem;
     box-sizing: border-box;
     position: fixed;
-    width: 20rem;
-    padding:1rem;
+    width: 8rem;
+    
     background-color: #fff;
     border:1px solid #a4a4a475;
     ${(props) => css`
@@ -298,7 +286,7 @@ export const ContextMenuStyle = styled.div<ContextMenuProps>`
     ul {
         list-style-type: none;
         margin: 0;
-        padding: 10px;
+        padding: 0.5rem;
     }
     ul li {
         padding: 14px 16px;
@@ -308,19 +296,7 @@ export const ContextMenuStyle = styled.div<ContextMenuProps>`
         cursor: pointer;
         background-color: #F6F6F6;
     }
-    .chatProfileContainer {
-        img {
-            aspect-ratio:1/1;
-            max-height:2.5rem;
-            border-radius:50%;
-        }   
-        display:flex;
-        align-items:center;
-        justify-content:space-evenly;
-        padding:0 1rem;
-        
-    }
-    
+
 `;
 export const InputContainerStyle = styled.div`
     background-color: #F6F6F6;
@@ -371,7 +347,6 @@ export const InputTextArea = styled.textarea`
         display: none;
     }
 `;
-
 export const Button = styled.button`
     width: 100%;
     outline: none;
@@ -398,8 +373,7 @@ export const Button = styled.button`
 const spinAnimation = keyframes`
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
-`
-
+`;
 export const LoadingContainerStyle = styled.div`
     background-color: #f6f6f66f;
     height: 100%;
@@ -423,7 +397,7 @@ export const LoadingContainerStyle = styled.div`
         border-color: #353840 transparent #353840 transparent;
         animation: ${spinAnimation} 1.5s linear infinite;
     }
-`
+`;
 export const OverlayWindowStyle = styled.div`
     height: 100%;
     width: 100%;
@@ -451,7 +425,7 @@ export const ModalHeader = styled.header`
         cursor:pointer;
         opacity:0.8;
     }
-`
+`;
 export const ModalSectionStyle = styled.div`
     background:#fff;
     padding:1rem;
@@ -462,7 +436,7 @@ export const ModalSectionStyle = styled.div`
     justify-content: space-between;
     align-items: center;
     gap:1rem;
-`
+`;
 export const ModalButton = styled.button`
     width: 50%;
     outline: none;
@@ -481,7 +455,6 @@ export const ModalButton = styled.button`
         opacity: 0.8;
     }
 `;
-
 export const RecipientResultContainerStyle = styled.div`
 	position: absolute;
 	background-color: #ccc;
@@ -490,7 +463,6 @@ export const RecipientResultContainerStyle = styled.div`
 	margin: 5rem 1rem;
     border-radius: 0.5rem;
 `;
-
 export const RecipientScrollableItemContainer = styled.div`
 	max-height: 11rem;
 	overflow: scroll;
@@ -524,8 +496,43 @@ export const SelectedFriendContainer = styled.div`
         opacity:0.8;
         cursor: pointer;
     }
-`
+`;
 export const CreateChatForm = styled.form`
     padding:1rem;
-
-`
+`;
+export const EditMessageInputField = styled.input`
+    padding:0.9rem;
+    background-color: #fff;
+    outline: none;
+    border: none;
+    box-sizing: border-box;
+    font-size: 0.9rem;
+    font-family:Inter;
+    border:1px solid #0000002e;
+    width: 100%;
+    border-top-right-radius:0.5rem;
+    border-bottom-left-radius:0.5rem;
+    border-bottom-right-radius:0.5rem;
+    resize: none;
+`;
+export const EditMessageActionsContainer = styled.div`
+    padding:0;
+    color:#6d6d6d;
+    margin: 0.1rem 0 0.2rem 0.1rem;
+    font-size:0.8rem;
+    
+    small,button {
+        color:#3f74c5;
+        text-decoration:underline;
+        font-weight:600;
+        cursor:pointer;
+        font-size:0.8rem;
+    }
+    button {
+        border:none;
+        outline:none;
+        background:transparent;
+        margin:0;
+        padding:0;
+    }
+`;

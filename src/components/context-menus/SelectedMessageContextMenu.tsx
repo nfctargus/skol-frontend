@@ -1,24 +1,27 @@
-import { FC, useContext } from 'react';
-import { useParams } from 'react-router-dom';
-
+import { Dispatch, FC, SetStateAction, useContext } from 'react';
 import { ContextMenuStyle } from '../../utils/styles';
-import { User } from '../../utils/types';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../../utils/store';
+import { AuthContext } from '../../utils/context/AuthContext';
+import { setEditingMessage, setIsEditing } from '../../utils/store/messages/privateMessageSlice';
 
-import recipientAvatar from '../../assets/sampleUser.jpg';
 type Props = {
     points: { x: number; y: number };
 };
 
 export const SelectedMessageContextMenu: FC<Props> = ({ points }) => {
-    const { id } = useParams();
-    //const currentUser:User | undefined = sampleUsers.find((u:any) => u.id === parseInt(id!))
+    const { user } = useContext(AuthContext);
+    const dispatch = useDispatch<AppDispatch>();
+    const { selectedMessage: message } = useSelector((state:RootState) => state.privateMessage);
 
+    const editMessage = () => {
+        dispatch(setIsEditing(true));
+        dispatch(setEditingMessage(message!));
+    };
     return (
         <ContextMenuStyle top={points.y} left={points.x}>
-            <div className='chatProfileContainer'><img src={recipientAvatar} />{/* currentUser?.name */}</div>
             <ul>
-                
-                <li>Edit</li>
+                {message?.author.id === user?.id && <li onClick={editMessage}>Edit</li>}
                 <li>Delete</li>
             </ul>
         </ContextMenuStyle>

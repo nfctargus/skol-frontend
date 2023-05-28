@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { ChatSideBarStyle, SideBarSearchInput } from '../../utils/styles'
-import ChatSideBarHeader from '../pages/partials/ChatSideBarHeader'
+import { ChatSideBarHeaderStyle, ChatSideBarStyle, SideBarSearchInput } from '../../utils/styles'
 import styles from './index.module.scss';
 import ChatSideBarItem from '../pages/partials/ChatSideBarItem';
 import { useDispatch, useSelector } from 'react-redux';
@@ -25,7 +24,7 @@ const ChatSideBar = () => {
     return (
         <>
             <ChatSideBarStyle>
-                <ChatSideBarHeader />
+                <ChatSideBarHeaderStyle>Skaal</ChatSideBarHeaderStyle>
                 <div className={styles.sideBarSearchContainer}>
                     <div className={styles.sideBarSearchHeader}>
                         <h1>Chats</h1>

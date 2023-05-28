@@ -1,45 +1,50 @@
-import React, { FC, useContext, useEffect, useState } from 'react'
-import { MessageContainerStyle, MessageWrapperStyle } from '../../../utils/styles'
-import ReceivedMessageContainer from './ReceivedMessageContainer'
-import SentMessageContainer from './SentMessageContainer'
-import recipientAvatar from '../../../assets/sampleUser.jpg';
-import yourAvatar from '../../../assets/testPFP.png';
+import React, { FC, useEffect, useState } from 'react'
+import { MessageContainerStyle } from '../../../utils/styles'
 import { SelectedMessageContextMenu } from '../../context-menus/SelectedMessageContextMenu';
 import { PrivateMessage } from '../../../utils/types';
-import { AuthContext } from '../../../utils/context/AuthContext';
+import { useParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../../utils/store';
+import { editMessageContent, resetEditingContainer, setIsEditing, setSelectedMessage } from '../../../utils/store/messages/privateMessageSlice';
+import { MessageContainerItem } from './MessageContainerItem';
+
 type Props = {
     messages:PrivateMessage[];
 }
 const MessageContainer:FC<Props> = ({messages}) => {
+    const dispatch = useDispatch<AppDispatch>();
     const [showMenu, setShowMenu] = useState(false);
+    const { id } = useParams();
     const [points, setPoints] = useState({ x: 0, y: 0 });
-    const { user } = useContext(AuthContext);
-    const onContextMenu = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+
+    const onContextMenu = (e: React.MouseEvent<HTMLDivElement, MouseEvent>,message:PrivateMessage) => {
         e.preventDefault();
         setShowMenu(true);
+        dispatch(setSelectedMessage(message));
         setPoints({ x: e.pageX, y: e.pageY });
     };
     useEffect(() => {
         const handleClick = () => setShowMenu(false);
+        const handleKeyDown = (e: KeyboardEvent) => e.key === 'Escape' && dispatch(setIsEditing(false));
         window.addEventListener('click', handleClick);
-        return () => window.removeEventListener('click', handleClick);
+        window.addEventListener('keydown',handleKeyDown)
+        return () => {
+            window.removeEventListener('click', handleClick);
+            window.removeEventListener('keydown',handleKeyDown);
+        }
     }, []);
-
+    const onEditMessageChange = (e:React.ChangeEvent<HTMLInputElement>) => {
+        dispatch(editMessageContent(e.target.value));
+    }
+    
+    useEffect(() => {
+        dispatch(resetEditingContainer());
+    },[id])
     return (
         <MessageContainerStyle>
             {messages && messages.map((message) => (
-                <div key={JSON.stringify(message?.id)}>
-                    {user && message.author.id === user.id ? (
-                        <MessageWrapperStyle onContextMenu={(e) => onContextMenu(e)}>
-                            <img src={yourAvatar} />
-                            <SentMessageContainer message={message} />
-                        </MessageWrapperStyle>
-                    ) : (
-                        <MessageWrapperStyle onContextMenu={(e) => onContextMenu(e)}>
-                            <img src={recipientAvatar} />
-                            <ReceivedMessageContainer message={message} key={JSON.stringify(message.id)} />
-                        </MessageWrapperStyle>
-                    )} 
+                <div key={JSON.stringify(message?.id)} onContextMenu={(e) => onContextMenu(e,message)}>
+                    <MessageContainerItem message={message} onEditMessageChange={onEditMessageChange} />
                 </div>
             ))}
             {showMenu && <SelectedMessageContextMenu points={points} />}

@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig } from 'axios';
-import { Chat, CreateChatParams, CreatePrivateMessageParams, CreatePrivateMessageResponse, CreateUserParams, Friend, PrivateMessage, User, UserCredentialsParams } from './types';
+import { Chat, CreateChatParams, CreatePrivateMessageParams, CreatePrivateMessageResponse, CreateUserParams, EditMessagePayload, EditPrivateMessageResponse, Friend, PrivateMessage, User, UserCredentialsParams } from './types';
 
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -30,4 +30,5 @@ export const getPrivateMessages = (id:number) => axiosClient.get<PrivateMessage[
 
 export const postPrivateMessage = ({id,messageContent}:CreatePrivateMessageParams) => axiosClient.post<CreatePrivateMessageResponse>(`/chats/${id}/messages`,{messageContent},config);
 
+export const editMessage = ({messageContent,chatId,messageId}: EditMessagePayload) => axiosClient.patch<EditPrivateMessageResponse>(`/chats/${chatId}/messages`,{messageId,messageContent},config);
 
