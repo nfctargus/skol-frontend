@@ -28,7 +28,7 @@ export const chatSlice = createSlice({
             state.chats = action.payload.data;
         })
         builder.addCase(postNewChatThunk.fulfilled,(state,action) => {
-            //state.chats.unshift(action.payload.data);
+            state.chats.unshift(action.payload.data);
         })
     },
 })

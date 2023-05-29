@@ -43,13 +43,13 @@ const CreateChatModal:FC<Props> = ({setShowCreateChatModal}) => {
         else setUserResults([])
     };
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {   
+        e.preventDefault();
         const {email} = selectedUser!;
 		try {	
-            return dispatch(postNewChatThunk({email,message}))
+            dispatch(postNewChatThunk({email,message}))
             .unwrap().then(({ data }) => {
-                console.log(data)
                 setShowCreateChatModal(false);
-                navigate('/chats/');
+                navigate(`/chats/${data.id}`);
             }).catch((err) => console.log(err));
             
 		} catch (err) {

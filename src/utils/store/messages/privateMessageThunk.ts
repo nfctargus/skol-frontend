@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { editMessage as editPrivateMessage, getPrivateMessages, postPrivateMessage } from "../../api";
-import { CreateMessageParams as CreateMessageParams } from "../../types";
+import { CreateMessageParams } from "../../types";
 import { EditMessagePayload } from "../../types";
 
 export const getPrivateMessagesThunk = createAsyncThunk("messages/private/get", (id:number) => {

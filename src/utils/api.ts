@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig } from 'axios';
-import { Chat, CreateChatParams, CreateGroupMessageResponse, CreateMessageParams, CreatePrivateMessageResponse, CreateUserParams, EditMessagePayload, EditPrivateMessageResponse, Friend, GroupChat, GroupMessage, PrivateMessage, User, UserCredentialsParams } from './types';
+import { Chat, CreateChatParams, CreateGroupMessageResponse, CreateMessageParams, CreatePrivateMessageResponse, CreateUserParams, EditGroupMessageResponse, EditMessagePayload, EditPrivateMessageResponse, Friend, GroupChat, GroupMessage, PrivateMessage, User, UserCredentialsParams } from './types';
 
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -37,3 +37,5 @@ export const getGroupChats = () => axiosClient.get<GroupChat[]>(`/groups`,config
 export const getGroupMessages = (id:number) => axiosClient.get<GroupMessage[]>(`/groups/${id}/messages`,config);
 
 export const postGroupMessage = ({id,messageContent}:CreateMessageParams) => axiosClient.post<CreateGroupMessageResponse>(`/groups/${id}/messages`,{messageContent},config);
+
+export const editGroupMessage = ({messageContent,chatId,messageId}: EditMessagePayload) => axiosClient.patch<EditGroupMessageResponse>(`/groups/${chatId}/messages`,{messageId,messageContent},config);
