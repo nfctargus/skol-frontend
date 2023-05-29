@@ -15,9 +15,8 @@ const SelectedGroupMessageContextMenu:FC<Props> = ({ points }) => {
     const { user } = useContext(AuthContext);
     const dispatch = useDispatch<AppDispatch>();
     const { selectedMessage } = useSelector((state:RootState) => state.groupMessage);
-    const creator = useSelector((state:RootState) => state.groupChat.groupChats.find((groupChat) => groupChat.id === parseInt(id!))?.creator)
-    console.log(creator)
-    console.log(user)
+    const creator = useSelector((state:RootState) => getGroupCreatorById(state,parseInt(id!)))
+
     const editMessage = () => {
         dispatch(setIsEditing(true));
         dispatch(setEditingMessage(selectedMessage!));
