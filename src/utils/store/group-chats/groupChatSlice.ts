@@ -1,6 +1,7 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit"
+import { PayloadAction, createSelector, createSlice } from "@reduxjs/toolkit"
 import { GroupChat } from "../../types";
 import { getGroupChatsThunk } from "./groupChatThunk";
+import { RootState } from "..";
 
 export interface GroupChatState {
     groupChats:GroupChat[];
@@ -22,5 +23,12 @@ export const groupChatSlice = createSlice({
         })
     },
 })
+
+const selectGroups = (state: RootState) => state.groupChat.groupChats;
+const selectGroupId = (state: RootState, id: number) => id;
+export const getGroupCreatorById = createSelector(
+    [selectGroups, selectGroupId], (groups, groupId) => groups.find((g) => g.id === groupId)?.creator
+);
+
 export const { addGroupChat } = groupChatSlice.actions;
 export default groupChatSlice.reducer;

@@ -119,7 +119,7 @@ export const MessagePanelStyle = styled.div`
 export const MessageContainerStyle = styled.div`
     height: 100%;
     box-sizing: border-box;
-    padding: 2rem;
+    padding: 0 1rem;
     gap:1rem;
     display: flex;
     flex-direction: column-reverse;

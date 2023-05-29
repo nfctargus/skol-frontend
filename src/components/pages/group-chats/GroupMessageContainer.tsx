@@ -5,7 +5,8 @@ import { useParams } from "react-router-dom";
 import { AppDispatch } from "../../../utils/store";
 import { MessageContainerStyle } from "../../../utils/styles";
 import { MessageContainerItem } from "../messages/MessageContainerItem";
-import { SelectedMessageContextMenu } from "../../context-menus/SelectedMessageContextMenu";
+import { editMessageContent, resetEditingContainer, setIsEditing, setSelectedMessage } from "../../../utils/store/group-messages/groupMessageSlice";
+import SelectedGroupMessageContextMenu from "../../context-menus/SelectedGroupMessageContextMenu";
 
 type Props = {
     messages?:GroupMessage[];
@@ -19,24 +20,24 @@ const GroupMessageContainer:FC<Props> = ({messages}) => {
     const onContextMenu = (e: React.MouseEvent<HTMLDivElement, MouseEvent>,message:GroupMessage) => {
         e.preventDefault();
         setShowMenu(true);
-        //dispatch(setSelectedMessage(message));
+        dispatch(setSelectedMessage(message));
         setPoints({ x: e.pageX, y: e.pageY });
     };
     useEffect(() => {
         const handleClick = () => setShowMenu(false);
-        //const handleKeyDown = (e: KeyboardEvent) => e.key === 'Escape' && dispatch(setIsEditing(false));
+        const handleKeyDown = (e: KeyboardEvent) => e.key === 'Escape' && dispatch(setIsEditing(false));
         window.addEventListener('click', handleClick);
-        //window.addEventListener('keydown',handleKeyDown)
+        window.addEventListener('keydown',handleKeyDown)
         return () => {
             window.removeEventListener('click', handleClick);
-            //window.removeEventListener('keydown',handleKeyDown);
+            window.removeEventListener('keydown',handleKeyDown);
         }
     }, []);
     const onEditMessageChange = (e:React.ChangeEvent<HTMLInputElement>) => {
-        //dispatch(editMessageContent(e.target.value));
+        dispatch(editMessageContent(e.target.value));
     } 
     useEffect(() => {
-        //dispatch(resetEditingContainer());
+        dispatch(resetEditingContainer());
     },[id])
     
     return (
@@ -46,7 +47,7 @@ const GroupMessageContainer:FC<Props> = ({messages}) => {
                     <MessageContainerItem message={message} onEditMessageChange={onEditMessageChange} />
                 </div>
             ))}
-            {showMenu && <SelectedMessageContextMenu points={points} />}
+            {showMenu && <SelectedGroupMessageContextMenu points={points} />}
         </MessageContainerStyle>
     )
 }
