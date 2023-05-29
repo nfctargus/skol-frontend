@@ -2,11 +2,16 @@ import { configureStore } from '@reduxjs/toolkit';
 import friendReducer from './friends/friendSlice';
 import chatReducer from './chats/chatSlice';
 import privateMessageReducer from './messages/privateMessageSlice';
+import groupChatReducer from './group-chats/groupChatSlice';
+import groupMessageSlice from './group-messages/groupMessageSlice';
+
 export const store = configureStore({
     reducer: {
         friend:friendReducer,
         chat:chatReducer,
         privateMessage:privateMessageReducer,
+        groupChat:groupChatReducer,
+        groupMessage:groupMessageSlice,
     },
     middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ serializableCheck: false }),

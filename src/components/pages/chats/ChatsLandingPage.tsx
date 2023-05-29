@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { useSelector } from "react-redux";
-import { AuthContext } from "../../utils/context/AuthContext";
+import { AuthContext } from "../../../utils/context/AuthContext";
 
 
 const ChatLandingPage = () => {

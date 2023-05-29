@@ -223,6 +223,7 @@ export const MessagePanelHeaderStyle = styled.div`
     align-items: center;
     padding:0 2rem;
     box-sizing: border-box;
+    gap:0.5rem;
 `;
 export const SideBarSearchInput = styled.input`
     width:100%;

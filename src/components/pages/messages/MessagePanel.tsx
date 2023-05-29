@@ -16,7 +16,7 @@ const MessagePanel = () => {
     const { id:chatId } = useParams();
     const { user } = useContext(AuthContext);
     const currentChat = useSelector((state:RootState) => state.chat.chats.find((chat) => chat.id === parseInt(chatId!)));
-    const recipient = getChatRecipient(currentChat!,user);
+    const recipient = (user && currentChat && getChatRecipient(currentChat!,user));
     const messages = useSelector((state:RootState) => state.privateMessage.messages);
     const [content, setContent] = useState('');
     const dispatch = useDispatch<AppDispatch>();
@@ -32,9 +32,9 @@ const MessagePanel = () => {
     }
     return (
         <MessagePanelStyle>
-            <MessagePanelHeader user={recipient}/>
+            <MessagePanelHeader user={recipient!}/>
             <MessageContainer messages={messages} />
-            <MessageInputContainer handleMessageSend={handleMessageSend} chatRecipient={recipient} content={content} setContent={setContent}/>
+            <MessageInputContainer handleMessageSend={handleMessageSend} messageTo={recipient?.firstName} content={content} setContent={setContent}/>
         </MessagePanelStyle>
     )
 }

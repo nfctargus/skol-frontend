@@ -1,5 +1,5 @@
 import { FC, useContext } from "react";
-import { PrivateMessage } from "../../../utils/types";
+import { GroupMessage, PrivateMessage } from "../../../utils/types";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../utils/store";
 import { AuthContext } from "../../../utils/context/AuthContext";
@@ -11,7 +11,7 @@ import recipientAvatar from '../../../assets/sampleUser.jpg';
 import yourAvatar from '../../../assets/testPFP.png';
 
 type Props = {
-    message: PrivateMessage;
+    message: PrivateMessage | GroupMessage;
     onEditMessageChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 

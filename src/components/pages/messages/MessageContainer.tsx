@@ -9,7 +9,7 @@ import { editMessageContent, resetEditingContainer, setIsEditing, setSelectedMes
 import { MessageContainerItem } from './MessageContainerItem';
 
 type Props = {
-    messages:PrivateMessage[];
+    messages?:PrivateMessage[];
 }
 const MessageContainer:FC<Props> = ({messages}) => {
     const dispatch = useDispatch<AppDispatch>();

@@ -1,11 +1,11 @@
 import { FC } from 'react'
 import { SentMessageContainerStyle } from '../../../utils/styles'
-import { PrivateMessage } from '../../../utils/types'
+import { GroupMessage, PrivateMessage } from '../../../utils/types'
 import styles from './index.module.scss';
 import { formatRelative } from 'date-fns';
 
 type Props = {
-    message:PrivateMessage;
+    message:PrivateMessage | GroupMessage;
 }
 const SentMessageContainer:FC<Props> = ({message}) => {
     return (

@@ -29,6 +29,13 @@ export type PrivateMessage = {
     author:User;
     chat:Chat;
 }
+export type GroupMessage = {
+    id:number;
+    messageContent:string;
+    createdAt:number;
+    author:User;
+    groupChat:GroupChat;
+}
 export type Chat = {
     id:number;
     creator:User;
@@ -38,17 +45,32 @@ export type Chat = {
     lastMessageSent:PrivateMessage;
     lastMessageSentAt:number;
 }
+export type GroupChat = {
+    id:number;
+    name?:string;
+    creator:User;
+    members:User[];
+    messages:GroupMessage[];
+    createdAt:number;
+    lastMessageSent:GroupMessage;
+    lastMessageSentAt:number;
+    avatar?:string;
+}
 export type CreateChatParams = {
     email:string;
     message:string;
 }
-export type CreatePrivateMessageParams = {
+export type CreateMessageParams = {
     id:number;
     messageContent:string;
 }
 export type CreatePrivateMessageResponse = {
     message:PrivateMessage;
     chat:Chat;
+}
+export type CreateGroupMessageResponse = {
+    message:GroupMessage;
+    chat:GroupChat;
 }
 export type EditPrivateMessageResponse = {
     messageId:number;
