@@ -27,7 +27,7 @@ const GroupMessagePanel = () => {
             setContent('');
 		}).catch((err) => console.log(err));
     }
-    const groupName = formatGroupChatName(20,currentChat);
+    const groupName = formatGroupChatName(40,currentChat);
     return (
         <MessagePanelStyle>
             <GroupMessagePanelHeader groupName={groupName || "Group Chat"}/>

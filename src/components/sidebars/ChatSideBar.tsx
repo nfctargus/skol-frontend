@@ -7,7 +7,7 @@ import { AppDispatch, RootState } from '../../utils/store';
 import { getChatsThunk } from '../../utils/store/chats/chatThunk';
 import { AuthContext } from '../../utils/context/AuthContext';
 import { getChatRecipient } from '../../utils/helpers';
-import { PersonAdd } from 'akar-icons';
+import { Plus } from 'akar-icons';
 import CreateChatModal from '../modals/CreateChatModal';
 const ChatSideBar = () => {
     const [showCreateChatModal, setShowCreateChatModal] = useState(false);
@@ -31,7 +31,7 @@ const ChatSideBar = () => {
                 <ChatSideBarHeaderStyle>Skaal</ChatSideBarHeaderStyle>
                 <div className={styles.sideBarSearchContainer}>
                     <div className={styles.sideBarSearchHeader}>
-                        <h1>Private Messages</h1><div className={styles.newChatIcon} onClick={() => setShowCreateChatModal(!showCreateChatModal)}><PersonAdd size={28} strokeWidth={1.2} /></div>
+                        <h1>Private Messages</h1><div className={styles.newChatIcon} onClick={() => setShowCreateChatModal(!showCreateChatModal)}><Plus size={20} strokeWidth={1} /></div>
                     </div>
                     <SideBarSearchInput placeholder='Search...' onChange={chatFilter} />
                 </div>
