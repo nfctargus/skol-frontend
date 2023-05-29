@@ -4,34 +4,34 @@ import { editPrivateMessageThunk, getGroupMessagesThunk, postGroupMessageThunk }
 
 export interface GroupMessageState {
     groupMessages:GroupMessage[];
-    selectedMessage?:GroupMessage;
-    editingMessage?:GroupMessage;
-    isEditing:boolean;
+    selectedGroupMessage?:GroupMessage;
+    editingGroupMessage?:GroupMessage;
+    isEditingGroup:boolean;
 }
 const initialState:GroupMessageState = {
     groupMessages:[],
-    isEditing:false
+    isEditingGroup:false
 }
 export const groupMessageSlice = createSlice({
     name:'group-messages',
     initialState,
     reducers: {
-        setSelectedMessage:(state,action:PayloadAction<GroupMessage>) => {
-            state.selectedMessage = action.payload;
+        setSelectedGroupMessage:(state,action:PayloadAction<GroupMessage>) => {
+            state.selectedGroupMessage = action.payload;
         },
-        setEditingMessage:(state,action:PayloadAction<GroupMessage>) => {
-            state.editingMessage = action.payload;
+        setEditingGroupMessage:(state,action:PayloadAction<GroupMessage>) => {
+            state.editingGroupMessage = action.payload;
         },
-        setIsEditing:(state,action:PayloadAction<boolean>) => {
-            state.isEditing = action.payload;
+        setIsEditingGroup:(state,action:PayloadAction<boolean>) => {
+            state.isEditingGroup = action.payload;
         },
-        editMessageContent:(state,action:PayloadAction<string>) => {
-            if(state.editingMessage) state.editingMessage.messageContent = action.payload;
+        editGroupMessageContent:(state,action:PayloadAction<string>) => {
+            if(state.editingGroupMessage) state.editingGroupMessage.messageContent = action.payload;
         },
-        resetEditingContainer:(state) => {
-            state.isEditing = false;
-            state.editingMessage = undefined;
-            state.selectedMessage = undefined;
+        resetGroupEditingContainer:(state) => {
+            state.isEditingGroup = false;
+            state.editingGroupMessage = undefined;
+            state.selectedGroupMessage = undefined;
         }
     },
     extraReducers(builder) {
@@ -48,5 +48,5 @@ export const groupMessageSlice = createSlice({
         })
     },
 })
-export const { setSelectedMessage,setEditingMessage,setIsEditing,editMessageContent,resetEditingContainer } = groupMessageSlice.actions;
+export const { setSelectedGroupMessage,setEditingGroupMessage,setIsEditingGroup,editGroupMessageContent,resetGroupEditingContainer } = groupMessageSlice.actions;
 export default groupMessageSlice.reducer;
