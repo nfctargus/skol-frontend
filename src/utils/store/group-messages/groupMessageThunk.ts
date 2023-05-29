@@ -8,6 +8,6 @@ export const getGroupMessagesThunk = createAsyncThunk("messages/group/get", (id:
 export const postGroupMessageThunk = createAsyncThunk("messages/group/create", (params:CreateMessageParams) => {
     return postGroupMessage(params);
 });
-export const editPrivateMessageThunk = createAsyncThunk("messages/group/edit", (params:EditMessagePayload) => {
+export const editGroupMessageThunk = createAsyncThunk("messages/group/edit", (params:EditMessagePayload) => {
     return editGroupMessage(params);
 });

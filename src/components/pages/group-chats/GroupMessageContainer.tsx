@@ -4,9 +4,10 @@ import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { AppDispatch } from "../../../utils/store";
 import { MessageContainerStyle } from "../../../utils/styles";
-import { MessageContainerItem } from "../messages/MessageContainerItem";
 import { editGroupMessageContent, resetGroupEditingContainer, setIsEditingGroup, setSelectedGroupMessage } from "../../../utils/store/group-messages/groupMessageSlice";
 import SelectedGroupMessageContextMenu from "../../context-menus/SelectedGroupMessageContextMenu";
+import GroupMessageContainerItem from "./GroupMessageContainerItem";
+
 
 type Props = {
     messages?:GroupMessage[];
@@ -44,7 +45,7 @@ const GroupMessageContainer:FC<Props> = ({messages}) => {
         <MessageContainerStyle>
             {messages && messages.map((message) => (
                 <div key={JSON.stringify(message?.id)} onContextMenu={(e) => onContextMenu(e,message)}>
-                    <MessageContainerItem message={message} onEditMessageChange={onEditMessageChange} isPrivateMessage={false} />
+                    <GroupMessageContainerItem message={message} onEditMessageChange={onEditMessageChange} />
                 </div>
             ))}
             {showMenu && <SelectedGroupMessageContextMenu points={points} />}

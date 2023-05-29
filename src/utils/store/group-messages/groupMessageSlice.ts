@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { GroupMessage } from "../../types";
-import { editPrivateMessageThunk, getGroupMessagesThunk, postGroupMessageThunk } from "./groupMessageThunk";
+import { editGroupMessageThunk, getGroupMessagesThunk, postGroupMessageThunk } from "./groupMessageThunk";
 
 export interface GroupMessageState {
     groupMessages:GroupMessage[];
@@ -41,7 +41,7 @@ export const groupMessageSlice = createSlice({
         builder.addCase(postGroupMessageThunk.fulfilled, (state,action) => {
             state.groupMessages.unshift(action.payload.data.message);
         })
-        builder.addCase(editPrivateMessageThunk.fulfilled, (state,action) => {
+        builder.addCase(editGroupMessageThunk.fulfilled, (state,action) => {
             const {messageId,message} = action.payload.data;
             const messageIndex = state.groupMessages.findIndex((groupMessage) => groupMessage.id === messageId);
             state.groupMessages[messageIndex] = message;
