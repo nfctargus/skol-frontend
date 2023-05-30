@@ -25,14 +25,14 @@ const MessagePanel = () => {
         e.preventDefault();
         const id = parseInt(chatId!);
         if(!content || !id) return;
-        return dispatch(postPrivateMessageThunk({id,messageContent:content})).unwrap().then(({ data }) => {
-            updateChat(data.chat);
+        dispatch(postPrivateMessageThunk({id,messageContent:content})).unwrap().then(({ data }) => {
+            dispatch(updateChat(data.chat));
             setContent('');
 		}).catch((err) => console.log(err));
     }
     return (
         <MessagePanelStyle>
-            <MessagePanelHeader user={recipient!}/>
+            {recipient && <MessagePanelHeader user={recipient}/>}
             <MessageContainer messages={messages} />
             <MessageInputContainer handleMessageSend={handleMessageSend} messageTo={recipient?.firstName} content={content} setContent={setContent}/>
         </MessagePanelStyle>
