@@ -12,7 +12,6 @@ import { AppDispatch, RootState } from '../../utils/store';
 import { returnGroupTitle } from '../../utils/helpers';
 
 const NavSideBar = () => {
-    const [showFriendsModal, setShowFriendsModal] = useState(false);
     const ICON_SIZE = 32;
     const ICON_STROKE = 1;
     const navigate = useNavigate();
@@ -26,31 +25,27 @@ const NavSideBar = () => {
         postLogoutUser().finally(() => navigate('/login'));
     };
     return (
-        <>
-            {showFriendsModal && <FriendsModal setShowFriendsModal={setShowFriendsModal}/>}
-            <NavSideBarStyle>
-                {/* <div className={styles.navIcons} onClick={() => setShowFriendsModal(!showFriendsModal)}><PeopleMultiple  size={ICON_SIZE} strokeWidth={ICON_STROKE} /></div> */}
-                <div className={styles.profilePicContainer}>
-                    <CurrentUserAvatarStyle src={avatar} onClick={() => navigate('/chats')}/>
-                    <SideBarDivider />
+        <NavSideBarStyle>
+            <div className={styles.profilePicContainer}>
+                <CurrentUserAvatarStyle src={avatar} onClick={() => navigate('/chats')}/>
+                <SideBarDivider />
+            </div>
+            <div className={styles.groupIcons}>
+                {groupChats && groupChats.map((groupChat) => (
+                    <div key={groupChat.id} onClick={() => navigate(`/groups/${groupChat.id}`)}>{returnGroupTitle(groupChat)}</div>
+                ))}
+                <div><Plus size={ICON_SIZE -4} strokeWidth={2} /></div> 
+            </div>
+            <div className={styles.navIconBar}>
+                <input type="checkbox" id={styles.toggleOptions} /> 
+                <div className={styles.settingsOptions}>
+                    <div className={styles.settingsIcons}><SignOut size={ICON_SIZE} strokeWidth={ICON_STROKE} onClick={() => logoutUser()}/></div>
+                    <div className={styles.settingsIcons}><TrashCan size={ICON_SIZE} strokeWidth={ICON_STROKE}/></div>
+                    <div className={styles.settingsIcons}><Person size={ICON_SIZE} strokeWidth={ICON_STROKE}/></div>
                 </div>
-                <div className={styles.groupIcons}>
-                    {groupChats && groupChats.map((groupChat) => (
-                        <div key={groupChat.id} onClick={() => navigate(`/groups/${groupChat.id}`)}>{returnGroupTitle(groupChat)}</div>
-                    ))}
-                    <div><Plus size={ICON_SIZE -4} strokeWidth={2} /></div> 
-                </div>
-                <div className={styles.navIconBar}>
-                    <input type="checkbox" id={styles.toggleOptions} /> 
-                    <div className={styles.settingsOptions}>
-                        <div className={styles.settingsIcons}><SignOut size={ICON_SIZE} strokeWidth={ICON_STROKE} onClick={() => logoutUser()}/></div>
-                        <div className={styles.settingsIcons}><TrashCan size={ICON_SIZE} strokeWidth={ICON_STROKE}/></div>
-                        <div className={styles.settingsIcons}><Person size={ICON_SIZE} strokeWidth={ICON_STROKE}/></div>
-                    </div>
-                    <label className={styles.navIcons} htmlFor={styles.toggleOptions}><Gear size={ICON_SIZE} strokeWidth={ICON_STROKE}/></label>            
-                </div>
-            </NavSideBarStyle>
-        </>
+                <label className={styles.navIcons} htmlFor={styles.toggleOptions}><Gear size={ICON_SIZE} strokeWidth={ICON_STROKE}/></label>            
+            </div>
+        </NavSideBarStyle>
     )
 }
 

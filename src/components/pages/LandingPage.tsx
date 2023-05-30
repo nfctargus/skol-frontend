@@ -8,9 +8,11 @@ import { useNavigate } from "react-router-dom";
 import { ChatBubble, MoreHorizontalFill } from "akar-icons";
 import { Friend } from "../../utils/types";
 import { findOrCreateChatThunk } from "../../utils/store/chats/chatThunk";
+import FriendsModal from "../modals/FriendsModal";
 
 
 const LandingPage = () => {
+    const [showFriendsModal, setShowFriendsModal] = useState(false);
     const [query,setQuery] = useState("")
     const {user} = useContext(AuthContext)
     const dispatch = useDispatch<AppDispatch>();
@@ -30,9 +32,10 @@ const LandingPage = () => {
     };
     return (
         <>
+            {showFriendsModal && <FriendsModal setShowFriendsModal={setShowFriendsModal}/>}
             <LandingPageStlye>
                 <LandingPageHeaderStyle>
-                    Friends <LandingPageFriendAddButton>Add Friend</LandingPageFriendAddButton>
+                    Friends <LandingPageFriendAddButton onClick={() => setShowFriendsModal(!showFriendsModal)}>Add Friend</LandingPageFriendAddButton>
                 </LandingPageHeaderStyle>
                 <LandingPageFriendSection>
                     <LandingPageSearchInput placeholder="Search Friends" onChange={filterFriends} />
