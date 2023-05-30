@@ -24,3 +24,6 @@ export const formatGroupChatName = (MAX_LENGTH:number,groupChat?:GroupChat) => {
     if (!groupChat?.name) return groupChat?.members.map((member) => member.firstName).join(', ');
     return groupChat?.name.length > MAX_LENGTH ? groupChat.name.slice(0, MAX_LENGTH).concat('...') : groupChat.name;
 }
+export const getOtherUserFromFriend = (friend:Friend,user?:User) => {
+    return friend?.userOne.id === user?.id ? friend?.userTwo : friend?.userOne;
+}

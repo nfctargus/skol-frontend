@@ -26,6 +26,8 @@ export const getChats = () => axiosClient.get<Chat[]>(`/chats`,config);
 
 export const postNewChat = (data:CreateChatParams) => axiosClient.post<Chat>(`/chats`,data,config)
 
+export const findOrCreateChat = (email:string) => axiosClient.post<Chat>(`/chats/find`,{email},config);
+
 export const getPrivateMessages = (id:number) => axiosClient.get<PrivateMessage[]>(`/chats/${id}/messages`,config)
 
 export const postPrivateMessage = ({id,messageContent}:CreateMessageParams) => axiosClient.post<CreatePrivateMessageResponse>(`/chats/${id}/messages`,{messageContent},config);

@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import ChatSideBar from '../../sidebars/ChatSideBar'
 import { Outlet, useParams } from 'react-router-dom'
-import ChatLandingPage from './ChatsLandingPage';
+import LandingPage from '../LandingPage';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../../utils/store';
 import { getFriendsThunk } from '../../../utils/store/friends/friendThunk';
@@ -17,7 +17,7 @@ const ChatPage = () => {
     return (
         <>
             <ChatSideBar />
-            {!id && <ChatLandingPage />}
+            {!id && <LandingPage />}
             <Outlet />
         </>
     )

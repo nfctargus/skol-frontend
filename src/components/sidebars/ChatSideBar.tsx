@@ -15,7 +15,7 @@ const ChatSideBar = () => {
     const dispatch = useDispatch<AppDispatch>();
     const { user } = useContext(AuthContext);
     const chats = useSelector((state:RootState) => (
-        query ? state.chat.chats.filter((chat) => getChatRecipient(chat,user).username.toLowerCase().includes(query.toLowerCase())) 
+        query ? state.chat.chats.filter((chat) => getChatRecipient(chat,user)?.username.toLowerCase().includes(query.toLowerCase())) 
         : state.chat.chats)
     );    
     useEffect(() => {

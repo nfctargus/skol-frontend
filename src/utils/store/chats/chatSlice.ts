@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 import { Chat } from "../../types";
-import { getChatsThunk, postNewChatThunk } from "./chatThunk";
+import { findOrCreateChatThunk, getChatsThunk, postNewChatThunk } from "./chatThunk";
 
 export interface ChatState {
     chats:Chat[];
@@ -29,6 +29,11 @@ export const chatSlice = createSlice({
         })
         builder.addCase(postNewChatThunk.fulfilled,(state,action) => {
             state.chats.unshift(action.payload.data);
+        })
+        builder.addCase(findOrCreateChatThunk.fulfilled,(state,action) => {
+            const newChat = action.payload.data;
+            const index = state.chats.findIndex((chat) => chat.id === newChat.id);
+            if(index < 0) state.chats.unshift(newChat);
         })
     },
 })

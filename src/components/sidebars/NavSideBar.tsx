@@ -31,7 +31,7 @@ const NavSideBar = () => {
             <NavSideBarStyle>
                 {/* <div className={styles.navIcons} onClick={() => setShowFriendsModal(!showFriendsModal)}><PeopleMultiple  size={ICON_SIZE} strokeWidth={ICON_STROKE} /></div> */}
                 <div className={styles.profilePicContainer}>
-                    <CurrentUserAvatarStyle src={avatar}/>
+                    <CurrentUserAvatarStyle src={avatar} onClick={() => navigate('/chats')}/>
                     <SideBarDivider />
                 </div>
                 <div className={styles.groupIcons}>

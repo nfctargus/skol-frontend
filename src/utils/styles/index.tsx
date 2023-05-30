@@ -76,6 +76,9 @@ export const CurrentUserAvatarStyle = styled.img`
     aspect-ratio:1/1;
     border-radius: 50%;
     padding:0.5rem;
+    &:hover {
+        cursor: pointer;
+    }
 `;
 export const SideBarDivider = styled.hr`
     width: 80%;
@@ -537,3 +540,94 @@ export const EditMessageActionsContainer = styled.div`
         padding:0;
     }
 `;
+export const LandingPageStlye = styled.div`
+
+    width:100%;
+`;
+export const LandingPageHeaderStyle = styled.div`
+    width:100%;
+    height:7vh;
+    border-bottom: 1px solid #a4a4a475;  
+    font-size:1.9rem;
+    display:flex;
+    padding: 0 1rem;
+    align-items:center;
+    padding:0 1.5rem;
+    gap:4rem;
+    box-sizing: border-box;
+`;
+export const LandingPageFriendAddButton = styled.button`
+    background:#4183c9;
+    color:#fff;
+    font-size:1rem;
+    font-weight:500;
+    font-family: Inter;
+    border:none;
+    outline:none;
+    padding: 1rem 2rem;
+    border-radius:0.2rem;
+    &:hover {
+        cursor: pointer;
+        opacity:0.8;
+    }
+`;
+export const LandingPageSearchInput = styled.input`
+    width:100%;
+    padding: 1rem 2rem;
+    box-sizing: border-box;
+    border-radius:0.5rem;
+    border:none;
+    background:#cacaca;
+    font-weight:500;
+    font-size:1.1rem;
+    font-family: Inter;
+    &:focus {
+        outline:1px solid #adadad;
+    }
+`
+export const LandingPageFriendSection = styled.div`
+    padding:1rem;
+    gap:1rem;
+    display:flex;
+    flex-direction: column;
+    h2 {
+        padding:1rem;
+        font-size:0.9rem;
+        text-transform: uppercase;
+    }
+`;
+export const FriendContainerStyle = styled.div`
+    width:100%;
+    box-sizing: border-box;
+    padding:1rem 2rem;
+    border-radius:0.5rem;
+    border:1px solid #ccc;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    &:hover {
+        background:#e0e0e0;
+        transition:all 0.1s;
+    }
+`;
+export const FriendIconStyle = styled.div`
+    border-radius: 50%;
+    background:#cacaca;
+    width:2.5rem;
+    height:2.5rem;
+    padding: 0.4rem;
+    display: grid;
+    place-items: center;
+    &:hover {
+        cursor: pointer;
+        color:#f3f3f3;
+        transition:all 0.1s;
+    }
+`;
+export const FriendIconContainer = styled.div`
+    display:flex;
+    flex-direction:row;
+    justify-content: space-around;
+    align-items: center;
+    gap:0.5rem;
+`
