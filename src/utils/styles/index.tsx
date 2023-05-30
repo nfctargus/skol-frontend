@@ -411,7 +411,7 @@ export const OverlayWindowStyle = styled.div`
     align-items: center;
     z-index: 999;
 `;
-export const ModalStyle = styled.div`
+export const CreateChatModalStyle = styled.div`
     position: relative;
     background-color: #F6F6F6;
     box-shadow: 1px 1px 10px 1px #888888;
@@ -561,6 +561,26 @@ export const SelectedFriendContainer = styled.div`
 `;
 export const CreateChatForm = styled.form`
     padding:1rem;
+`;
+export const FriendSelectionContainerStyle = styled.div`
+    display:flex;
+    flex-direction:row;
+    justify-content: space-between;
+    align-items: center;
+    section {
+        display:flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-around;
+        gap:1rem;
+        font-size:1.3rem;
+        div:last-child {
+            font-size:1rem;
+            font-weight:300;
+            color:#545454;
+        } 
+    }
+
 `;
 export const EditMessageInputField = styled.input`
     padding:0.9rem;

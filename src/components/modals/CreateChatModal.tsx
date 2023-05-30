@@ -1,14 +1,17 @@
-import React, { Dispatch, FC, createRef, useEffect, useState } from 'react'
-import { Button, CreateChatForm, InputContainerStyle, InputField, InputLabel, InputTextArea, ModalHeader, ModalStyle, OverlayWindowStyle, SelectedFriendContainer as SelectedUserContainer } from '../../utils/styles';
+import React, { Dispatch, FC, createRef, useContext, useEffect, useState } from 'react'
+import { Button, CreateChatForm, InputContainerStyle, InputField, InputLabel, InputTextArea, ModalHeader, CreateChatModalStyle, OverlayWindowStyle, SelectedFriendContainer as SelectedUserContainer, FriendSelectionContainerStyle } from '../../utils/styles';
 import { Cross } from 'akar-icons';
 import { RecipientResultContainer } from '../pages/partials/FriendSearchResultContainer';
 import { CreateChatParams, User } from '../../utils/types';
 import { searchUsers } from '../../utils/api';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from '../../utils/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../../utils/store';
 import { postNewChatThunk } from '../../utils/store/chats/chatThunk';
+import { getOtherUserFromFriend } from '../../utils/helpers';
+import { AuthContext } from '../../utils/context/AuthContext';
+import styles from './index.module.scss';
 
 type Props = {
     setShowCreateChatModal:Dispatch<React.SetStateAction<boolean>>;
@@ -21,7 +24,9 @@ const CreateChatModal:FC<Props> = ({setShowCreateChatModal}) => {
     const ref = createRef<HTMLDivElement>();
     const [selectedUser, setSelectedUser] = useState<User>();
     const [userResults, setUserResults] = useState<User[]>([]);
-    
+    const { user } = useContext(AuthContext);
+    const friends = useSelector((state:RootState) => state.friend.friends.map((friend) => getOtherUserFromFriend(friend,user)) );
+
     useEffect(() => {
         const handleKeydown = (e: KeyboardEvent) => e.key === 'Escape' && setShowCreateChatModal(false);
         window.addEventListener('keydown', handleKeydown);
@@ -59,9 +64,24 @@ const CreateChatModal:FC<Props> = ({setShowCreateChatModal}) => {
     
     return (
         <OverlayWindowStyle ref={ref} onClick={handleOverlayClick}>
-            <ModalStyle>
-                <ModalHeader>Create a new Chat<div onClick={() => setShowCreateChatModal(false)}><Cross size={30}/></div></ModalHeader>
+            <CreateChatModalStyle>
+                <ModalHeader>Select Friends<div onClick={() => setShowCreateChatModal(false)}><Cross size={30}/></div></ModalHeader>
+                <h2>Select 1 or more friends to start chatting to.</h2>
                 <CreateChatForm onSubmit={onSubmit}>
+                    {friends && friends.map((friend) => (
+                        <FriendSelectionContainerStyle>
+                            <section>
+                                <div>{friend.username}</div>
+                                <div>{friend.email}</div>
+                            </section>
+                            <label className={styles.container}>
+                                <input type="checkbox"/>
+                                <span className={styles.checkmark}/>
+                            </label>
+                        </FriendSelectionContainerStyle>
+                    ))}
+                </CreateChatForm>
+               {/*  <CreateChatForm onSubmit={onSubmit}>
                     {!selectedUser && (
                         <RecipientResultContainer userResults={userResults} handleUserSelect={handleUserSelect}  />
                     )}
@@ -81,8 +101,8 @@ const CreateChatModal:FC<Props> = ({setShowCreateChatModal}) => {
                         <InputTextArea id='message' value={message} onChange={(e) => setMessage(e.target.value)} />
                     </InputContainerStyle>
                     <Button>Send</Button>
-                </CreateChatForm>
-            </ModalStyle>
+                </CreateChatForm> */}
+            </CreateChatModalStyle>
         </OverlayWindowStyle>
     )
 }

@@ -26,14 +26,11 @@ const FriendsModal:FC<Props> = ({setShowFriendsModal}) => {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => { 
         e.preventDefault();
-        console.log(emailInput);
         dispatch(addFriendThunk(emailInput))
         .catch((err) => console.log(err.data.message))
         .finally(() => {
-            //navigate??
             setEmailInput("");
             setShowFriendsModal(false);
-
         })  
     };
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
