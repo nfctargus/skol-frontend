@@ -405,7 +405,6 @@ export const LoadingContainerStyle = styled.div`
 export const OverlayWindowStyle = styled.div`
     height: 100%;
     width: 100%;
-    background-color: #00000088;
     position: fixed;
     display: flex;
     justify-content: center;
@@ -415,13 +414,73 @@ export const OverlayWindowStyle = styled.div`
 export const ModalStyle = styled.div`
     position: relative;
     background-color: #F6F6F6;
-    width: 40%;
+    box-shadow: 1px 1px 10px 1px #888888;
+    width: 35vw;
     box-sizing: border-box;
     border-radius: 1rem;
+
+    h2 {
+        padding:0 2rem;
+    }
+`;
+export const AddFriendModalStyle = styled.div`
+    position: relative;
+    margin-bottom:auto;
+    margin-top:6vh;
+    margin-right:10vw;
+    background-color: #F6F6F6;
+    box-shadow: 1px 1px 10px 1px #888888;
+    width: 35vw;
+    box-sizing: border-box;
+    border-radius: 1rem;
+
+    h2 {
+        padding:0 2rem;
+    }
+`;
+
+export const AddFriendFormStyle = styled.form`
+    width:100%;  
+    display:flex;
+    gap:0.5rem;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background:#ccc;
+    border-radius:0.3rem;
+    padding: 0.5rem;
+    button {
+        border-radius:0.3rem;
+        padding:0.8rem 2rem;
+        
+        font-size:1.1rem;
+        background:#4183c9;
+        color:#fff;
+        font-weight:500;
+        font-family:Inter;
+        border:none;
+        &:hover {
+            cursor: pointer;
+            opacity: 0.8;
+        }
+    }
+    input {
+        width:65%;
+        padding: 1rem;
+        border-radius:0.3rem;
+        border:none;
+        outline:none;
+        background:inherit;
+        font-family: Inter;
+        font-size:1.1rem;
+    }
 `;
 export const ModalHeader = styled.header`
     text-align:center;
-    font-size:2rem;
+    text-transform: uppercase;
+    font-size:1.6rem;
+    font-weight:500;
+
     margin:1rem 2rem;
     display:flex;
     justify-content: space-between;
@@ -431,7 +490,6 @@ export const ModalHeader = styled.header`
     }
 `;
 export const ModalSectionStyle = styled.div`
-    background:#fff;
     padding:1rem;
     margin:1rem;
     border-radius:0.5rem;

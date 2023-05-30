@@ -16,7 +16,7 @@ export const getAuthUser = () => axiosClient.get<User>(`/auth/status`, config);
 
 export const getFriends = () => axiosClient.get<Friend[]>(`/friends`,config);
 
-export const addFriend = (id:number) => axiosClient.post<Friend>(`/friends/${id}`,id,config);
+export const addFriend = (email:string) => axiosClient.post<Friend>(`/friends`,{email},config);
 
 export const deleteFriend = (id:number) => axiosClient.delete(`/friends/${id}`,config);
 
