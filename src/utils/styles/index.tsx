@@ -542,14 +542,77 @@ export const RecipientResultItem = styled.div`
 		background:#ffffffaa
 	}
 `;
-export const SelectedFriendContainer = styled.div`
+export const CreateChatForm = styled.form`
+    padding:1rem;
+
+    button {
+        display:flex;
+        align-items: center;
+        justify-content: center;
+        width:100%;
+        margin-top:1rem;
+    }
+`;
+export const FriendSelectionContainerStyle = styled.div`
+    display:flex;
+    flex-direction:row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0rem 0.5rem;
+    border-radius:0.3rem;
+    &:hover {
+        background:#ccc;
+    }
+`;
+export const FriendSelectionInfoStyle = styled.section`
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    gap:1rem;
+    font-size:1.2rem;
+    user-select: none;
+    padding: 0.5rem 0;
+    div:last-child {
+        font-size:0.9rem;
+        font-weight:300;
+        color:#7a7a7a;
+    } 
+`;
+export const FriendSelectionInputContainer = styled.div`
+    background:#ccc;
+    height:fit-content;
+    max-width:100%;
+    display:flex;
+    gap:0.4rem;
+    padding: 0.2rem;
+    border-radius:0.2rem;
+    box-sizing: border-box;
+    overflow-wrap:break-word;
+    overflow:hidden scroll;
+    scrollbar-width:none;
+    flex:1 1 auto;
+    flex-wrap: wrap;
+    margin-bottom:1rem;
+    input {
+        background:none;
+        border:none;
+        outline:none;
+        width:8rem;
+        padding: 0.5rem 0.2rem;
+    }
+`;
+export const SelectedFriendContainerStyle = styled.div`
     display:flex;
     align-items: center;
     justify-content: space-evenly;
     gap:0.2rem;
-    border-radius:0.5rem;
-    border:1px solid #ccc;
-    padding:0.3rem 1rem;
+    border-radius:0.2rem;
+    background:#5f5f5f;
+    color:#fff;
+    font-size:0.9rem;
+    padding:0.5rem 0.4rem;
+
     div {
         display: grid;
         place-items: center;
@@ -558,29 +621,6 @@ export const SelectedFriendContainer = styled.div`
         opacity:0.8;
         cursor: pointer;
     }
-`;
-export const CreateChatForm = styled.form`
-    padding:1rem;
-`;
-export const FriendSelectionContainerStyle = styled.div`
-    display:flex;
-    flex-direction:row;
-    justify-content: space-between;
-    align-items: center;
-    section {
-        display:flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-around;
-        gap:1rem;
-        font-size:1.3rem;
-        div:last-child {
-            font-size:1rem;
-            font-weight:300;
-            color:#545454;
-        } 
-    }
-
 `;
 export const EditMessageInputField = styled.input`
     padding:0.9rem;

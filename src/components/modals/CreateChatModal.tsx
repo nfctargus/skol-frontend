@@ -1,32 +1,35 @@
 import React, { Dispatch, FC, createRef, useContext, useEffect, useState } from 'react'
-import { Button, CreateChatForm, InputContainerStyle, InputField, InputLabel, InputTextArea, ModalHeader, CreateChatModalStyle, OverlayWindowStyle, SelectedFriendContainer as SelectedUserContainer, FriendSelectionContainerStyle } from '../../utils/styles';
+import { CreateChatForm, ModalHeader, CreateChatModalStyle, OverlayWindowStyle, SelectedFriendContainerStyle , FriendSelectionContainerStyle, FriendSelectionInfoStyle, FriendSelectionInputContainer, LandingPageFriendAddButton } from '../../utils/styles';
 import { Cross } from 'akar-icons';
-import { RecipientResultContainer } from '../pages/partials/FriendSearchResultContainer';
-import { CreateChatParams, User } from '../../utils/types';
-import { searchUsers } from '../../utils/api';
-import { useForm } from 'react-hook-form';
+import {  User } from '../../utils/types';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../utils/store';
 import { postNewChatThunk } from '../../utils/store/chats/chatThunk';
 import { getOtherUserFromFriend } from '../../utils/helpers';
 import { AuthContext } from '../../utils/context/AuthContext';
-import styles from './index.module.scss';
+import { postNewGroupChatThunk } from '../../utils/store/group-chats/groupChatThunk';
 
 type Props = {
     setShowCreateChatModal:Dispatch<React.SetStateAction<boolean>>;
-}
+};
 
 const CreateChatModal:FC<Props> = ({setShowCreateChatModal}) => {
-    const [message,setMessage] = useState('');
     const navigate = useNavigate();
+    const [query,setQuery] = useState("")
+   
     const dispatch = useDispatch<AppDispatch>();
     const ref = createRef<HTMLDivElement>();
-    const [selectedUser, setSelectedUser] = useState<User>();
-    const [userResults, setUserResults] = useState<User[]>([]);
+    const [selectedRecipients,setSelectedRecipients] = useState<User[]>([]);
     const { user } = useContext(AuthContext);
     const friends = useSelector((state:RootState) => state.friend.friends.map((friend) => getOtherUserFromFriend(friend,user)) );
-
+    var filteredFriends = friends.reduce<User[]>(function(filtered, friend) {
+        if (friend.username.toLowerCase().includes(query.toLowerCase())) {
+            filtered.push(friend);
+        }
+        return filtered;
+    }, []);
+    
     useEffect(() => {
         const handleKeydown = (e: KeyboardEvent) => e.key === 'Escape' && setShowCreateChatModal(false);
         window.addEventListener('keydown', handleKeydown);
@@ -36,30 +39,40 @@ const CreateChatModal:FC<Props> = ({setShowCreateChatModal}) => {
         const { current } = ref;
         if (current === e.target) setShowCreateChatModal(false);
     };
-    const handleUserSelect = (user: User) => {
-		setSelectedUser(user);
-		setUserResults([]);
-	};
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if(e.target.value) searchUsers(e.target.value)
-        .then(({ data }) => {
-            setUserResults(data);
-        })
-        else setUserResults([])
+    const addOrRemoveRecipient = (user:User) => {
+        const exists = selectedRecipients.find((u) => u.id === user.id);
+        if(!exists) {
+            setSelectedRecipients((prev) => [...prev,user]);
+        }
+        else {
+            setSelectedRecipients((prev) => prev.filter((u) => u.id !== user.id));    
+        }
+        setQuery("");
+    };
+    const filterFriends = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setQuery(e.target.value)
     };
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {   
         e.preventDefault();
-        const {email} = selectedUser!;
+        const members = selectedRecipients.map((recipient) => recipient.email);
 		try {	
-            dispatch(postNewChatThunk({email,message}))
-            .unwrap().then(({ data }) => {
-                setShowCreateChatModal(false);
-                navigate(`/chats/${data.id}`);
-            }).catch((err) => console.log(err));
-            
+            if(selectedRecipients.length > 1) {
+                dispatch(postNewGroupChatThunk({members}))
+                .unwrap().then(({ data }) => {
+                    setShowCreateChatModal(false);
+                    navigate(`/groups/${data.id}`);
+                }).catch((err) => console.log(err));
+            } else {
+                dispatch(postNewChatThunk({email:members[0]}))
+                .unwrap().then(({ data }) => {
+                    setShowCreateChatModal(false);
+                    navigate(`/chats/${data.id}`);
+                }).catch((err) => console.log(err));
+            } 
 		} catch (err) {
            console.log(err)
 		}
+        setSelectedRecipients([]);
 	};
     
     return (
@@ -68,40 +81,22 @@ const CreateChatModal:FC<Props> = ({setShowCreateChatModal}) => {
                 <ModalHeader>Select Friends<div onClick={() => setShowCreateChatModal(false)}><Cross size={30}/></div></ModalHeader>
                 <h2>Select 1 or more friends to start chatting to.</h2>
                 <CreateChatForm onSubmit={onSubmit}>
-                    {friends && friends.map((friend) => (
-                        <FriendSelectionContainerStyle>
-                            <section>
+                    <FriendSelectionInputContainer>
+                        {selectedRecipients && selectedRecipients.map((recipient) => (
+                            <SelectedFriendContainerStyle key={recipient.id}>{recipient.username}<div onClick={() => addOrRemoveRecipient(recipient)}><Cross size={12}/></div></SelectedFriendContainerStyle>
+                        ))}
+                        <input placeholder='Search friends' onChange={(filterFriends)} value={query}/>
+                    </FriendSelectionInputContainer>
+                    {filteredFriends && filteredFriends.map((friend) => (
+                        <FriendSelectionContainerStyle onClick={() => addOrRemoveRecipient(friend)} key={friend.id}>
+                            <FriendSelectionInfoStyle>
                                 <div>{friend.username}</div>
                                 <div>{friend.email}</div>
-                            </section>
-                            <label className={styles.container}>
-                                <input type="checkbox"/>
-                                <span className={styles.checkmark}/>
-                            </label>
+                            </FriendSelectionInfoStyle>
                         </FriendSelectionContainerStyle>
                     ))}
+                    <LandingPageFriendAddButton>{selectedRecipients && selectedRecipients.length > 1 ? "Create Group Chat" : "Create Private Chat"}</LandingPageFriendAddButton>
                 </CreateChatForm>
-               {/*  <CreateChatForm onSubmit={onSubmit}>
-                    {!selectedUser && (
-                        <RecipientResultContainer userResults={userResults} handleUserSelect={handleUserSelect}  />
-                    )}
-                    {selectedUser ? (
-                        <SelectedUserContainer>
-                            {selectedUser.email}
-                            <div onClick={() => setSelectedUser(undefined)}><Cross size={12}/></div> 
-                        </SelectedUserContainer>
-                    ) : (
-                        <InputContainerStyle>
-                            <InputLabel htmlFor='email'>Email</InputLabel>
-                            <InputField id='email' onChange={handleChange}/>
-                        </InputContainerStyle>
-                    )}
-                    <InputContainerStyle>
-                        <InputLabel htmlFor='message'>Message</InputLabel>
-                        <InputTextArea id='message' value={message} onChange={(e) => setMessage(e.target.value)} />
-                    </InputContainerStyle>
-                    <Button>Send</Button>
-                </CreateChatForm> */}
             </CreateChatModalStyle>
         </OverlayWindowStyle>
     )

@@ -58,7 +58,12 @@ export type GroupChat = {
 }
 export type CreateChatParams = {
     email:string;
-    message:string;
+    message?:string;
+}
+export type CreateGroupChatParams = {
+    members:string[];
+    message?:string;
+    name?:string;
 }
 export type CreateMessageParams = {
     id:number;

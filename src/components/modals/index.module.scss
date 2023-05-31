@@ -11,22 +11,23 @@
 }
 
 .container {
-    display: block;
+    display: grid;
+    place-items:center;
     position: relative;
-    padding-left: 35px;
-    margin-bottom: 12px;
+    padding-left: 3rem;
+    margin-bottom: 2rem;
     cursor: pointer;
     font-size: 1.5rem;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    z-index:5;
     
 }
 .container input {
     cursor: pointer;
-    display:none;
-    
+    display:none; 
 }
 .checkmark {
     position: absolute;
