@@ -5,11 +5,9 @@ import { RootState, AppDispatch } from '../../../utils/store';
 import { MessagePanelStyle } from '../../../utils/styles';
 import MessageInputContainer from '../messages/MessageInputContainer';
 import GroupMessageContainer from './GroupMessageContainer';
-import { formatGroupChatName } from '../../../utils/helpers';
 import GroupMessagePanelHeader from '../partials/GroupMessagePanelHeader';
 import { postGroupMessageThunk } from '../../../utils/store/group-messages/groupMessageThunk';
 import { addGroupChat } from '../../../utils/store/group-chats/groupChatSlice';
-
 
 const GroupMessagePanel = () => {
     const { id:groupId } = useParams();
@@ -26,15 +24,14 @@ const GroupMessagePanel = () => {
             addGroupChat(data.chat);
             setContent('');
 		}).catch((err) => console.log(err));
-    }
-    const groupName = formatGroupChatName(40,currentChat);
+    };
     return (
         <MessagePanelStyle>
-            <GroupMessagePanelHeader groupName={groupName || "Group Chat"}/>
+            <GroupMessagePanelHeader group={currentChat}/>
             <GroupMessageContainer messages={messages} />
             <MessageInputContainer handleMessageSend={handleMessageSend} messageTo={currentChat?.name} content={content} setContent={setContent}/>
         </MessagePanelStyle>
     )
-}
+};
 
 export default GroupMessagePanel

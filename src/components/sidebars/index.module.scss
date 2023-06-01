@@ -119,6 +119,14 @@
     height:3rem;
     cursor: pointer;
 }
+.groupIcons div img {
+    max-width:100%;
+    border-radius:50%;
+}
+.groupIcons div:hover img {
+    border-radius:25%;
+    transition: all 0.2s;
+}
 .groupIcons div:hover {
     border-radius:25%;
     transition: all 0.2s;

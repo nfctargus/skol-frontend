@@ -26,7 +26,7 @@ const SelectedGroupMessageContextMenu:FC<Props> = ({ points }) => {
     }
 
     return (
-        <ContextMenuStyle top={points.y} left={points.x}>
+        <ContextMenuStyle top={points.y} left={points.x} width={8}>
             <ul>
                 {selectedMessage?.author.id === user?.id && <li onClick={editMessage}>Edit</li>}
                 {(creator?.id === user?.id || selectedMessage?.author.id === user?.id) && <li onClick={deleteMessage}>Delete</li>}

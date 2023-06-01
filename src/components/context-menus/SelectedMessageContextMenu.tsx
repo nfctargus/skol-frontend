@@ -19,7 +19,7 @@ export const SelectedMessageContextMenu: FC<Props> = ({ points }) => {
         dispatch(setEditingMessage(selectedMessage!));
     };
     return (
-        <ContextMenuStyle top={points.y} left={points.x}>
+        <ContextMenuStyle top={points.y} left={points.x} width={8}>
             <ul>
                 {selectedMessage?.author.id === user?.id && <li onClick={editMessage}>Edit</li>}
                 <li>Delete</li>

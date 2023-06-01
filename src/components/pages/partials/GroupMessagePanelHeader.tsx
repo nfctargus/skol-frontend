@@ -1,17 +1,20 @@
 import { FC } from "react";
 import styles from './index.module.scss';
-import { MessagePanelHeaderStyle, ChatUserAvatarStyle } from "../../../utils/styles";
+import { MessagePanelHeaderStyle } from "../../../utils/styles";
+import { GroupChat } from "../../../utils/types";
+import { returnGroupTitle } from "../../../utils/helpers";
 type Props = {
-    groupName:string;
-    groupAvatar?:string;
+    group?:GroupChat;
 }
-const GroupMessagePanelHeader:FC<Props> = ({groupName,groupAvatar}) => {
+const GroupMessagePanelHeader:FC<Props> = ({group}) => {
     return (
         <MessagePanelHeaderStyle>
-                {groupAvatar ? <ChatUserAvatarStyle src={groupAvatar} /> : <div>No Avatar</div>}
-                <div className={styles.messagePanelUserInfo}>
-                    <h1>{groupName}</h1>
-                </div>
+            <div className={styles.groupAvatarContainer}>
+                <img src={`../images/${group?.avatar}`} alt={returnGroupTitle(group)}/>
+            </div>
+            <div className={styles.messagePanelUserInfo}>
+                <h1>{group?.name}</h1>
+            </div>
         </MessagePanelHeaderStyle>
     )
 }

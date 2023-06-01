@@ -295,13 +295,13 @@ export const ContextMenuStyle = styled.div<ContextMenuProps>`
     border-radius: 1rem;
     box-sizing: border-box;
     position: fixed;
-    width: 8rem;
-    
+
     background-color: #fff;
     border:1px solid #a4a4a475;
     ${(props) => css`
         top: ${props.top}px;
         left: ${props.left}px;
+        width:${props.width}rem;
     `}
     ul {
         list-style-type: none;
@@ -316,8 +316,23 @@ export const ContextMenuStyle = styled.div<ContextMenuProps>`
         cursor: pointer;
         background-color: #F6F6F6;
     }
-
+    h2 {
+        padding: 0.2rem 1rem;
+    }
+    .groupMembersContainer {
+        display:flex;
+        flex-direction:column;
+        gap:0.3rem;
+        padding:0.5rem;
+    }
+    .members {
+        background: #ccc;
+        box-sizing:border-box;
+        padding:0.6rem 0.5rem;
+        border-radius:0.2rem;
+    }
 `;
+
 export const InputContainerStyle = styled.div`
     background-color: #F6F6F6;
     border:0.1rem solid #ccc;

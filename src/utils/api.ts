@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig } from 'axios';
-import { Chat, CreateChatParams, CreateGroupChatParams, CreateGroupMessageResponse, CreateMessageParams, CreatePrivateMessageResponse, CreateUserParams, EditGroupMessageResponse, EditMessagePayload, EditPrivateMessageResponse, Friend, GroupChat, GroupMessage, PrivateMessage, User, UserCredentialsParams } from './types';
+import { Chat, CreateChatParams, CreateGroupChatParams, CreateGroupMessageResponse, CreateMessageParams, CreatePrivateMessageResponse, CreateUserParams, EditGroupChatNameParams, EditGroupMessageResponse, EditMessagePayload, EditPrivateMessageResponse, Friend, GroupChat, GroupMessage, PrivateMessage, User, UserCredentialsParams } from './types';
 
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -46,4 +46,8 @@ export const editGroupMessage = ({messageContent,chatId,messageId}: EditMessageP
 
 export const postNewUserProfile = (data:FormData) => axiosClient.post(`/users/profiles`,data,{...config, headers: {'Content-Type': 'multipart/form-data'} });
 
-export const updateUserProfile = (data:FormData) => axiosClient.patch(`/users/profiles`,data,{...config, headers: {'Content-Type': 'multipart/form-data'} })
+export const updateUserProfile = (data:FormData) => axiosClient.patch(`/users/profiles`,data,{...config, headers: {'Content-Type': 'multipart/form-data'} });
+
+export const uploadGroupProfilePicture = (id:number,data:FormData) => axiosClient.post(`/groups/${id}/avatar`,data,{...config, headers: {'Content-Type': 'multipart/form-data'} });
+
+export const updateGroupChatName = ({id,name}:EditGroupChatNameParams) => axiosClient.post<GroupChat>(`/groups/${id}/update`,{name},config);

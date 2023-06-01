@@ -32,3 +32,21 @@
     display:flex;
     gap:1rem;
 }
+.groupAvatarContainer {
+    background:#4d64a3;
+    color:#fff;
+    font-size:1.5rem;
+    font-weight:400;
+    border-radius:50%;
+    text-align: center;
+    display:grid;
+    padding:0.3rem;
+    place-items:center;
+    width:3rem;
+    height:3rem;
+    margin:1rem 0;
+}
+.groupAvatarContainer img {
+    max-width:100%;
+    border-radius:50%;
+}

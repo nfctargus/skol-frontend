@@ -1,6 +1,6 @@
 import { PayloadAction, createSelector, createSlice } from "@reduxjs/toolkit"
 import { GroupChat } from "../../types";
-import { getGroupChatsThunk, postNewGroupChatThunk } from "./groupChatThunk";
+import { getGroupChatsThunk, postNewGroupChatNameThunk, postNewGroupChatThunk } from "./groupChatThunk";
 import { RootState } from "..";
 
 export interface GroupChatState {
@@ -23,6 +23,12 @@ export const groupChatSlice = createSlice({
         })
         builder.addCase(postNewGroupChatThunk.fulfilled,(state,action) => {
             state.groupChats.unshift(action.payload.data);
+        })
+        builder.addCase(postNewGroupChatNameThunk.fulfilled,(state,action) => {
+            const updatedGroup = action.payload.data;
+            const index = state.groupChats.findIndex((group) => group.id === updatedGroup.id);
+            state.groupChats.splice(index,1);
+            state.groupChats.unshift(updatedGroup);
         })
     },
 })

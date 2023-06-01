@@ -98,3 +98,15 @@ export type EditMessagePayload = {
 export type UserOnboardingParams = {
     avatar?:string;
 }
+export type GroupChatAvatarParams = {
+    id:number;
+    data:FormData;
+}
+export type GroupChatFormParams = {
+    avatar?:string;
+    name?:string;
+}
+export type EditGroupChatNameParams = {
+    id:number;
+    name:string;
+}
