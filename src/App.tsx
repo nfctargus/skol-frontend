@@ -14,6 +14,7 @@ import { User } from './utils/types';
 import { AuthContext } from './utils/context/AuthContext';
 import ActiveGroupChatPage from './components/pages/group-chats/ActiveGroupChatPage';
 import UserOnboardingForm from './components/forms/UserOnboardingForm';
+import "react-tooltip/dist/react-tooltip.css";
 
 function App() {
     const [user, setUser] = useState<User>();

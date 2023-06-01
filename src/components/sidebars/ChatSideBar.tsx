@@ -9,6 +9,8 @@ import { AuthContext } from '../../utils/context/AuthContext';
 import { getChatRecipient } from '../../utils/helpers';
 import { Plus } from 'akar-icons';
 import CreateChatModal from '../modals/CreateChatModal';
+import { Tooltip } from "react-tooltip";
+
 const ChatSideBar = () => {
     const [showCreateChatModal, setShowCreateChatModal] = useState(false);
     const [query,setQuery] = useState("")
@@ -31,7 +33,7 @@ const ChatSideBar = () => {
                 <ChatSideBarHeaderStyle>Skaal</ChatSideBarHeaderStyle>
                 <div className={styles.sideBarSearchContainer}>
                     <div className={styles.sideBarSearchHeader}>
-                        <h1>Private Messages</h1><div className={styles.newChatIcon} onClick={() => setShowCreateChatModal(!showCreateChatModal)}><Plus size={20} strokeWidth={1} /></div>
+                        <h1>Private Messages</h1><div id='new-chat-select' className={styles.newChatIcon} onClick={() => setShowCreateChatModal(!showCreateChatModal)}><Plus size={20} strokeWidth={1} /></div>
                     </div>
                     <SideBarSearchInput placeholder='Search...' onChange={chatFilter} />
                 </div>
@@ -39,6 +41,7 @@ const ChatSideBar = () => {
                     {chats.map((chat) => ( <ChatSideBarItem key={chat.id} chat={chat}/> ))}
                 </div>
             </ChatSideBarStyle>
+            <Tooltip anchorId="new-chat-select" place="bottom" content="Create a new chat" />
         </>
     )
 }
