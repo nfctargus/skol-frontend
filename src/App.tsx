@@ -13,6 +13,7 @@ import { AuthenticatedRoute } from './components/AuthenticatedRoute';
 import { User } from './utils/types';
 import { AuthContext } from './utils/context/AuthContext';
 import ActiveGroupChatPage from './components/pages/group-chats/ActiveGroupChatPage';
+import UserOnboardingForm from './components/forms/UserOnboardingForm';
 
 function App() {
     const [user, setUser] = useState<User>();
@@ -27,7 +28,9 @@ function App() {
                         <Route path="groups" element={<ChatPage />}>
                             <Route path=":id" element={<ActiveGroupChatPage />} />
                         </Route>
+                        <Route path="onboarding" element={<UserOnboardingForm />} />
                     </Route>
+                    
                     <Route path="/login" element={<LoginPage />} />
                     <Route path="/register" element={<ReigsterPage />} />
                 </Routes>

@@ -17,6 +17,12 @@ export const FormContainerStyle = styled.form`
         width: 90%;
         margin: 0.5rem 0 4rem 0;
     }
+    h1 {
+        font-size:1.1rem;
+        text-align: center;
+        margin:1rem;
+        font-weight:500;
+    }
 `;
 export const PageInnerContainer = styled.div`
     height:80vh;
@@ -748,4 +754,56 @@ export const FriendIconContainer = styled.div`
     justify-content: space-around;
     align-items: center;
     gap:0.5rem;
-`
+`;
+export const OnboardingFormPageStyle = styled.div`
+    width:100%;
+    height:100%;
+    display: flex;
+    justify-content: center;
+    align-items:center
+`;
+export const OnboardingFormImageSection = styled.section`
+    margin-bottom:10px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width:100%;
+    align-items:center;
+    gap:20px;
+`;
+export const OnboardingFormImage = styled.div`
+    width:10rem;
+    height:10rem;
+    border-radius:0.2rem;
+    background:#ccc;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    box-sizing: border-box;
+    div {
+ 
+        display: grid;
+        place-items:center;
+        border-radius:50%;
+        background:#4183c9;
+        width:80%;
+        height:80%;
+        color:#fff;
+    }
+    img {
+        width:100%;
+        height:100%;
+        object-fit:contain;
+        border-radius:50%;
+    }
+`;
+export const OnboardingFormUploadLabel = styled.label`
+    display: block;
+    background:#989898;
+    font-size:18px;
+    font-weight:600;
+    border:none;
+    padding:15px;
+    border-radius:10px;
+    cursor: pointer;
+`;

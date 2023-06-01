@@ -4,6 +4,7 @@ export type User = {
     username:string;
 	firstName: string;
 	lastName: string;
+    avatar?:string;
 }
 export type CreateUserParams = {
 	email: string;
@@ -89,4 +90,7 @@ export type EditMessagePayload = {
     chatId:number;
     messageId:number;
     messageContent:string;
+}
+export type UserOnboardingParams = {
+    avatar?:string;
 }

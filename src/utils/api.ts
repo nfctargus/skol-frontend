@@ -43,3 +43,7 @@ export const getGroupMessages = (id:number) => axiosClient.get<GroupMessage[]>(`
 export const postGroupMessage = ({id,messageContent}:CreateMessageParams) => axiosClient.post<CreateGroupMessageResponse>(`/groups/${id}/messages`,{messageContent},config);
 
 export const editGroupMessage = ({messageContent,chatId,messageId}: EditMessagePayload) => axiosClient.patch<EditGroupMessageResponse>(`/groups/${chatId}/messages`,{messageId,messageContent},config);
+
+export const postNewUserProfile = (data:FormData) => axiosClient.post(`/users/profiles`,data,{...config, headers: {'Content-Type': 'multipart/form-data'} });
+
+export const updateUserProfile = (data:FormData) => axiosClient.patch(`/users/profiles`,data,{...config, headers: {'Content-Type': 'multipart/form-data'} })
