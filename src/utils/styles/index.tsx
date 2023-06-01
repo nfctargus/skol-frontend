@@ -274,12 +274,22 @@ export const ChatSideBarItemStyle = styled.div`
     }
 `;
 export const ChatUserAvatarStyle = styled.img`
-    max-width: 100%;
-    max-height: 100%;
+    width: 3rem;
+    height: 3rem;
     box-sizing: border-box;
-    aspect-ratio:1/1;
+    display:grid;
+    place-items:center;
     border-radius: 50%;
-    padding:0.5rem;
+`;
+export const ChatUserDefaultAvatarStyle = styled.div`
+    width: 3rem;
+    height: 3rem;
+    box-sizing: border-box;
+    display:grid;
+    place-items:center;
+    background:#4183c9;
+    color:#fff;
+    border-radius: 50%;
 `;
 export const ContextMenuStyle = styled.div<ContextMenuProps>`
     border-radius: 1rem;

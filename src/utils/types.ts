@@ -4,6 +4,10 @@ export type User = {
     username:string;
 	firstName: string;
 	lastName: string;
+    profile?:UserProfile;
+}
+export type UserProfile = {
+    id:number;
     avatar?:string;
 }
 export type CreateUserParams = {

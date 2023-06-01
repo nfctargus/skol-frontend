@@ -1,8 +1,7 @@
 import { FC, useContext } from 'react'
-import { ChatSideBarItemContainer, ChatSideBarItemStyle, ChatUserAvatarStyle } from '../../../utils/styles'
+import { ChatSideBarItemContainer, ChatSideBarItemStyle, ChatUserAvatarStyle, ChatUserDefaultAvatarStyle } from '../../../utils/styles'
 import styles from './index.module.scss';
-import avatar from '../../../assets/sampleUser.jpg';
-import { getChatRecipient, shortenString } from '../../../utils/helpers';
+import { getChatRecipient, getUserInitials, hasProfilePicture, shortenString } from '../../../utils/helpers';
 import { useNavigate } from 'react-router-dom';
 import { Chat } from '../../../utils/types';
 import { AuthContext } from '../../../utils/context/AuthContext';
@@ -18,9 +17,12 @@ const ChatSideBarItem:FC<Props> = ({chat}) => {
     const navigate = useNavigate();
     const {user} = useContext(AuthContext)
     const recipient = getChatRecipient(chat,user)
+
     return (
         <ChatSideBarItemContainer onClick={() => navigate(`/chats/${chat.id}`)}>
-            <div className={styles.chatUserAvatar}><ChatUserAvatarStyle src={avatar}/></div>
+            <div className={styles.chatUserAvatar}>
+                {hasProfilePicture(recipient) ? <ChatUserAvatarStyle src={`../images/${recipient?.profile?.avatar}`}/> : <ChatUserDefaultAvatarStyle>{getUserInitials(recipient)}</ChatUserDefaultAvatarStyle>}
+            </div>
             <div className={styles.chatSideBarLayout}>
                 <ChatSideBarItemStyle>
                     <h1>{recipient && shortenString(recipient.username,14)}</h1>

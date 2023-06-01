@@ -2,19 +2,25 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../utils/store";
 import { FC, useContext } from "react";
 import { AuthContext } from "../../../utils/context/AuthContext";
-import { GroupMessage } from "../../../utils/types";
-import { MessageWrapperStyle } from "../../../utils/styles";
+import { GroupMessage, User } from "../../../utils/types";
+import { ChatUserAvatarStyle, ChatUserDefaultAvatarStyle, MessageWrapperStyle } from "../../../utils/styles";
 import SentMessageContainer from "../messages/SentMessageContainer";
 import ReceivedMessageContainer from "../messages/ReceivedMessageContainer";
-import recipientAvatar from '../../../assets/sampleUser.jpg';
-import yourAvatar from '../../../assets/testPFP.png';
 import { EditGroupMessageContainer } from "./EditGroupMessageContainer";
-
+import { hasProfilePicture, getUserInitials } from "../../../utils/helpers";
 
 type Props = {
     message: GroupMessage;
     onEditMessageChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
+const returnProfilePic = (user:User) => {
+    return (
+        <div>
+            {hasProfilePicture(user) ? (<ChatUserAvatarStyle src={`../images/${user?.profile?.avatar}`}/>) 
+            : (<ChatUserDefaultAvatarStyle>{getUserInitials(user)}</ChatUserDefaultAvatarStyle>)}
+        </div>
+    );
+}
 
 const GroupMessageContainerItem:FC<Props> = ({message,onEditMessageChange}) => {
     const { isEditingGroup, editingGroupMessage } = useSelector((state: RootState) => state.groupMessage);
@@ -23,14 +29,14 @@ const GroupMessageContainerItem:FC<Props> = ({message,onEditMessageChange}) => {
         <>
             {user && message.author.id === user.id ? (
                 <MessageWrapperStyle key={message.id} >
-                    <img src={yourAvatar} />
+                    {returnProfilePic(message.author)}
                     {isEditingGroup && message.id === editingGroupMessage?.id ? (
                         <EditGroupMessageContainer onEditMessageChange={onEditMessageChange} />
                     ) : <SentMessageContainer message={message} />}
                 </MessageWrapperStyle>
             ) : (
                 <MessageWrapperStyle>
-                    <img src={recipientAvatar} />
+                    {returnProfilePic(message.author)}
                     <ReceivedMessageContainer message={message} key={JSON.stringify(message.id)} />
                 </MessageWrapperStyle>
             )} 

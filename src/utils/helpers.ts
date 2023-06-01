@@ -28,3 +28,13 @@ export const formatGroupChatName = (MAX_LENGTH:number,groupChat?:GroupChat) => {
 export const getOtherUserFromFriend = (friend:Friend,user?:User) => {
     return friend?.userOne.id === user?.id ? friend?.userTwo : friend?.userOne;
 }
+export const hasProfilePicture = (user?:User) => {
+    if(user?.profile?.avatar) return true;
+    return false;
+}
+export const getUserInitials = (user:User) => {
+    const name = user.firstName + " " + user.lastName;
+    let concatName = name.split(/\s/).reduce((response,word) => response += word.slice(0,1).toUpperCase(),'')
+    return concatName?.substring(0,2);
+}
+//{message.chat.creator.id === message.author.id ? "chat.recipient" : (hasProfilePicture(message.chat.creator) && <div>Hello</div>)}

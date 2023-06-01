@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { CurrentUserAvatarStyle, NavSideBarStyle, SideBarDivider } from '../../utils/styles'
-import avatar from '../../assets/testPFP.png';
 import { Gear, Person, Plus, SignOut, TrashCan  } from 'akar-icons';
 import styles from './index.module.scss';
 import FriendsModal from '../modals/FriendsModal';
@@ -11,9 +10,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../utils/store';
 import { returnGroupTitle } from '../../utils/helpers';
 import CreateChatModal from '../modals/CreateChatModal';
+import { AuthContext } from '../../utils/context/AuthContext';
 
 const NavSideBar = () => {
     const [showCreateChatModal, setShowCreateChatModal] = useState(false);
+    const { user } = useContext(AuthContext);
     const ICON_SIZE = 32;
     const ICON_STROKE = 1;
     const navigate = useNavigate();
@@ -31,7 +32,7 @@ const NavSideBar = () => {
             {showCreateChatModal && <CreateChatModal setShowCreateChatModal={setShowCreateChatModal}/>}
             <NavSideBarStyle>
                 <div className={styles.profilePicContainer}>
-                    <CurrentUserAvatarStyle src={avatar} onClick={() => navigate('/chats')}/>
+                    <CurrentUserAvatarStyle src={`../images/${user?.profile?.avatar}`} alt='' onClick={() => navigate('/chats')}/>
                     <SideBarDivider />
                 </div>
                 <div className={styles.groupIcons}>

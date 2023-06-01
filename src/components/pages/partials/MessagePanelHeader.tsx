@@ -11,7 +11,7 @@ const MessagePanelHeader:FC<Props> = ({user}) => {
     const formattedName = `${user?.firstName} ${user?.lastName}`
     return (
         <MessagePanelHeaderStyle>
-                <ChatUserAvatarStyle src={avatar} />
+                <ChatUserAvatarStyle src={`../images/${user.profile?.avatar}`} />
                 <div className={styles.messagePanelUserInfo}>
                     <h1>{formattedName}</h1>
                     <h2>Active Now</h2>
