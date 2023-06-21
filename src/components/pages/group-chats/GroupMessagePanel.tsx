@@ -8,6 +8,7 @@ import GroupMessageContainer from './GroupMessageContainer';
 import GroupMessagePanelHeader from '../partials/GroupMessagePanelHeader';
 import { postGroupMessageThunk } from '../../../utils/store/group-messages/groupMessageThunk';
 import { addGroupChat } from '../../../utils/store/group-chats/groupChatSlice';
+import { getGroupMembers } from '../../../utils/helpers';
 
 const GroupMessagePanel = () => {
     const { id:groupId } = useParams();
@@ -15,6 +16,7 @@ const GroupMessagePanel = () => {
     const messages = useSelector((state:RootState) => state.groupMessage.groupMessages);
     const [content, setContent] = useState('');
     const dispatch = useDispatch<AppDispatch>();
+    const groupName = currentChat?.name ? currentChat.name : getGroupMembers(currentChat)
 
     const handleMessageSend = (e:React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -29,7 +31,7 @@ const GroupMessagePanel = () => {
         <MessagePanelStyle>
             <GroupMessagePanelHeader group={currentChat}/>
             <GroupMessageContainer messages={messages} />
-            <MessageInputContainer handleMessageSend={handleMessageSend} messageTo={currentChat?.name} content={content} setContent={setContent}/>
+            <MessageInputContainer handleMessageSend={handleMessageSend} messageTo={groupName} content={content} setContent={setContent}/>
         </MessagePanelStyle>
     )
 };
