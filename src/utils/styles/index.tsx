@@ -175,7 +175,7 @@ export const MessageWrapperStyle = styled.div`
     flex-direction:row;
     gap:1rem;
     img {
-        max-height:2.5rem;
+        max-height:3rem;
         aspect-ratio:1/1;
         border-radius: 50%;
     }
@@ -230,7 +230,7 @@ export const MessagePanelHeaderStyle = styled.div`
     display:flex;
     flex-direction: row;
     align-items: center;
-    padding:0 2rem;
+    padding:0.2rem 2rem;
     box-sizing: border-box;
     gap:0.5rem;
 `;
@@ -274,13 +274,18 @@ export const ChatSideBarItemStyle = styled.div`
     }
 `;
 export const ChatUserAvatarStyle = styled.img`
-    width: 3rem;
-    height: 3rem;
-    box-sizing: border-box;
-    display:grid;
-    place-items:center;
+    max-width:100%;
+    max-height:100%;
     border-radius: 50%;
 `;
+export const ChatUserAvatarContainer = styled.div`
+    height:3rem;
+    width:3rem;
+    display:grid;
+    place-items:center;
+    box-sizing: border-box;
+    
+`
 export const ChatUserDefaultAvatarStyle = styled.div`
     width: 3rem;
     height: 3rem;

@@ -3,7 +3,7 @@ import { RootState } from "../../../utils/store";
 import { FC, useContext } from "react";
 import { AuthContext } from "../../../utils/context/AuthContext";
 import { GroupMessage, User } from "../../../utils/types";
-import { ChatUserAvatarStyle, ChatUserDefaultAvatarStyle, MessageWrapperStyle } from "../../../utils/styles";
+import { ChatUserAvatarContainer, ChatUserAvatarStyle, ChatUserDefaultAvatarStyle, MessageWrapperStyle } from "../../../utils/styles";
 import SentMessageContainer from "../messages/SentMessageContainer";
 import ReceivedMessageContainer from "../messages/ReceivedMessageContainer";
 import { EditGroupMessageContainer } from "./EditGroupMessageContainer";
@@ -15,10 +15,10 @@ type Props = {
 };
 const returnProfilePic = (user:User) => {
     return (
-        <div>
+        <ChatUserAvatarContainer>
             {hasProfilePicture(user) ? (<ChatUserAvatarStyle src={`../images/${user?.profile?.avatar}`}/>) 
             : (<ChatUserDefaultAvatarStyle>{getUserInitials(user)}</ChatUserDefaultAvatarStyle>)}
-        </div>
+        </ChatUserAvatarContainer>
     );
 }
 

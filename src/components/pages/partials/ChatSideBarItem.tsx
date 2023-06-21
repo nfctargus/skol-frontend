@@ -1,5 +1,5 @@
 import { FC, useContext } from 'react'
-import { ChatSideBarItemContainer, ChatSideBarItemStyle, ChatUserAvatarStyle, ChatUserDefaultAvatarStyle } from '../../../utils/styles'
+import { ChatSideBarItemContainer, ChatSideBarItemStyle, ChatUserAvatarContainer, ChatUserAvatarStyle, ChatUserDefaultAvatarStyle } from '../../../utils/styles'
 import styles from './index.module.scss';
 import { getChatRecipient, getUserInitials, hasProfilePicture, shortenString } from '../../../utils/helpers';
 import { useNavigate } from 'react-router-dom';
@@ -20,9 +20,9 @@ const ChatSideBarItem:FC<Props> = ({chat}) => {
 
     return (
         <ChatSideBarItemContainer onClick={() => navigate(`/chats/${chat.id}`)}>
-            <div className={styles.chatUserAvatar}>
+            <ChatUserAvatarContainer>
                 {hasProfilePicture(recipient) ? <ChatUserAvatarStyle src={`../images/${recipient?.profile?.avatar}`}/> : <ChatUserDefaultAvatarStyle>{getUserInitials(recipient)}</ChatUserDefaultAvatarStyle>}
-            </div>
+            </ChatUserAvatarContainer>
             <div className={styles.chatSideBarLayout}>
                 <ChatSideBarItemStyle>
                     <h1>{recipient && shortenString(recipient.username,14)}</h1>
