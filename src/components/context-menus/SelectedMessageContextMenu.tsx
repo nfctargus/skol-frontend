@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../utils/store';
 import { AuthContext } from '../../utils/context/AuthContext';
 import { setEditingMessage, setIsEditing } from '../../utils/store/messages/privateMessageSlice';
+import { deletePrivateMessageThunk } from '../../utils/store/messages/privateMessageThunk';
 
 type Props = {
     points: { x: number; y: number };
@@ -18,11 +19,15 @@ export const SelectedMessageContextMenu: FC<Props> = ({ points }) => {
         dispatch(setIsEditing(true));
         dispatch(setEditingMessage(selectedMessage!));
     };
+    const deleteMessage = () => {
+        if(!selectedMessage) return;
+        dispatch(deletePrivateMessageThunk({messageId:selectedMessage.id,chatId:selectedMessage.chat.id}))
+    };
     return (
         <ContextMenuStyle top={points.y} left={points.x} width={8}>
             <ul>
                 {selectedMessage?.author.id === user?.id && <li onClick={editMessage}>Edit</li>}
-                <li>Delete</li>
+                {selectedMessage?.author.id === user?.id &&<li onClick={deleteMessage}>Delete</li>}
             </ul>
         </ContextMenuStyle>
     );

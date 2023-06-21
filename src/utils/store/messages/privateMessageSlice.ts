@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { PrivateMessage } from "../../types";
-import { editPrivateMessageThunk, getPrivateMessagesThunk, postPrivateMessageThunk } from "./privateMessageThunk";
+import { deletePrivateMessageThunk, editPrivateMessageThunk, getPrivateMessagesThunk, postPrivateMessageThunk } from "./privateMessageThunk";
 
 export interface PrivateMessageState {
     messages:PrivateMessage[];
@@ -45,6 +45,11 @@ export const privateMessageSlice = createSlice({
             const {messageId,message} = action.payload.data;
             const messageIndex = state.messages.findIndex((message) => message.id === messageId);
             state.messages[messageIndex] = message;
+        })
+        builder.addCase(deletePrivateMessageThunk.fulfilled, (state,action) => {
+            const {messageId} = action.payload.data;
+            const messageIndex = state.messages.findIndex((message) => message.id === messageId);
+            state.messages.splice(messageIndex,1);
         })
     },
 })

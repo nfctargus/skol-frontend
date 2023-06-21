@@ -110,3 +110,10 @@ export type EditGroupChatNameParams = {
     id:number;
     name:string;
 }
+export type DeleteMessagePayload = {
+    chatId:number;
+    messageId:number;
+}
+export type DeletePrivateMessageResponse = {
+    messageId:number;
+}
