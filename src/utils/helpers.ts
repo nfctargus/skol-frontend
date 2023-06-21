@@ -41,4 +41,7 @@ export const getUserInitials = (user:User) => {
     let concatName = name.split(/\s/).reduce((response,word) => response += word.slice(0,1).toUpperCase(),'')
     return concatName?.substring(0,2);
 }
-//{message.chat.creator.id === message.author.id ? "chat.recipient" : (hasProfilePicture(message.chat.creator) && <div>Hello</div>)}
+export const getGroupMembers = (group?:GroupChat) => {
+    if(group) return group.members.map((member) => member.firstName).join(', ');
+    return "Group";
+}
