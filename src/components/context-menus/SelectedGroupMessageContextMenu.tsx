@@ -6,6 +6,7 @@ import { setEditingGroupMessage, setIsEditingGroup } from "../../utils/store/gro
 import { ContextMenuStyle } from "../../utils/styles";
 import { useParams } from "react-router-dom";
 import { getGroupCreatorById } from "../../utils/store/group-chats/groupChatSlice";
+import { deleteGroupMessageThunk } from "../../utils/store/group-messages/groupMessageThunk";
 
 type Props = {
     points: { x: number; y: number };
@@ -22,7 +23,8 @@ const SelectedGroupMessageContextMenu:FC<Props> = ({ points }) => {
         dispatch(setEditingGroupMessage(selectedMessage!));
     };
     const deleteMessage = () => {
-        console.log("Deleting message")
+        if(!selectedMessage) return;
+        dispatch(deleteGroupMessageThunk({messageId:selectedMessage.id,groupId:selectedMessage.groupChat.id}))
     }
 
     return (

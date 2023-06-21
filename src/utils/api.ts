@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig } from 'axios';
-import { Chat, CreateChatParams, CreateGroupChatParams, CreateGroupMessageResponse, CreateMessageParams, CreatePrivateMessageResponse, CreateUserParams, DeleteMessagePayload, DeletePrivateMessageResponse, EditGroupChatNameParams, EditGroupMessageResponse, EditMessagePayload, EditPrivateMessageResponse, Friend, GroupChat, GroupMessage, PrivateMessage, User, UserCredentialsParams } from './types';
+import { Chat, CreateChatParams, CreateGroupChatParams, CreateGroupMessageResponse, CreateMessageParams, CreatePrivateMessageResponse, CreateUserParams, DeleteGroupMessagePayload, DeleteMessagePayload, DeleteMessageResponse, EditGroupChatNameParams, EditGroupMessageResponse, EditMessagePayload, EditPrivateMessageResponse, Friend, GroupChat, GroupMessage, PrivateMessage, User, UserCredentialsParams } from './types';
 
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -52,4 +52,6 @@ export const uploadGroupProfilePicture = (id:number,data:FormData) => axiosClien
 
 export const updateGroupChatName = ({id,name}:EditGroupChatNameParams) => axiosClient.post<GroupChat>(`/groups/${id}/update`,{name},config);
 
-export const deletePrivateMessage = ({chatId,messageId}:DeleteMessagePayload) => axiosClient.delete<DeletePrivateMessageResponse>(`/chats/${chatId}/messages/${messageId}`,config);
+export const deletePrivateMessage = ({chatId,messageId}:DeleteMessagePayload) => axiosClient.delete<DeleteMessageResponse>(`/chats/${chatId}/messages/${messageId}`,config);
+
+export const deleteGroupMessage = ({groupId,messageId}:DeleteGroupMessagePayload) => axiosClient.delete<DeleteMessageResponse>(`/groups/${groupId}/messages/${messageId}`,config);

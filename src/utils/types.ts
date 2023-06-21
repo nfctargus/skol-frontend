@@ -114,6 +114,10 @@ export type DeleteMessagePayload = {
     chatId:number;
     messageId:number;
 }
-export type DeletePrivateMessageResponse = {
+export type DeleteMessageResponse = {
+    messageId:number;
+}
+export type DeleteGroupMessagePayload = {
+    groupId:number;
     messageId:number;
 }
