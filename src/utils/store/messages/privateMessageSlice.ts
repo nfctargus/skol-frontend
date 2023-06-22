@@ -32,6 +32,9 @@ export const privateMessageSlice = createSlice({
             state.isEditing = false;
             state.editingMessage = undefined;
             state.selectedMessage = undefined;
+        },
+        newPrivateMessage:(state,action:PayloadAction<PrivateMessage>) => {
+            state.messages.unshift(action.payload);
         }
     },
     extraReducers(builder) {
@@ -39,7 +42,7 @@ export const privateMessageSlice = createSlice({
             state.messages = action.payload.data
         })
         builder.addCase(postPrivateMessageThunk.fulfilled, (state,action) => {
-            state.messages.unshift(action.payload.data.message);
+            //state.messages.unshift(action.payload.data.message);
         })
         builder.addCase(editPrivateMessageThunk.fulfilled, (state,action) => {
             const {messageId,message} = action.payload.data;
@@ -53,5 +56,5 @@ export const privateMessageSlice = createSlice({
         })
     },
 })
-export const { setSelectedMessage,setEditingMessage,setIsEditing,editMessageContent,resetEditingContainer } = privateMessageSlice.actions;
+export const { setSelectedMessage,setEditingMessage,setIsEditing,editMessageContent,resetEditingContainer,newPrivateMessage } = privateMessageSlice.actions;
 export default privateMessageSlice.reducer;

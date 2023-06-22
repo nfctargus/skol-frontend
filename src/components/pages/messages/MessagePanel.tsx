@@ -26,7 +26,7 @@ const MessagePanel = () => {
         const id = parseInt(chatId!);
         if(!content || !id) return;
         dispatch(postPrivateMessageThunk({id,messageContent:content})).unwrap().then(({ data }) => {
-            dispatch(updateChat(data.chat));
+            //dispatch(updateChat(data.chat));
             setContent('');
 		}).catch((err) => console.log(err));
     }

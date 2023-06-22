@@ -121,3 +121,7 @@ export type DeleteGroupMessagePayload = {
     groupId:number;
     messageId:number;
 }
+export type NewPrivateMessageResponse = {
+    message:PrivateMessage;
+    chat:Chat;
+}
