@@ -31,14 +31,14 @@ const ChatPage = () => {
     useEffect(() => {
         socket.on('newPrivateMessage', (payload: NewPrivateMessageResponse) => {
             console.log('Message Received');
-            const { chat, message } = payload;
+            /* const { chat, message } = payload;
             dispatch(newPrivateMessage(message));     
-            dispatch(updateChat(chat));    
+            dispatch(updateChat(chat));     */
         });
         return () => {
             socket.off('newPrivateMessage');
         }; 
-    }, []);
+    }, [id]);
     return (
         <>
             <ChatSideBar />

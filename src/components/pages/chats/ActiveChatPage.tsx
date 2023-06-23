@@ -20,16 +20,8 @@ const ActiveChatPage = () => {
     },[id])
     useEffect(() => {
         socket.emit('newChatConnection', { id });
-       /*  socket.on('newPrivateMessage', (payload: NewPrivateMessageResponse) => {
-            console.log('Message Received');
-            const { chat, message } = payload;
-            dispatch(newPrivateMessage(message));     
-            dispatch(updateChat(chat));    
-        });  */
-        
         return () => {
             socket.emit('newChatDisconnect', { id });
-            /* socket.off('newPrivateMessage'); */
         };
     }, [id]);
     return (
