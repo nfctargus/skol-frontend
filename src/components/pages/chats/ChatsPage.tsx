@@ -1,4 +1,4 @@
-import { useEffect,useContext, useState } from 'react'
+import { useEffect,useContext } from 'react'
 import ChatSideBar from '../../sidebars/ChatSideBar'
 import { Outlet, useParams } from 'react-router-dom'
 import LandingPage from '../LandingPage';
@@ -6,8 +6,8 @@ import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../../utils/store';
 import { getFriendsThunk } from '../../../utils/store/friends/friendThunk';
 import { SocketContext } from '../../../utils/context/SocketContext';
-import { newPrivateMessage } from '../../../utils/store/messages/privateMessageSlice';
-import { NewPrivateMessageResponse, PrivateMessage } from '../../../utils/types';
+import { newPrivateMessage,deletePrivateMessage,editPrivateMessage } from '../../../utils/store/messages/privateMessageSlice';
+import { NewPrivateMessageResponse } from '../../../utils/types';
 import { updateChat }  from '../../../utils/store/chats/chatSlice';
 import { AuthContext } from '../../../utils/context/AuthContext';
 
@@ -34,6 +34,13 @@ const ChatPage = () => {
             dispatch(newPrivateMessage(message));
             dispatch(updateChat(chat));
         })
+        socket.on("messageDeleted", (data) => {
+            dispatch(deletePrivateMessage(data.messageId));
+        })
+        socket.on("messageEdited", (data) => {
+            dispatch(editPrivateMessage(data));
+            dispatch(updateChat(data.chat));
+        })
         socket.on("userConnected", (data) => {
             //console.log(data);
             //Online users
@@ -43,6 +50,8 @@ const ChatPage = () => {
         return () => {
             socket.off("messageReceived");
             socket.off('userConnected');
+            socket.off('messageDeleted');
+            socket.off('messageEdited');
         }; 
 
     }, []);

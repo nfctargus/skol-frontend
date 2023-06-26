@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { PrivateMessage } from "../../types";
+import { EditPrivateMessageResponse, PrivateMessage } from "../../types";
 import { deletePrivateMessageThunk, editPrivateMessageThunk, getPrivateMessagesThunk, postPrivateMessageThunk } from "./privateMessageThunk";
 
 export interface PrivateMessageState {
@@ -35,6 +35,15 @@ export const privateMessageSlice = createSlice({
         },
         newPrivateMessage:(state,action:PayloadAction<PrivateMessage>) => {
             state.messages.unshift(action.payload);
+        },
+        deletePrivateMessage:(state,action:PayloadAction<number>) => {
+            const messageIndex = state.messages.findIndex((message) => message.id === action.payload);
+            state.messages.splice(messageIndex,1);
+        },
+        editPrivateMessage:(state,action:PayloadAction<{messageId:number,messageContent:string}>) => {
+            const {messageId,messageContent} = action.payload;
+            const messageIndex = state.messages.findIndex((message) => message.id === messageId);
+            state.messages[messageIndex].messageContent = messageContent;
         }
     },
     extraReducers(builder) {
@@ -56,5 +65,5 @@ export const privateMessageSlice = createSlice({
         })
     },
 })
-export const { setSelectedMessage,setEditingMessage,setIsEditing,editMessageContent,resetEditingContainer,newPrivateMessage } = privateMessageSlice.actions;
+export const { setSelectedMessage,setEditingMessage,setIsEditing,editMessageContent,resetEditingContainer,newPrivateMessage,deletePrivateMessage,editPrivateMessage } = privateMessageSlice.actions;
 export default privateMessageSlice.reducer;
