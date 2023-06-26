@@ -32,6 +32,19 @@ export const groupMessageSlice = createSlice({
             state.isEditingGroup = false;
             state.editingGroupMessage = undefined;
             state.selectedGroupMessage = undefined;
+        },
+        newGroupMessage:(state,action:PayloadAction<GroupMessage>) => {
+            console.log(action.payload)
+            state.groupMessages.unshift(action.payload);
+        },
+        deleteGroupMessage:(state,action:PayloadAction<number>) => {
+            /* const messageIndex = state.messages.findIndex((message) => message.id === action.payload);
+            state.messages.splice(messageIndex,1); */
+        },
+        editGroupMessage:(state,action:PayloadAction<{messageId:number,messageContent:string}>) => {
+           /*  const {messageId,messageContent} = action.payload;
+            const messageIndex = state.messages.findIndex((message) => message.id === messageId);
+            state.messages[messageIndex].messageContent = messageContent; */
         }
     },
     extraReducers(builder) {
@@ -53,5 +66,5 @@ export const groupMessageSlice = createSlice({
         })
     },
 })
-export const { setSelectedGroupMessage,setEditingGroupMessage,setIsEditingGroup,editGroupMessageContent,resetGroupEditingContainer } = groupMessageSlice.actions;
+export const { setSelectedGroupMessage,setEditingGroupMessage,setIsEditingGroup,editGroupMessageContent,resetGroupEditingContainer,newGroupMessage } = groupMessageSlice.actions;
 export default groupMessageSlice.reducer;

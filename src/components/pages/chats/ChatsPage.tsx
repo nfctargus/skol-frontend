@@ -7,9 +7,11 @@ import { AppDispatch } from '../../../utils/store';
 import { getFriendsThunk } from '../../../utils/store/friends/friendThunk';
 import { SocketContext } from '../../../utils/context/SocketContext';
 import { newPrivateMessage,deletePrivateMessage,editPrivateMessage } from '../../../utils/store/messages/privateMessageSlice';
-import { NewPrivateMessageResponse } from '../../../utils/types';
+import { GroupChat, GroupMessage, NewPrivateMessageResponse } from '../../../utils/types';
 import { updateChat }  from '../../../utils/store/chats/chatSlice';
 import { AuthContext } from '../../../utils/context/AuthContext';
+import { updateGroupChat } from '../../../utils/store/group-chats/groupChatSlice';
+import { newGroupMessage } from '../../../utils/store/group-messages/groupMessageSlice';
 
 const ChatPage = () => {
     const { id } = useParams();
@@ -34,6 +36,11 @@ const ChatPage = () => {
             dispatch(newPrivateMessage(message));
             dispatch(updateChat(chat));
         })
+        socket.on("groupMessageReceived", (data:GroupMessage) => {
+            console.log(data)
+            //dispatch(updateGroupChat(data.groupChat));
+            dispatch(newGroupMessage(data));
+        })
         socket.on("messageDeleted", (data) => {
             dispatch(deletePrivateMessage(data.messageId));
         })
@@ -52,6 +59,7 @@ const ChatPage = () => {
             socket.off('userConnected');
             socket.off('messageDeleted');
             socket.off('messageEdited');
+            socket.off('groupMessageReceived');
         }; 
 
     }, []);

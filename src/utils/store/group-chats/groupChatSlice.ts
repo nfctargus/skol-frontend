@@ -16,6 +16,12 @@ export const groupChatSlice = createSlice({
         addGroupChat:(state,action:PayloadAction<GroupChat>) => {
             state.groupChats.unshift(action.payload)
         },
+        updateGroupChat:(state,action) => {
+            console.log(action.payload)
+            /* const index = state.groupChats.findIndex((group) => group.id === action.payload.id);
+            state.groupChats.splice(index,1);
+            state.groupChats.unshift(action.payload); */
+        }
     },
     extraReducers(builder) {
         builder.addCase(getGroupChatsThunk.fulfilled,(state,action) => {
@@ -39,5 +45,5 @@ export const getGroupCreatorById = createSelector(
     [selectGroups, selectGroupId], (groups, groupId) => groups.find((g) => g.id === groupId)?.creator
 );
 
-export const { addGroupChat } = groupChatSlice.actions;
+export const { addGroupChat,updateGroupChat } = groupChatSlice.actions;
 export default groupChatSlice.reducer;
