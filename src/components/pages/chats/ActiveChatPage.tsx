@@ -6,10 +6,6 @@ import { useDispatch } from 'react-redux'
 import { AppDispatch } from '../../../utils/store'
 import { getPrivateMessagesThunk } from '../../../utils/store/messages/privateMessageThunk'
 import { SocketContext } from '../../../utils/context/SocketContext'
-import { updateChat } from '../../../utils/store/chats/chatSlice'
-import { newPrivateMessage } from '../../../utils/store/messages/privateMessageSlice'
-import { NewPrivateMessageResponse } from '../../../utils/types'
-
 
 const ActiveChatPage = () => {
     const socket = useContext(SocketContext);
