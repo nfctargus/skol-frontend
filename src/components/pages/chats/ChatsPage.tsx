@@ -7,38 +7,45 @@ import { AppDispatch } from '../../../utils/store';
 import { getFriendsThunk } from '../../../utils/store/friends/friendThunk';
 import { SocketContext } from '../../../utils/context/SocketContext';
 import { newPrivateMessage } from '../../../utils/store/messages/privateMessageSlice';
-import { NewPrivateMessageResponse } from '../../../utils/types';
+import { NewPrivateMessageResponse, PrivateMessage } from '../../../utils/types';
 import { updateChat }  from '../../../utils/store/chats/chatSlice';
+import { AuthContext } from '../../../utils/context/AuthContext';
 
 const ChatPage = () => {
     const { id } = useParams();
     const dispatch = useDispatch<AppDispatch>();
     const socket = useContext(SocketContext);
-    const [isConnected, setIsConnected] = useState(socket.connected);
+    const { user } = useContext(AuthContext);
+
     useEffect(() => {
         dispatch(getFriendsThunk());
     },[])
     useEffect(() => {
-        socket.on('connect', () => setIsConnected(true))
-        socket.on('disconnect', () => setIsConnected(false))
+        socket.auth = { user }
+        socket.connect();
 
         return () => {
-            socket.off('connect');
-            socket.off('disconnect');
-        }; 
+            socket.disconnect();
+        };
+    },[])
 
-    }, [id]);
     useEffect(() => {
-        socket.on('newPrivateMessage', (payload: NewPrivateMessageResponse) => {
-            console.log('Message Received');
-            /* const { chat, message } = payload;
-            dispatch(newPrivateMessage(message));     
-            dispatch(updateChat(chat));     */
-        });
+        socket.on("messageReceived", ({message,chat}:NewPrivateMessageResponse) => {
+            dispatch(newPrivateMessage(message));
+            dispatch(updateChat(chat));
+        })
+        socket.on("userConnected", (data) => {
+            //console.log(data);
+            //Online users
+            console.log("A new user has connected")
+        })
+
         return () => {
-            socket.off('newPrivateMessage');
+            socket.off("messageReceived");
+            socket.off('userConnected');
         }; 
-    }, [id]);
+
+    }, []);
     return (
         <>
             <ChatSideBar />

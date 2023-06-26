@@ -11,6 +11,7 @@ import { useContext, useState } from 'react'
 import { AuthContext } from '../../../utils/context/AuthContext'
 import { postPrivateMessageThunk } from '../../../utils/store/messages/privateMessageThunk'
 import { updateChat } from '../../../utils/store/chats/chatSlice'
+import { SocketContext } from '../../../utils/context/SocketContext'
 
 const MessagePanel = () => {
     const { id:chatId } = useParams();
@@ -20,13 +21,19 @@ const MessagePanel = () => {
     const messages = useSelector((state:RootState) => state.privateMessage.messages);
     const [content, setContent] = useState('');
     const dispatch = useDispatch<AppDispatch>();
+    const socket = useContext(SocketContext);
 
     const handleMessageSend = (e:React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const id = parseInt(chatId!);
         if(!content || !id) return;
         dispatch(postPrivateMessageThunk({id,messageContent:content})).unwrap().then(({ data }) => {
-            //dispatch(updateChat(data.chat));
+            dispatch(updateChat(data.chat));
+            socket.emit("newPrivateMessage", {  
+                message:data.message,
+                chat:data.chat,
+                recipientId:recipient!.id
+            });
             setContent('');
 		}).catch((err) => console.log(err));
     }

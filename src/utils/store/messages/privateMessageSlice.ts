@@ -42,7 +42,7 @@ export const privateMessageSlice = createSlice({
             state.messages = action.payload.data
         })
         builder.addCase(postPrivateMessageThunk.fulfilled, (state,action) => {
-            //state.messages.unshift(action.payload.data.message);
+            state.messages.unshift(action.payload.data.message);
         })
         builder.addCase(editPrivateMessageThunk.fulfilled, (state,action) => {
             const {messageId,message} = action.payload.data;
