@@ -1,9 +1,14 @@
 .profilePicContainer {
     width:100%;
     display: flex;
+    
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    cursor: pointer;
+    img {
+        padding:0.5rem;
+    }
 }
 .navIconBar,.settingsOptions {
     display: flex;
@@ -107,21 +112,25 @@
     }
 }
 .groupIcons div {
-    background:#474b57;
+    background:#4b4b4b;
     font-size:1.2rem;
     font-weight:400;
     border-radius:50%;
     text-align: center;
     display:grid;
-    padding:0.3rem;
+    
     place-items:center;
     width:3rem;
     height:3rem;
     cursor: pointer;
+    
 }
 .groupIcons div img {
     max-width:100%;
-    border-radius:50%;
+    max-height:100%;
+    border-radius: 50%;
+    aspect-ratio:1/1;
+    object-fit:cover;
 }
 .groupIcons div:hover img {
     border-radius:25%;

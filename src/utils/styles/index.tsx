@@ -104,6 +104,7 @@ export const ChatSideBarStyle = styled.div`
 export const ChatSideBarHeaderStyle = styled.div`
     width:100%;
     height:7vh;
+    min-height:3.4rem;
     border-bottom: 1px solid #a4a4a475;  
     font-size:1.9rem;
     display:flex;
@@ -226,6 +227,7 @@ export const CurrentChatInfoPageOptions = styled.ul`
 `;
 export const MessagePanelHeaderStyle = styled.div`
     height:7vh;
+    min-height:3.4rem;
     border-bottom: 1px solid #a4a4a475;
     display:flex;
     flex-direction: row;
@@ -277,6 +279,9 @@ export const ChatUserAvatarStyle = styled.img`
     max-width:100%;
     max-height:100%;
     border-radius: 50%;
+    aspect-ratio:1/1;
+    object-fit:cover;
+    box-sizing: border-box;
 `;
 export const ChatUserAvatarContainer = styled.div`
     height:3rem;

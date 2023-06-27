@@ -1,3 +1,4 @@
+import { ChatUserAvatarStyle, ChatUserDefaultAvatarStyle } from "./styles";
 import { Chat, Friend, User,GroupChat } from "./types";
 
 export const shortenString = (data:string,maxLength:number) => {
@@ -44,4 +45,12 @@ export const getUserInitials = (user:User) => {
 export const getGroupMembers = (group?:GroupChat) => {
     if(group) return group.members.map((member) => member.firstName).join(', ');
     return "Group";
+}
+export const returnProfilePic = (user:User) => {
+    return (
+        <div>
+            {hasProfilePicture(user) ? (<ChatUserAvatarStyle src={`../images/${user?.profile?.avatar}`}/>) 
+            : (<ChatUserDefaultAvatarStyle>{getUserInitials(user)}</ChatUserDefaultAvatarStyle>)}
+        </div>
+    );
 }

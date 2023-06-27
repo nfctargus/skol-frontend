@@ -40,19 +40,21 @@ const LandingPage = () => {
                 <LandingPageFriendSection>
                     <LandingPageSearchInput placeholder="Search Friends" onChange={filterFriends} />
                     <h2>Friends</h2>
-                    {friends && friends.map((friend) => (
-                        <FriendContainerStyle key={friend.id}>
-                            {getOtherUserFromFriend(friend,user)?.username}
-                            <FriendIconContainer>
-                                <FriendIconStyle onClick={() => handleFriendMessage(friend)}>
-                                    <ChatBubble strokeWidth={1} size={36}/>
-                                </FriendIconStyle>
-                                <FriendIconStyle>
-                                    <MoreHorizontalFill strokeWidth={1} size={36} />
-                                </FriendIconStyle>
-                            </FriendIconContainer>
-                        </FriendContainerStyle>
-                    ))}
+                    {friends && friends.length > 0 ? (
+                        friends.map((friend) => (
+                            <FriendContainerStyle key={friend.id}>
+                                {getOtherUserFromFriend(friend,user)?.username}
+                                <FriendIconContainer>
+                                    <FriendIconStyle onClick={() => handleFriendMessage(friend)}>
+                                        <ChatBubble strokeWidth={1} size={36}/>
+                                    </FriendIconStyle>
+                                    <FriendIconStyle>
+                                        <MoreHorizontalFill strokeWidth={1} size={36} />
+                                    </FriendIconStyle>
+                                </FriendIconContainer>
+                            </FriendContainerStyle>
+                        ))
+                    ):<>You don't have any friends yet! Add a friend now!</>}
                 </LandingPageFriendSection>
             </LandingPageStlye>
         </>

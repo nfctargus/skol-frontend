@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { getGroupChatsThunk } from '../../utils/store/group-chats/groupChatThunk';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../utils/store';
-import { returnGroupTitle } from '../../utils/helpers';
+import { returnGroupTitle, returnProfilePic } from '../../utils/helpers';
 import CreateChatModal from '../modals/CreateChatModal';
 import { AuthContext } from '../../utils/context/AuthContext';
 import EditGroupChatContextMenu from '../context-menus/EditGroupChatContextMenu';
@@ -51,7 +51,7 @@ const NavSideBar = () => {
             {showGroupActionsMenu && <EditGroupChatContextMenu points={points} id={currentGroupChat} setShowGroupActionsMenu={setShowGroupActionsMenu}/>}
             <NavSideBarStyle>
                 <div className={styles.profilePicContainer}>
-                    <CurrentUserAvatarStyle src={`../images/${user?.profile?.avatar}`} alt='' onClick={() => navigate('/chats')}/>
+                    {user && returnProfilePic(user)}
                     <SideBarDivider />
                 </div>
                 <div className={styles.groupIcons}>

@@ -9,15 +9,19 @@ type Props = {
 }
 const ReceivedMessageContainer:FC<Props> = ({message}) => {
     return (
-        <div className={styles.messageContainerStyle}>
-            <div className={styles.messageSenderContainerStyle}>
-                <h3>{message.author.firstName}</h3>
-                <small>{formatRelative(new Date(message.createdAt), new Date())}</small>
+        <>
+            {message && message.author? (
+                <div className={styles.messageContainerStyle}>
+                <div className={styles.messageSenderContainerStyle}>
+                    <h3>{message.author.firstName}</h3>
+                    <small>{formatRelative(new Date(message.createdAt), new Date())}</small>
+                </div>
+                <ReceivedMessageContainerStyle key={JSON.stringify(message.id)}>
+                    {message.messageContent}
+                </ReceivedMessageContainerStyle>
             </div>
-            <ReceivedMessageContainerStyle key={JSON.stringify(message.id)}>
-                {message.messageContent}
-            </ReceivedMessageContainerStyle>
-        </div>
+            ):<>Failed to load message...</>}
+        </>
     )
 }
 

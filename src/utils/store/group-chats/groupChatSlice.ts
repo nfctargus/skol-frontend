@@ -17,10 +17,9 @@ export const groupChatSlice = createSlice({
             state.groupChats.unshift(action.payload)
         },
         updateGroupChat:(state,action) => {
-            console.log(action.payload)
-            /* const index = state.groupChats.findIndex((group) => group.id === action.payload.id);
+            const index = state.groupChats.findIndex((group) => group.id === action.payload.id);
             state.groupChats.splice(index,1);
-            state.groupChats.unshift(action.payload); */
+            state.groupChats.unshift(action.payload);
         }
     },
     extraReducers(builder) {

@@ -15,10 +15,14 @@ type Props = {
 };
 const returnProfilePic = (user:User) => {
     return (
-        <ChatUserAvatarContainer>
-            {hasProfilePicture(user) ? (<ChatUserAvatarStyle src={`../images/${user?.profile?.avatar}`}/>) 
-            : (<ChatUserDefaultAvatarStyle>{getUserInitials(user)}</ChatUserDefaultAvatarStyle>)}
-        </ChatUserAvatarContainer>
+        <>
+            {user && user.profile ? (
+                <ChatUserAvatarContainer>
+                    {hasProfilePicture(user) ? (<ChatUserAvatarStyle src={`../images/${user?.profile?.avatar}`}/>) 
+                    : (<ChatUserDefaultAvatarStyle>{getUserInitials(user)}</ChatUserDefaultAvatarStyle>)}
+                </ChatUserAvatarContainer>
+            ): <>User profile failed to load</>}
+        </>
     );
 }
 
@@ -27,8 +31,9 @@ const GroupMessageContainerItem:FC<Props> = ({message,onEditMessageChange}) => {
     const { user } = useContext(AuthContext);
     return (
         <>
-            {user && message.author.id === user.id ? (
+            {user && message.author && message.author.id === user.id ? (
                 <MessageWrapperStyle key={message.id} >
+                    
                     {returnProfilePic(message.author)}
                     {isEditingGroup && message.id === editingGroupMessage?.id ? (
                         <EditGroupMessageContainer onEditMessageChange={onEditMessageChange} />

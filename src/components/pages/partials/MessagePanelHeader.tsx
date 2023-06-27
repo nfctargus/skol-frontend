@@ -1,6 +1,5 @@
 import { ChatUserAvatarContainer, ChatUserAvatarStyle, MessagePanelHeaderStyle } from '../../../utils/styles'
 import { User } from '../../../utils/types';
-import avatar from '../../../assets/sampleUser.jpg';
 import styles from './index.module.scss';
 import { FC } from 'react';
 

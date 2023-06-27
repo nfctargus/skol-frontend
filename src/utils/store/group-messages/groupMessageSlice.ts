@@ -34,7 +34,6 @@ export const groupMessageSlice = createSlice({
             state.selectedGroupMessage = undefined;
         },
         newGroupMessage:(state,action:PayloadAction<GroupMessage>) => {
-            console.log(action.payload)
             state.groupMessages.unshift(action.payload);
         },
         deleteGroupMessage:(state,action:PayloadAction<number>) => {

@@ -18,9 +18,11 @@ export const chatSlice = createSlice({
         updateChat:(state,action:PayloadAction<Chat>) => {
             const updatedChat = action.payload;
             const chatIndex = state.chats.findIndex((chat) => chat.id === updatedChat.id);
-            state.chats[chatIndex].lastMessageSent = updatedChat.lastMessageSent;
+            state.chats.splice(chatIndex,1);
+            state.chats.unshift(updatedChat);
+            /* state.chats[chatIndex].lastMessageSent = updatedChat.lastMessageSent;
             state.chats[chatIndex].lastMessageSentAt = updatedChat.lastMessageSentAt;
-            state.chats[chatIndex].messages = updatedChat.messages;
+            state.chats[chatIndex].messages = updatedChat.messages; */
         },
     },
     extraReducers(builder) {

@@ -9,6 +9,7 @@ import GroupMessagePanelHeader from '../partials/GroupMessagePanelHeader';
 import { postGroupMessageThunk } from '../../../utils/store/group-messages/groupMessageThunk';
 import { getGroupMembers } from '../../../utils/helpers';
 import { SocketContext } from '../../../utils/context/SocketContext';
+import { updateGroupChat } from '../../../utils/store/group-chats/groupChatSlice';
 
 const GroupMessagePanel = () => {
     const { id:groupId } = useParams();
@@ -24,6 +25,7 @@ const GroupMessagePanel = () => {
         const id = parseInt(groupId!);
         if(!content || !id) return;
         return dispatch(postGroupMessageThunk({id,messageContent:content})).unwrap().then(({ data }) => {
+            dispatch(updateGroupChat(data.chat));
             socket.emit("newGroupMessage", {  
                 chat:data.chat,
                 message:data.message
