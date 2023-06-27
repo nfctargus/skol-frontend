@@ -45,6 +45,9 @@ const NavSideBar = () => {
     const logoutUser = () => {
         postLogoutUser().finally(() => navigate('/login'));
     };
+    const navigateProfilePage = () => {
+        navigate('/profile');
+    }
     return (
         <>
             {showCreateChatModal && <CreateChatModal setShowCreateChatModal={setShowCreateChatModal}/>}
@@ -65,9 +68,9 @@ const NavSideBar = () => {
                 <div className={styles.navIconBar}>
                     <input type="checkbox" id={styles.toggleOptions} /> 
                     <div className={styles.settingsOptions}>
-                        <div className={styles.settingsIcons}><SignOut size={ICON_SIZE} strokeWidth={ICON_STROKE} onClick={() => logoutUser()}/></div>
+                        <div className={styles.settingsIcons}><SignOut size={ICON_SIZE} strokeWidth={ICON_STROKE} onClick={logoutUser}/></div>
                         <div className={styles.settingsIcons}><TrashCan size={ICON_SIZE} strokeWidth={ICON_STROKE}/></div>
-                        <div className={styles.settingsIcons}><Person size={ICON_SIZE} strokeWidth={ICON_STROKE}/></div>
+                        <div className={styles.settingsIcons}><Person size={ICON_SIZE} strokeWidth={ICON_STROKE} onClick={navigateProfilePage}/></div>
                     </div>
                     <label className={styles.navIcons} htmlFor={styles.toggleOptions}><Gear size={ICON_SIZE} strokeWidth={ICON_STROKE}/></label>            
                 </div>
