@@ -90,6 +90,7 @@ export type EditPrivateMessageResponse = {
 export type EditGroupMessageResponse = {
     messageId:number;
     message:GroupMessage;
+    updatedChat:GroupChat;
 }
 export type EditMessagePayload = {
     chatId:number;

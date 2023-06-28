@@ -11,7 +11,7 @@ import { CreateGroupMessageResponse, NewPrivateMessageResponse } from '../../../
 import { updateChat }  from '../../../utils/store/chats/chatSlice';
 import { AuthContext } from '../../../utils/context/AuthContext';
 import { updateGroupChat } from '../../../utils/store/group-chats/groupChatSlice';
-import { newGroupMessage } from '../../../utils/store/group-messages/groupMessageSlice';
+import { deleteGroupMessage, editGroupMessage, newGroupMessage } from '../../../utils/store/group-messages/groupMessageSlice';
 
 const ChatPage = () => {
     const { id } = useParams();
@@ -47,6 +47,13 @@ const ChatPage = () => {
             dispatch(editPrivateMessage(data));
             dispatch(updateChat(data.chat));
         })
+        socket.on("groupMessageDeleted", (data) => {
+            dispatch(deleteGroupMessage(data.messageId));
+        })
+        socket.on("groupMessageEdited", (data) => {
+            dispatch(editGroupMessage(data));
+            dispatch(updateGroupChat(data.groupChat));
+        })
         socket.on("userConnected", (data) => {
             //console.log(data);
             //Online users
@@ -59,6 +66,8 @@ const ChatPage = () => {
             socket.off('messageDeleted');
             socket.off('messageEdited');
             socket.off('groupMessageReceived');
+            socket.off('groupMessageDeleted');
+            socket.off('groupMessageEdited');
         }; 
 
     }, []);

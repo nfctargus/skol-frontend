@@ -16,7 +16,7 @@ export const groupChatSlice = createSlice({
         addGroupChat:(state,action:PayloadAction<GroupChat>) => {
             state.groupChats.unshift(action.payload)
         },
-        updateGroupChat:(state,action) => {
+        updateGroupChat:(state,action:PayloadAction<GroupChat>) => {
             const index = state.groupChats.findIndex((group) => group.id === action.payload.id);
             state.groupChats.splice(index,1);
             state.groupChats.unshift(action.payload);
