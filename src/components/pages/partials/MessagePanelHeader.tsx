@@ -1,4 +1,5 @@
-import { ChatUserAvatarContainer, ChatUserAvatarStyle, MessagePanelHeaderStyle } from '../../../utils/styles'
+import { hasProfilePicture, getUserInitials } from '../../../utils/helpers';
+import { ChatUserAvatarContainer, ChatUserAvatarStyle, ChatUserDefaultAvatarStyle, MessagePanelHeaderStyle } from '../../../utils/styles'
 import { User } from '../../../utils/types';
 import styles from './index.module.scss';
 import { FC } from 'react';
@@ -11,7 +12,8 @@ const MessagePanelHeader:FC<Props> = ({user}) => {
     return (
         <MessagePanelHeaderStyle>
                 <ChatUserAvatarContainer>
-                    <ChatUserAvatarStyle src={`../images/${user.profile?.avatar}`} />
+                    {hasProfilePicture(user) ? (<ChatUserAvatarStyle src={`../images/${user?.profile?.avatar}`}/>) 
+                    : (<ChatUserDefaultAvatarStyle>{getUserInitials(user)}</ChatUserDefaultAvatarStyle>)}
                 </ChatUserAvatarContainer>
                 <div className={styles.messagePanelUserInfo}>
                     <h1>{formattedName}</h1>

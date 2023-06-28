@@ -16,7 +16,7 @@ type Props = {
 const returnProfilePic = (user:User) => {
     return (
         <>
-            {user && user.profile ? (
+            {user ? (
                 <ChatUserAvatarContainer>
                     {hasProfilePicture(user) ? (<ChatUserAvatarStyle src={`../images/${user?.profile?.avatar}`}/>) 
                     : (<ChatUserDefaultAvatarStyle>{getUserInitials(user)}</ChatUserDefaultAvatarStyle>)}

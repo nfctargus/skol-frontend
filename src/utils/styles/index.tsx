@@ -257,6 +257,11 @@ export const ChatSideBarItemContainer = styled.div`
     display:flex;
     gap:1rem;
     align-items:center;
+    cursor: pointer;
+    &:hover {
+        background: #f2f2f2;
+        transition: all 0.1s ease;
+    }
 `;
 export const ChatSideBarItemStyle = styled.div`
     display:flex;
@@ -289,11 +294,12 @@ export const ChatUserAvatarContainer = styled.div`
     display:grid;
     place-items:center;
     box-sizing: border-box;
-    
 `
 export const ChatUserDefaultAvatarStyle = styled.div`
-    width: 3rem;
-    height: 3rem;
+    min-width:2.5rem;
+    min-height:2.5rem;
+    max-width: 3rem;
+    max-height: 3rem;
     box-sizing: border-box;
     display:grid;
     place-items:center;
@@ -319,7 +325,7 @@ export const ContextMenuStyle = styled.div<ContextMenuProps>`
         padding: 0.5rem;
     }
     ul li {
-        padding: 14px 16px;
+        padding: 14px 32px;
         border-radius: 8px;
     }
     ul li:hover {
@@ -342,6 +348,33 @@ export const ContextMenuStyle = styled.div<ContextMenuProps>`
         border-radius:0.2rem;
     }
 `;
+export const ContextMenuButtonStyle = styled.button`
+    margin-left:0.5rem;
+    background:#4183c9;
+    color:#fff;
+    font-size:1rem;
+    font-weight:500;
+    font-family: Inter;
+    border:none;
+    outline:none;
+    padding: 0.4rem 0.5rem;
+    border-radius:0.2rem;
+    &:hover {
+        cursor: pointer;
+        opacity:0.8;
+    }
+`;
+export const ContextMenuAvatarStyle = styled.img`
+    height:3rem;
+    width:3rem;
+    object-fit:cover;
+    border-radius:50%;
+`
+export const ContextMenuUploadContainer = styled.div`
+    display:flex;
+    flex-direction:row;
+    align-items: center;
+`
 
 export const InputContainerStyle = styled.div`
     background-color: #F6F6F6;

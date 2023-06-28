@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { CurrentUserAvatarStyle, NavSideBarStyle, SideBarDivider } from '../../utils/styles'
+import { ChatUserDefaultAvatarStyle, CurrentUserAvatarStyle, NavSideBarStyle, SideBarDivider } from '../../utils/styles'
 import { Gear, Person, Plus, SignOut, TrashCan  } from 'akar-icons';
 import styles from './index.module.scss';
 import { postLogoutUser } from '../../utils/api';
@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { getGroupChatsThunk } from '../../utils/store/group-chats/groupChatThunk';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../utils/store';
-import { returnGroupTitle, returnProfilePic } from '../../utils/helpers';
+import { getUserInitials, hasProfilePicture, returnGroupTitle, returnProfilePic } from '../../utils/helpers';
 import CreateChatModal from '../modals/CreateChatModal';
 import { AuthContext } from '../../utils/context/AuthContext';
 import EditGroupChatContextMenu from '../context-menus/EditGroupChatContextMenu';
@@ -54,13 +54,13 @@ const NavSideBar = () => {
             {showGroupActionsMenu && <EditGroupChatContextMenu points={points} id={currentGroupChat} setShowGroupActionsMenu={setShowGroupActionsMenu}/>}
             <NavSideBarStyle>
                 <div className={styles.profilePicContainer}>
-                    {user && returnProfilePic(user)}
+                    {user && hasProfilePicture(user) ? returnProfilePic(user) : <ChatUserDefaultAvatarStyle>{getUserInitials(user!)}</ChatUserDefaultAvatarStyle>}
                     <SideBarDivider />
                 </div>
                 <div className={styles.groupIcons}>
                     {groupChats && groupChats.map((groupChat) => (
                         <div key={groupChat.id} onClick={() => navigate(`/groups/${groupChat.id}`)} onContextMenu={(e) => onContextMenu(e,groupChat.id)}>
-                            <img src={`../images/${groupChat.avatar}`} alt={returnGroupTitle(groupChat)}/>
+                            {groupChat.avatar ? <img src={`../images/${groupChat.avatar}`} alt={returnGroupTitle(groupChat)}/> : returnGroupTitle(groupChat)}
                         </div>
                     ))}
                     <div onClick={() => setShowCreateChatModal(!showCreateChatModal)}><Plus size={ICON_SIZE -4} strokeWidth={2} /></div> 

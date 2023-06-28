@@ -1,6 +1,6 @@
 import { FC } from "react";
 import styles from './index.module.scss';
-import { MessagePanelHeaderStyle } from "../../../utils/styles";
+import { ChatUserAvatarStyle, MessagePanelHeaderStyle } from "../../../utils/styles";
 import { GroupChat } from "../../../utils/types";
 import { getGroupMembers, returnGroupTitle } from "../../../utils/helpers";
 type Props = {
@@ -11,7 +11,9 @@ const GroupMessagePanelHeader:FC<Props> = ({group}) => {
     return (
         <MessagePanelHeaderStyle>
             <div className={styles.groupAvatarContainer}>
-                <img src={`../images/${group?.avatar}`} alt={returnGroupTitle(group)}/>
+                {group && group.avatar ? (<img src={`../images/${group?.avatar}`} alt={returnGroupTitle(group)}/>) 
+                    : returnGroupTitle(group)}
+                
             </div>
             <div className={styles.messagePanelUserInfo}>
                 <h1>{group && groupName!}</h1>

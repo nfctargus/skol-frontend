@@ -1,5 +1,5 @@
 import { Dispatch, FC, useContext, useRef, useState } from "react";
-import { ContextMenuStyle } from "../../utils/styles";
+import { ContextMenuAvatarStyle, ContextMenuButtonStyle, ContextMenuStyle, ContextMenuUploadContainer } from "../../utils/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../utils/store";
 import { AuthContext } from "../../utils/context/AuthContext";
@@ -46,15 +46,13 @@ const EditGroupChatContextMenu:FC<Props> = ({ points,id,setShowGroupActionsMenu 
         }
     };
     const onSubmit = (data:GroupChatFormParams) => {
-        console.log(file);
-        console.log(imgPath);
         if (file) {
             const formData = new FormData();
             formData.append('avatar', file);
-            console.log(data);
             return uploadGroupProfilePicture(group!.id,formData)
             .then((response) => console.log(response))
-            .catch((err) => console.log(err));
+            .catch((err) => console.log(err))
+            .finally(() => setShowGroupActionsMenu(false));
         }
     };
 
@@ -64,7 +62,12 @@ const EditGroupChatContextMenu:FC<Props> = ({ points,id,setShowGroupActionsMenu 
                 <ul>
                     {group?.creator?.id === user?.id && (
                         <li>
-                            <label htmlFor="avatar">Change Avatar</label>{file && <button>Save</button>}
+                            {file ? (
+                                <ContextMenuUploadContainer>
+                                    {imgPath && <ContextMenuAvatarStyle src={imgPath} alt=""/>}
+                                    <ContextMenuButtonStyle>Save</ContextMenuButtonStyle>
+                                </ContextMenuUploadContainer>
+                            ): <label htmlFor="avatar">Change Avatar</label>}
                             <input type='file' id='avatar' {...register('avatar', {required:true,onChange: (e) => {handleFileUpload(e)}})} style={{display:'none'}}/>
                         </li>
                     )}
