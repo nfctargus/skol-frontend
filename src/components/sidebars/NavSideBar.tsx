@@ -54,7 +54,7 @@ const NavSideBar = () => {
             {showGroupActionsMenu && <EditGroupChatContextMenu points={points} id={currentGroupChat} setShowGroupActionsMenu={setShowGroupActionsMenu}/>}
             <NavSideBarStyle>
                 <div className={styles.profilePicContainer}>
-                    {user && hasProfilePicture(user) ? returnProfilePic(user) : <ChatUserDefaultAvatarStyle>{getUserInitials(user!)}</ChatUserDefaultAvatarStyle>}
+                    {user && hasProfilePicture(user) ? returnProfilePic(user) : <div className={styles.noAvatarContainer}>{getUserInitials(user!)}</div>}
                     <SideBarDivider />
                 </div>
                 <div className={styles.groupIcons}>

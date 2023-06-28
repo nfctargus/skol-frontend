@@ -49,7 +49,7 @@ const EditGroupChatContextMenu:FC<Props> = ({ points,id,setShowGroupActionsMenu 
         if (file) {
             const formData = new FormData();
             formData.append('avatar', file);
-            return uploadGroupProfilePicture(group!.id,formData)
+            uploadGroupProfilePicture(group!.id,formData)
             .then((response) => console.log(response))
             .catch((err) => console.log(err))
             .finally(() => setShowGroupActionsMenu(false));

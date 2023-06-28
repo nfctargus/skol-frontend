@@ -10,6 +10,19 @@
         padding:0.5rem;
     }
 }
+.noAvatarContainer {
+    margin-top:0.5rem;
+    margin-bottom:0.7rem;
+    width: 4rem;
+    height: 4rem;
+    box-sizing: border-box;
+    display:grid;
+    place-items:center;
+    background:#4183c9;
+    color:#fff;
+    border-radius: 50%;
+    padding:0.5rem;
+}
 .navIconBar,.settingsOptions {
     display: flex;
     align-items: center;
