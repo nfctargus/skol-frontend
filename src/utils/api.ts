@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig } from 'axios';
-import { Chat, CreateChatParams, CreateGroupChatParams, CreateGroupMessageResponse, CreateMessageParams, CreatePrivateMessageResponse, CreateUserParams, DeleteGroupMessagePayload, DeleteMessagePayload, DeleteMessageResponse, EditGroupChatMemberParams, EditGroupChatNameParams, EditGroupMessageResponse, EditMessagePayload, EditPrivateMessageResponse, Friend, GroupChat, GroupMessage, PrivateMessage, User, UserCredentialsParams } from './types';
+import { Chat, CreateChatParams, CreateGroupChatParams, CreateGroupMessageResponse, CreateMessageParams, CreatePrivateMessageResponse, CreateUserParams, DeleteFriendResponse, DeleteGroupMessagePayload, DeleteMessagePayload, DeleteMessageResponse, EditGroupChatMemberParams, EditGroupChatNameParams, EditGroupMessageResponse, EditMessagePayload, EditPrivateMessageResponse, Friend, GroupChat, GroupMessage, PrivateMessage, User, UserCredentialsParams } from './types';
 
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -18,7 +18,7 @@ export const getFriends = () => axiosClient.get<Friend[]>(`/friends`,config);
 
 export const addFriend = (email:string) => axiosClient.post<Friend>(`/friends`,{email},config);
 
-export const deleteFriend = (id:number) => axiosClient.delete(`/friends/${id}`,config);
+export const deleteFriend = (id:number) => axiosClient.delete<DeleteFriendResponse>(`/friends/${id}`,config);
 
 export const searchUsers = (query: string) => axiosClient.get<User[]>(`/users/search?query=${query}`, config);
 

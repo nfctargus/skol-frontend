@@ -1,4 +1,4 @@
-import { createSelector, createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSelector, createSlice } from "@reduxjs/toolkit";
 import { Friend } from "../../types";
 import { addFriendThunk, deleteFriendThunk, getFriendsThunk } from "./friendThunk";
 import { RootState } from "..";
@@ -14,7 +14,15 @@ const initialState: FriendState = {
 export const friendSlice = createSlice({
     name: 'friends',
     initialState,
-    reducers: {},
+    reducers: {
+        addFriend:(state,action:PayloadAction<Friend>) => {
+            state.friends.unshift(action.payload)
+        },
+        deleteFriend:(state,action:PayloadAction<number>) => {
+            const index = state.friends.findIndex((friend) => friend.id === action.payload);
+            if(index !== -1) state.friends.splice(index,1);
+        }
+    },
     extraReducers(builder) {
         builder
         .addCase(getFriendsThunk.fulfilled,(state,action) => {
@@ -37,6 +45,6 @@ export const getFriends = createSelector([selectFriends,selectUserId], (friends,
     return friends.map((friend) => friend?.userOne.id === userId ? friend?.userTwo : friend?.userOne);
 })
 
-export const { } = friendSlice.actions;
+export const { addFriend,deleteFriend } = friendSlice.actions;
 
 export default friendSlice.reducer;

@@ -27,7 +27,7 @@ export const SelectedMessageContextMenu: FC<Props> = ({ points }) => {
         socket.emit('privateMessageDeleted',{chatId:selectedMessage.chat.id,messageId:selectedMessage.id,userId:user!.id})
     };
     return (
-        <ContextMenuStyle top={points.y} left={points.x} width={8}>
+        <ContextMenuStyle top={points.y} left={points.x} width={10}>
             <ul>
                 {selectedMessage?.author.id === user?.id && <li onClick={editMessage}>Edit</li>}
                 {selectedMessage?.author.id === user?.id &&<li onClick={deleteMessage}>Delete</li>}

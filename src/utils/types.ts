@@ -136,3 +136,7 @@ export type EditGroupChatMemberParams = {
     userId?:number;
     users?:number[];
 }
+export type DeleteFriendResponse = {
+    id:number;
+    friendId:number;
+}

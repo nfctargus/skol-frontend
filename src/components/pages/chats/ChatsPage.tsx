@@ -13,6 +13,7 @@ import { AuthContext } from '../../../utils/context/AuthContext';
 import { removeGroupChat, updateGroupChat } from '../../../utils/store/group-chats/groupChatSlice';
 import { deleteGroupMessage, editGroupMessage, newGroupMessage } from '../../../utils/store/group-messages/groupMessageSlice';
 import { useIdleTimer } from 'react-idle-timer'
+import { addFriend,deleteFriend } from '../../../utils/store/friends/friendSlice';
 
 const ChatPage = () => {
     const { id } = useParams();
@@ -38,7 +39,7 @@ const ChatPage = () => {
     useEffect(() => {
         const interval = setInterval(() => {
             setIdleTime(Math.ceil(getRemainingTime() / 1000))
-        }, 500)
+        }, 60000)
         if(presence === 'Idle') socket.emit('onUserIdle');
         return () => {
             clearInterval(interval)
@@ -90,6 +91,13 @@ const ChatPage = () => {
         socket.on("groupMessageMemberAdded",(data) => {
             dispatch(updateGroupChat(data.groupChat));
         })
+        socket.on("friendAdded",(data) => {
+            dispatch(addFriend(data.data))
+        })
+        socket.on("friendRemoved",(data) => {
+            console.log(data.friendId);
+            dispatch(deleteFriend(data.friendId))
+        })
 
         return () => {
             socket.off("messageReceived");
@@ -101,6 +109,8 @@ const ChatPage = () => {
             socket.off('groupMessageEdited');
             socket.off('groupMessageMemberRemoved');
             socket.off('groupMessageMemberAdded');
+            socket.off('friendAdded');
+            socket.off('friendRemoved');
         }; 
 
     }, []);

@@ -323,7 +323,7 @@ export const ContextMenuStyle = styled.div<ContextMenuProps>`
     ${(props) => css`
         top: ${props.top}px;
         left: ${props.left}px;
-        width:${props.width}rem;
+        width:${props.width}vw;
     `}
     ul {
         list-style-type: none;

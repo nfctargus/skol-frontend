@@ -70,7 +70,7 @@ const EditGroupChatContextMenu:FC<Props> = ({ points,id,setShowGroupActionsMenu 
     }
 
     return (
-        <ContextMenuStyle top={points.y} left={points.x} width={20} ref={wrapperRef}>
+        <ContextMenuStyle top={points.y} left={points.x} width={25} ref={wrapperRef}>
             {showAddMembersModal && <AddGroupMembersModal groupId={group!.id} setShowAddMembersModal={setShowAddMembersModal} groupChatMembers={group!.members}/>}
             <form onSubmit={handleSubmit(onSubmit)}>
                 <ul>

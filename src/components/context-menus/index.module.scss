@@ -1,0 +1,17 @@
+.modalFriendActionsContainer {
+    display:flex;
+    flex-direction: column;
+    padding:0.5rem;
+}
+.modalFriendActionsContainer h1 {
+    font-size:1rem;
+    font-weight:400;
+    margin: 0.5rem 0;
+}
+.modalFriendActions {
+    
+    box-sizing: border-box;
+    width:100%;
+    display:flex;
+    gap:1rem;
+}

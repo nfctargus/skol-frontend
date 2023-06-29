@@ -1,9 +1,10 @@
-import { Dispatch, FC, createRef, useEffect, useState } from "react";
+import { Dispatch, FC, createRef, useEffect, useState,  useContext } from "react";
 import { AddFriendModalStyle, ModalHeader, ModalSectionStyle, OverlayWindowStyle, AddFriendFormStyle } from "../../utils/styles";
 import { Cross } from "akar-icons";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../utils/store";
 import { addFriendThunk } from "../../utils/store/friends/friendThunk";
+import { SocketContext } from "../../utils/context/SocketContext";
 
 type Props = {
     setShowFriendsModal:Dispatch<React.SetStateAction<boolean>>;
@@ -12,7 +13,7 @@ const FriendsModal:FC<Props> = ({setShowFriendsModal}) => {
     const ref = createRef<HTMLDivElement>();
     const [emailInput,setEmailInput] = useState('');
     const dispatch = useDispatch<AppDispatch>();
-
+    const socket = useContext(SocketContext);
     useEffect(() => {
         const handleKeydown = (e: KeyboardEvent) => e.key === 'Escape' && setShowFriendsModal(false);
         window.addEventListener('keydown', handleKeydown);
@@ -26,11 +27,12 @@ const FriendsModal:FC<Props> = ({setShowFriendsModal}) => {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => { 
         e.preventDefault();
-        dispatch(addFriendThunk(emailInput))
+        dispatch(addFriendThunk(emailInput)).unwrap().then(({ data }) => socket.emit('onFriendAdded',{data}))
         .catch((err) => console.log(err.data.message))
         .finally(() => {
             setEmailInput("");
             setShowFriendsModal(false);
+            
         })  
     };
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
