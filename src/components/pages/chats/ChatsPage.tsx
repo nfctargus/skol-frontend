@@ -1,4 +1,4 @@
-import { useEffect,useContext } from 'react'
+import { useEffect,useContext, useState } from 'react'
 import ChatSideBar from '../../sidebars/ChatSideBar'
 import { Outlet, useParams } from 'react-router-dom'
 import LandingPage from '../LandingPage';
@@ -12,16 +12,41 @@ import { updateChat }  from '../../../utils/store/chats/chatSlice';
 import { AuthContext } from '../../../utils/context/AuthContext';
 import { updateGroupChat } from '../../../utils/store/group-chats/groupChatSlice';
 import { deleteGroupMessage, editGroupMessage, newGroupMessage } from '../../../utils/store/group-messages/groupMessageSlice';
+import { useIdleTimer } from 'react-idle-timer'
 
 const ChatPage = () => {
     const { id } = useParams();
     const dispatch = useDispatch<AppDispatch>();
     const socket = useContext(SocketContext);
     const { user } = useContext(AuthContext);
+    const [presence, setPresence] = useState<string>('Active')
+    const [idleTime, setIdleTime] = useState<number>(0)
+  
+    const onIdle = () => {
+        setPresence('Idle')
+    };
+    const onActive = () => {
+        setPresence('Active')
+    };
 
+    const { getRemainingTime } = useIdleTimer({
+        onIdle,
+        onActive,
+        timeout: 10_000,
+        throttle: 500
+    });
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setIdleTime(Math.ceil(getRemainingTime() / 1000))
+        }, 500)
+        if(presence === 'Idle') socket.emit('onUserIdle');
+        return () => {
+            clearInterval(interval)
+        }
+    });
     useEffect(() => {
         dispatch(getFriendsThunk());
-    },[])
+    },[]);
     useEffect(() => {
         socket.auth = { user }
         socket.connect();

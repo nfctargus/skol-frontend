@@ -1,3 +1,4 @@
+import { getUserPresence } from "./api";
 import { ChatUserAvatarStyle, ChatUserDefaultAvatarStyle } from "./styles";
 import { Chat, Friend, User,GroupChat } from "./types";
 
@@ -53,4 +54,13 @@ export const returnProfilePic = (user:User) => {
             : (<ChatUserDefaultAvatarStyle>{getUserInitials(user)}</ChatUserDefaultAvatarStyle>)}
         </div>
     );
+}
+export const formatUserPresence = (presence:string) => {
+    
+    switch(presence) {
+        case 'Online': return <h2>Online</h2>
+        case 'Away': return <h3>Away</h3>
+        case 'Offline': return <h4>Offline</h4>
+    }
+    
 }

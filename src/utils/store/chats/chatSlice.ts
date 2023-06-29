@@ -1,6 +1,7 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit"
+import { PayloadAction, createSelector, createSlice } from "@reduxjs/toolkit"
 import { Chat } from "../../types";
 import { findOrCreateChatThunk, getChatsThunk, postNewChatThunk } from "./chatThunk";
+import { RootState } from "..";
 
 export interface ChatState {
     chats:Chat[];
@@ -39,6 +40,11 @@ export const chatSlice = createSlice({
         })
     },
 })
+const selectChats = (state: RootState) => state.chat.chats;
+const selectChatId = (state: RootState, id: number) => id;
+export const selectChatById = createSelector([selectChats, selectChatId],(chats, chatId) => {
+    return chats.find((chat) => chat.id === chatId);
+});
 
 export const { addChat,updateChat } = chatSlice.actions;
 export default chatSlice.reducer;

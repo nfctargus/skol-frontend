@@ -23,6 +23,12 @@ export const FormContainerStyle = styled.form`
         margin:1rem;
         font-weight:500;
     }
+    h2 {
+        font-size:0.9rem;
+        text-align: center;
+        margin-botom:0.5rem;
+        font-weight:500;
+    }
 `;
 export const PageInnerContainer = styled.div`
     height:80vh;
@@ -823,40 +829,38 @@ export const FriendIconContainer = styled.div`
     align-items: center;
     gap:0.5rem;
 `;
-export const OnboardingFormPageStyle = styled.div`
-    width:100%;
+export const UserProfilePageStyle = styled.div`
+    width:70%;
     height:100%;
     display: flex;
     justify-content: center;
     align-items:center
 `;
-export const OnboardingFormImageSection = styled.section`
+export const UserProfileAvatarSectionStyle = styled.section`
     margin-bottom:10px;
     display: flex;
     justify-content: center;
-    flex-direction: column;
+    flex-direction: row;
     width:100%;
     align-items:center;
     gap:20px;
 `;
-export const OnboardingFormImage = styled.div`
+export const UserProfilePageImageContainer = styled.div`
     width:10rem;
     height:10rem;
     border-radius:0.2rem;
-    background:#ccc;
     display:flex;
     justify-content:center;
     align-items:center;
     box-sizing: border-box;
     div {
- 
         display: grid;
         place-items:center;
         border-radius:50%;
-        background:#4183c9;
         width:80%;
         height:80%;
-        color:#fff;
+        background-color: #353840;
+        color: #fff;
     }
     img {
         width:100%;
@@ -865,9 +869,10 @@ export const OnboardingFormImage = styled.div`
         border-radius:50%;
     }
 `;
-export const OnboardingFormUploadLabel = styled.label`
+export const UserProfilePageUploadLabel = styled.label`
     display: block;
-    background:#989898;
+    background:#4183c9;
+    color:#fff;
     font-size:18px;
     font-weight:600;
     border:none;

@@ -5,6 +5,7 @@ export type User = {
 	firstName: string;
 	lastName: string;
     profile?:UserProfile;
+    presence?:string;
 }
 export type UserProfile = {
     id:number;
@@ -97,8 +98,11 @@ export type EditMessagePayload = {
     messageId:number;
     messageContent:string;
 }
-export type UserOnboardingParams = {
+export type UserProfileParams = {
     avatar?:string;
+    firstName?:string;
+    lastName?:string;
+    username?:string;
 }
 export type GroupChatAvatarParams = {
     id:number;

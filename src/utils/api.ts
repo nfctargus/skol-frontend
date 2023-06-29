@@ -55,3 +55,5 @@ export const updateGroupChatName = ({id,name}:EditGroupChatNameParams) => axiosC
 export const deletePrivateMessage = ({chatId,messageId}:DeleteMessagePayload) => axiosClient.delete<DeleteMessageResponse>(`/chats/${chatId}/messages/${messageId}`,config);
 
 export const deleteGroupMessage = ({groupId,messageId}:DeleteGroupMessagePayload) => axiosClient.delete<DeleteMessageResponse>(`/groups/${groupId}/messages/${messageId}`,config);
+
+export const getUserPresence = (id:number) => axiosClient.get<User>(`/users/presence/${id}`,config);

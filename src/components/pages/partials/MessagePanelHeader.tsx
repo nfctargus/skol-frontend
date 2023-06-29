@@ -1,23 +1,30 @@
-import { hasProfilePicture, getUserInitials } from '../../../utils/helpers';
+import { useSelector } from 'react-redux';
+import { hasProfilePicture, getUserInitials, formatUserPresence, getChatRecipient } from '../../../utils/helpers';
 import { ChatUserAvatarContainer, ChatUserAvatarStyle, ChatUserDefaultAvatarStyle, MessagePanelHeaderStyle } from '../../../utils/styles'
-import { User } from '../../../utils/types';
 import styles from './index.module.scss';
-import { FC } from 'react';
+import { useContext } from 'react';
+import { RootState } from '../../../utils/store';
+import { useParams } from 'react-router-dom';
+import { AuthContext } from '../../../utils/context/AuthContext';
+import { selectChatById } from '../../../utils/store/chats/chatSlice';
 
-type Props = {
-    user:User;
-}
-const MessagePanelHeader:FC<Props> = ({user}) => {
-    const formattedName = `${user?.firstName} ${user?.lastName}`
+
+const MessagePanelHeader = () => {
+    const { user } = useContext(AuthContext);
+	const { id:chatId } = useParams();
+    const currentChat = useSelector((state:RootState) => selectChatById(state,parseInt(chatId!)));
+    const recipient = getChatRecipient(currentChat!,user);
+    const formattedName = `${recipient?.firstName} ${recipient?.lastName}`;
+    
     return (
         <MessagePanelHeaderStyle>
                 <ChatUserAvatarContainer>
-                    {hasProfilePicture(user) ? (<ChatUserAvatarStyle src={`../images/${user?.profile?.avatar}`}/>) 
-                    : (<ChatUserDefaultAvatarStyle>{getUserInitials(user)}</ChatUserDefaultAvatarStyle>)}
+                    {hasProfilePicture(recipient) ? (<ChatUserAvatarStyle src={`../images/${recipient?.profile?.avatar}`}/>) 
+                    : (<ChatUserDefaultAvatarStyle>{getUserInitials(recipient)}</ChatUserDefaultAvatarStyle>)}
                 </ChatUserAvatarContainer>
                 <div className={styles.messagePanelUserInfo}>
                     <h1>{formattedName}</h1>
-                    <h2>Active Now</h2>
+                    {recipient.presence && formatUserPresence(recipient.presence)}
                 </div>
            
         </MessagePanelHeaderStyle>

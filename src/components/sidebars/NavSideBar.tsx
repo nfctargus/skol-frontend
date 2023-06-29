@@ -53,7 +53,7 @@ const NavSideBar = () => {
             {showCreateChatModal && <CreateChatModal setShowCreateChatModal={setShowCreateChatModal}/>}
             {showGroupActionsMenu && <EditGroupChatContextMenu points={points} id={currentGroupChat} setShowGroupActionsMenu={setShowGroupActionsMenu}/>}
             <NavSideBarStyle>
-                <div className={styles.profilePicContainer}>
+                <div className={styles.profilePicContainer} onClick={() => navigate('/chats')}>
                     {user && hasProfilePicture(user) ? returnProfilePic(user) : <div className={styles.noAvatarContainer}>{getUserInitials(user!)}</div>}
                     <SideBarDivider />
                 </div>
@@ -68,9 +68,9 @@ const NavSideBar = () => {
                 <div className={styles.navIconBar}>
                     <input type="checkbox" id={styles.toggleOptions} /> 
                     <div className={styles.settingsOptions}>
-                        <div className={styles.settingsIcons}><SignOut size={ICON_SIZE} strokeWidth={ICON_STROKE} onClick={logoutUser}/></div>
+                        <div className={styles.settingsIcons} onClick={logoutUser}><SignOut size={ICON_SIZE} strokeWidth={ICON_STROKE}/></div>
                         <div className={styles.settingsIcons}><TrashCan size={ICON_SIZE} strokeWidth={ICON_STROKE}/></div>
-                        <div className={styles.settingsIcons}><Person size={ICON_SIZE} strokeWidth={ICON_STROKE} onClick={navigateProfilePage}/></div>
+                        <div className={styles.settingsIcons} onClick={navigateProfilePage}><Person size={ICON_SIZE} strokeWidth={ICON_STROKE}/></div>
                     </div>
                     <label className={styles.navIcons} htmlFor={styles.toggleOptions}><Gear size={ICON_SIZE} strokeWidth={ICON_STROKE}/></label>            
                 </div>
