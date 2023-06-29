@@ -131,3 +131,8 @@ export type NewPrivateMessageResponse = {
     message:PrivateMessage;
     chat:Chat;
 }
+export type EditGroupChatMemberParams = {
+    groupId:number;
+    userId?:number;
+    users?:number[];
+}

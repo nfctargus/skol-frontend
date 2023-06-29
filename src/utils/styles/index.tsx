@@ -352,8 +352,40 @@ export const ContextMenuStyle = styled.div<ContextMenuProps>`
         box-sizing:border-box;
         padding:0.6rem 0.5rem;
         border-radius:0.2rem;
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        .deleteMember {
+            display:grid;
+            place-items:center;
+            background:#e8e8e8;
+            border-radius:50%;
+            height:2rem;
+            width:2rem;
+            cursor: pointer;
+        }
+        .deleteMember:hover {
+            background:#fff;
+            transition:all 0.1s ease;
+        }
     }
 `;
+export const ContextMenuMembersHeaderContainer = styled.div`
+    display: flex;
+    justify-content: space-between;
+    padding: 0 1rem;
+    .addIcon {
+        border-radius: 50%;
+        display:grid;
+        place-items:center;
+        padding:0.3rem 0.3rem;
+    }
+    .addIcon:hover {
+        background:#e9e9e9;
+        cursor: pointer;
+        transition: background 0.2s ease;
+    }
+`
 export const ContextMenuButtonStyle = styled.button`
     margin-left:0.5rem;
     background:#4183c9;
@@ -489,6 +521,15 @@ export const OverlayWindowStyle = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 999;
+`;
+export const OverlayWindowStyleRelative = styled.div`
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
     z-index: 999;
 `;
 export const CreateChatModalStyle = styled.div`

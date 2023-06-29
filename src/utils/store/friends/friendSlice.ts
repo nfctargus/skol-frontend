@@ -1,6 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSelector, createSlice } from "@reduxjs/toolkit";
 import { Friend } from "../../types";
 import { addFriendThunk, deleteFriendThunk, getFriendsThunk } from "./friendThunk";
+import { RootState } from "..";
 
 export interface FriendState {
     friends:Friend[];
@@ -29,6 +30,12 @@ export const friendSlice = createSlice({
         })
     },
 });
+
+const selectFriends = (state:RootState) => state.friend.friends;
+const selectUserId = (state:RootState,id:number) => id;
+export const getFriends = createSelector([selectFriends,selectUserId], (friends,userId) => {
+    return friends.map((friend) => friend?.userOne.id === userId ? friend?.userTwo : friend?.userOne);
+})
 
 export const { } = friendSlice.actions;
 

@@ -1,5 +1,5 @@
 import { Dispatch, FC, useContext, useRef, useState } from "react";
-import { ContextMenuAvatarStyle, ContextMenuButtonStyle, ContextMenuStyle, ContextMenuUploadContainer } from "../../utils/styles";
+import { ContextMenuAvatarStyle, ContextMenuButtonStyle, ContextMenuMembersHeaderContainer, ContextMenuStyle, ContextMenuUploadContainer } from "../../utils/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../utils/store";
 import { AuthContext } from "../../utils/context/AuthContext";
@@ -7,7 +7,11 @@ import { GroupChatFormParams } from "../../utils/types";
 import { useForm } from "react-hook-form";
 import { uploadGroupProfilePicture } from "../../utils/api";
 import { useContextMenuToggler } from "../../utils/hooks";
-import { postNewGroupChatNameThunk } from "../../utils/store/group-chats/groupChatThunk";
+import { deleteGroupChatMemberThunk, postNewGroupChatNameThunk } from "../../utils/store/group-chats/groupChatThunk";
+import { Plus, TrashCan } from "akar-icons";
+import { Tooltip } from "react-tooltip";
+import AddGroupMembersModal from "../modals/AddGroupMembersModal";
+import { SocketContext } from "../../utils/context/SocketContext";
 
 type Props = {
     points: { x: number; y: number };
@@ -26,7 +30,8 @@ const EditGroupChatContextMenu:FC<Props> = ({ points,id,setShowGroupActionsMenu 
     const group = useSelector((state:RootState) => state.groupChat.groupChats.find((group) => group.id === id));
     const [groupName,setGroupName] = useState(group?.name || "");
     const [isEditing,setIsEditing] = useState(false);
-    
+    const [showAddMembersModal, setShowAddMembersModal] = useState(false);
+    const socket = useContext(SocketContext);
     const editGroupName = () => {
         dispatch(postNewGroupChatNameThunk({id:group!.id,name:groupName}))
         setIsEditing(false);
@@ -55,9 +60,18 @@ const EditGroupChatContextMenu:FC<Props> = ({ points,id,setShowGroupActionsMenu 
             .finally(() => setShowGroupActionsMenu(false));
         }
     };
+    const removeGroupMember = (userId:number) => {
+        const groupId = id;
+        dispatch(deleteGroupChatMemberThunk({groupId,userId}));
+        socket.emit('onGroupChatMemberRemove',{groupId,userId});
+    }
+    const addGroupMember = () => {
+        setShowAddMembersModal(!showAddMembersModal);
+    }
 
     return (
         <ContextMenuStyle top={points.y} left={points.x} width={20} ref={wrapperRef}>
+            {showAddMembersModal && <AddGroupMembersModal groupId={group!.id} setShowAddMembersModal={setShowAddMembersModal} groupChatMembers={group!.members}/>}
             <form onSubmit={handleSubmit(onSubmit)}>
                 <ul>
                     {group?.creator?.id === user?.id && (
@@ -79,11 +93,19 @@ const EditGroupChatContextMenu:FC<Props> = ({ points,id,setShowGroupActionsMenu 
                             </>
                     )}
                 </ul>
-                <h2>{group?.name ? `Members of ${group?.name}` : "Group Members"}</h2>
+                <ContextMenuMembersHeaderContainer>
+                    <h2>{group?.name ? `Members of ${group?.name}` : "Group Members"}</h2>
+                    {group?.creator?.id === user?.id && <div id='add-member-select' className="addIcon" onClick={addGroupMember}><Plus size={20} strokeWidth={1} /></div>}
+                </ContextMenuMembersHeaderContainer>
                 <div className="groupMembersContainer">
-                    {group?.members.map((member) => <div className="members" key={member.id}>{member.username}</div>)}
+                    {group?.members.map((member) => (
+                        <div className="members" key={member.id}>{member.username}
+                            {group?.creator?.id === user?.id && <div className="deleteMember"><TrashCan size={20} onClick={() => removeGroupMember(member.id)}/></div>}
+                        </div>
+                    ))}
                 </div>
             </form>
+            <Tooltip anchorId="add-member-select" place="bottom" content="Add members to this group" />
         </ContextMenuStyle>
     )
 }

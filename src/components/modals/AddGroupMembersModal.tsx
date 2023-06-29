@@ -1,29 +1,35 @@
 import React, { Dispatch, FC, createRef, useContext, useEffect, useState } from 'react'
-import { CreateChatForm, ModalHeader, CreateChatModalStyle, OverlayWindowStyle, SelectedFriendContainerStyle , FriendSelectionContainerStyle, FriendSelectionInfoStyle, FriendSelectionInputContainer, LandingPageFriendAddButton } from '../../utils/styles';
+import { CreateChatForm, ModalHeader, CreateChatModalStyle, OverlayWindowStyleRelative, SelectedFriendContainerStyle , FriendSelectionContainerStyle, FriendSelectionInfoStyle, FriendSelectionInputContainer, LandingPageFriendAddButton } from '../../utils/styles';
 import { Cross } from 'akar-icons';
 import {  User } from '../../utils/types';
-import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../utils/store';
-import { postNewChatThunk } from '../../utils/store/chats/chatThunk';
 import { AuthContext } from '../../utils/context/AuthContext';
-import { postNewGroupChatThunk } from '../../utils/store/group-chats/groupChatThunk';
+import { addGroupChatMemberThunk } from '../../utils/store/group-chats/groupChatThunk';
 import { getFriends } from '../../utils/store/friends/friendSlice';
+import { SocketContext } from '../../utils/context/SocketContext';
 
 type Props = {
-    setShowCreateChatModal:Dispatch<React.SetStateAction<boolean>>;
+    setShowAddMembersModal:Dispatch<React.SetStateAction<boolean>>;
+    groupChatMembers:User[];
+    groupId:number;
 };
 
-const CreateChatModal:FC<Props> = ({setShowCreateChatModal}) => {
-    const navigate = useNavigate();
+const AddGroupMembersModal:FC<Props> = ({setShowAddMembersModal,groupChatMembers,groupId}) => {
     const [query,setQuery] = useState("")
-   
     const dispatch = useDispatch<AppDispatch>();
     const ref = createRef<HTMLDivElement>();
     const [selectedRecipients,setSelectedRecipients] = useState<User[]>([]);
     const { user } = useContext(AuthContext);
+    const socket = useContext(SocketContext);
     const friends = useSelector((state:RootState) => getFriends(state,user!.id));
-    var filteredFriends = friends.reduce<User[]>(function(filtered, friend) {
+    const friendsNotInGroup = friends.filter((friend) => {
+        return !groupChatMembers.find((member) => {
+            return friend.id === member.id
+        })
+    })
+    var filteredFriends = friendsNotInGroup.reduce<User[]>(function(filtered, friend) {
+        groupChatMembers.filter((gcm) => gcm.id !== friend.id)
         if (friend.username.toLowerCase().includes(query.toLowerCase())) {
             filtered.push(friend);
         }
@@ -31,13 +37,13 @@ const CreateChatModal:FC<Props> = ({setShowCreateChatModal}) => {
     }, []);
     
     useEffect(() => {
-        const handleKeydown = (e: KeyboardEvent) => e.key === 'Escape' && setShowCreateChatModal(false);
+        const handleKeydown = (e: KeyboardEvent) => e.key === 'Escape' && setShowAddMembersModal(false);
         window.addEventListener('keydown', handleKeydown);
         return () => window.removeEventListener('keydown', handleKeydown);
     }, []);
     const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         const { current } = ref;
-        if (current === e.target) setShowCreateChatModal(false);
+        if (current === e.target) setShowAddMembersModal(false);
     };
     const addOrRemoveRecipient = (user:User) => {
         const exists = selectedRecipients.find((u) => u.id === user.id);
@@ -54,21 +60,16 @@ const CreateChatModal:FC<Props> = ({setShowCreateChatModal}) => {
     };
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {   
         e.preventDefault();
-        const members = selectedRecipients.map((recipient) => recipient.email);
+        const users = selectedRecipients.map((recipient) => recipient.id);
+
+        if(users.length < 1) return;
 		try {	
-            if(selectedRecipients.length > 1) {
-                dispatch(postNewGroupChatThunk({members}))
-                .unwrap().then(({ data }) => {
-                    setShowCreateChatModal(false);
-                    navigate(`/groups/${data.id}`);
-                }).catch((err) => console.log(err));
-            } else {
-                dispatch(postNewChatThunk({email:members[0]}))
-                .unwrap().then(({ data }) => {
-                    setShowCreateChatModal(false);
-                    navigate(`/chats/${data.id}`);
-                }).catch((err) => console.log(err));
-            } 
+            dispatch(addGroupChatMemberThunk({groupId,users}))
+            .unwrap().then(({ data }) => {
+                socket.emit('onGroupChatMemberAdd',{groupId})
+                setShowAddMembersModal(false);
+            }).catch((err) => console.log(err));
+            
 		} catch (err) {
            console.log(err)
 		}
@@ -76,10 +77,10 @@ const CreateChatModal:FC<Props> = ({setShowCreateChatModal}) => {
 	};
     
     return (
-        <OverlayWindowStyle ref={ref} onClick={handleOverlayClick}>
+        <OverlayWindowStyleRelative ref={ref} onClick={handleOverlayClick}>
             <CreateChatModalStyle>
-                <ModalHeader>Select Friends<div onClick={() => setShowCreateChatModal(false)}><Cross size={30}/></div></ModalHeader>
-                <h2>Select 1 or more friends to start chatting to.</h2>
+                <ModalHeader>Select Friends<div onClick={() => setShowAddMembersModal(false)}><Cross size={30}/></div></ModalHeader>
+                <h2>Select 1 or more friends to add to this group.</h2>
                 <CreateChatForm onSubmit={onSubmit}>
                     <FriendSelectionInputContainer>
                         {selectedRecipients && selectedRecipients.map((recipient) => (
@@ -95,10 +96,10 @@ const CreateChatModal:FC<Props> = ({setShowCreateChatModal}) => {
                             </FriendSelectionInfoStyle>
                         </FriendSelectionContainerStyle>
                     ))}
-                    <LandingPageFriendAddButton>{selectedRecipients && selectedRecipients.length > 1 ? "Create Group Chat" : "Create Private Chat"}</LandingPageFriendAddButton>
+                    <LandingPageFriendAddButton>Add</LandingPageFriendAddButton>
                 </CreateChatForm>
             </CreateChatModalStyle>
-        </OverlayWindowStyle>
+        </OverlayWindowStyleRelative>
     )
 }
-export default CreateChatModal
+export default AddGroupMembersModal

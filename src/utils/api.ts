@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig } from 'axios';
-import { Chat, CreateChatParams, CreateGroupChatParams, CreateGroupMessageResponse, CreateMessageParams, CreatePrivateMessageResponse, CreateUserParams, DeleteGroupMessagePayload, DeleteMessagePayload, DeleteMessageResponse, EditGroupChatNameParams, EditGroupMessageResponse, EditMessagePayload, EditPrivateMessageResponse, Friend, GroupChat, GroupMessage, PrivateMessage, User, UserCredentialsParams } from './types';
+import { Chat, CreateChatParams, CreateGroupChatParams, CreateGroupMessageResponse, CreateMessageParams, CreatePrivateMessageResponse, CreateUserParams, DeleteGroupMessagePayload, DeleteMessagePayload, DeleteMessageResponse, EditGroupChatMemberParams, EditGroupChatNameParams, EditGroupMessageResponse, EditMessagePayload, EditPrivateMessageResponse, Friend, GroupChat, GroupMessage, PrivateMessage, User, UserCredentialsParams } from './types';
 
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -57,3 +57,7 @@ export const deletePrivateMessage = ({chatId,messageId}:DeleteMessagePayload) =>
 export const deleteGroupMessage = ({groupId,messageId}:DeleteGroupMessagePayload) => axiosClient.delete<DeleteMessageResponse>(`/groups/${groupId}/messages/${messageId}`,config);
 
 export const getUserPresence = (id:number) => axiosClient.get<User>(`/users/presence/${id}`,config);
+
+export const deleteGroupChatMember = ({groupId,userId}:EditGroupChatMemberParams) => axiosClient.post(`/groups/${groupId}/members/remove`,{userId},config);
+
+export const addGroupChatMembers = ({groupId,users}:EditGroupChatMemberParams) => axiosClient.put(`/groups/${groupId}/members/add`,{users},config);
