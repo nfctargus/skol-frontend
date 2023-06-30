@@ -24,7 +24,7 @@ const MessagePanelHeader = () => {
                 </ChatUserAvatarContainer>
                 <div className={styles.messagePanelUserInfo}>
                     <h1>{formattedName}</h1>
-                    {recipient.presence && formatUserPresence(recipient.presence)}
+                    {/* recipient.presence && formatUserPresence(recipient.presence) */}
                 </div>
            
         </MessagePanelHeaderStyle>

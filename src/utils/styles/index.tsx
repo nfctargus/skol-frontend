@@ -779,9 +779,10 @@ export const EditMessageActionsContainer = styled.div`
         padding:0;
     }
 `;
-export const LandingPageStlye = styled.div`
-
+export const LandingPageStyle = styled.div`
+    
     width:100%;
+    overflow-y: scroll;
 `;
 export const LandingPageHeaderStyle = styled.div`
     width:100%;
@@ -794,6 +795,10 @@ export const LandingPageHeaderStyle = styled.div`
     padding:0 1.5rem;
     gap:4rem;
     box-sizing: border-box;
+    position:sticky;
+    z-index:99;
+    top:0;
+    background:#fff;
 `;
 export const LandingPageFriendAddButton = styled.button`
     background:#4183c9;
@@ -829,12 +834,42 @@ export const LandingPageFriendSection = styled.div`
     gap:1rem;
     display:flex;
     flex-direction: column;
+    box-sizing: border-box;
     h2 {
         padding:1rem;
         font-size:0.9rem;
         text-transform: uppercase;
     }
+    h3 {
+        padding:0.5rem;
+        font-size:0.8rem;
+        text-transform: uppercase;
+        color:#3a784d;
+    }
+    h4 {
+        padding:0.5rem;
+        font-size:0.8rem;
+        text-transform: uppercase;
+        color:#5b181d;
+    }
 `;
+export const LandingPageExpandableSection = styled.details`
+    summary {
+        padding:0.5rem;
+        font-size:0.8rem;
+        text-transform: uppercase;
+        color:#3a784d;
+        font-weight:500;
+    } 
+    .offline {
+        color:#b20000;
+    }
+    .usersList {
+        gap:0.5rem;        
+        display:flex;
+        flex-direction: column;
+    }
+`
 export const FriendContainerStyle = styled.div`
     width:100%;
     box-sizing: border-box;
@@ -844,6 +879,7 @@ export const FriendContainerStyle = styled.div`
     display:flex;
     justify-content: space-between;
     align-items: center;
+    gap:1rem;
     &:hover {
         background:#e0e0e0;
         transition:all 0.1s;

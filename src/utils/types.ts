@@ -5,7 +5,11 @@ export type User = {
 	firstName: string;
 	lastName: string;
     profile?:UserProfile;
-    presence?:string;
+    presence?:UserPresence;
+}
+export type UserPresence = {
+    id:number;
+    userPresence?:string;
 }
 export type UserProfile = {
     id:number;

@@ -4,6 +4,7 @@ import chatReducer from './chats/chatSlice';
 import privateMessageReducer from './messages/privateMessageSlice';
 import groupChatReducer from './group-chats/groupChatSlice';
 import groupMessageSlice from './group-messages/groupMessageSlice';
+import presenceSlice from './presence/presenceSlice';
 
 export const store = configureStore({
     reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
         privateMessage:privateMessageReducer,
         groupChat:groupChatReducer,
         groupMessage:groupMessageSlice,
+        presence:presenceSlice,
     },
     middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ serializableCheck: false }),
