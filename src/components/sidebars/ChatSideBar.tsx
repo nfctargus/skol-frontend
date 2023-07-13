@@ -30,7 +30,7 @@ const ChatSideBar = () => {
         <>
             {showCreateChatModal && <CreateChatModal setShowCreateChatModal={setShowCreateChatModal}/>}
             <ChatSideBarStyle>
-                <ChatSideBarHeaderStyle>Skaal</ChatSideBarHeaderStyle>
+                <ChatSideBarHeaderStyle>Skol</ChatSideBarHeaderStyle>
                 <div className={styles.sideBarSearchContainer}>
                     <div className={styles.sideBarSearchHeader}>
                         <h1>Private Messages</h1><div id='new-chat-select' className={styles.newChatIcon} onClick={() => setShowCreateChatModal(!showCreateChatModal)}><Plus size={20} strokeWidth={1} /></div>

@@ -69,7 +69,7 @@ const NavSideBar = () => {
                     <input type="checkbox" id={styles.toggleOptions} /> 
                     <div className={styles.settingsOptions}>
                         <div className={styles.settingsIcons} onClick={logoutUser}><SignOut size={ICON_SIZE} strokeWidth={ICON_STROKE}/></div>
-                        <div className={styles.settingsIcons}><TrashCan size={ICON_SIZE} strokeWidth={ICON_STROKE}/></div>
+                        {/* <div className={styles.settingsIcons}><TrashCan size={ICON_SIZE} strokeWidth={ICON_STROKE}/></div> */}
                         <div className={styles.settingsIcons} onClick={navigateProfilePage}><Person size={ICON_SIZE} strokeWidth={ICON_STROKE}/></div>
                     </div>
                     <label className={styles.navIcons} htmlFor={styles.toggleOptions}><Gear size={ICON_SIZE} strokeWidth={ICON_STROKE}/></label>            

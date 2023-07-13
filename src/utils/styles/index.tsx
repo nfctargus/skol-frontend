@@ -322,7 +322,7 @@ export const ContextMenuStyle = styled.div<ContextMenuProps>`
     border:1px solid #a4a4a475;
     ${(props) => css`
         top: ${props.top}px;
-        left: ${props.left}px;
+        right: ${props.left}px;
         width:${props.width}vw;
     `}
     ul {
@@ -860,9 +860,12 @@ export const LandingPageExpandableSection = styled.details`
         text-transform: uppercase;
         color:#3a784d;
         font-weight:500;
+        cursor: pointer;
+        border-bottom: 1px solid #3a784d55;
     } 
     .offline {
         color:#b20000;
+        border-bottom: 1px solid #b2000055;
     }
     .usersList {
         gap:0.5rem;        

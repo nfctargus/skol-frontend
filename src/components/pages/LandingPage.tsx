@@ -30,7 +30,7 @@ const LandingPage = () => {
     const filterFriends = (e: React.ChangeEvent<HTMLInputElement>) => {
         setQuery(e.target.value)
     };
-    const onContextMenu = (e: React.MouseEvent<HTMLDivElement, MouseEvent>,friend:User) => {
+    const handleFriendActions = (e: React.MouseEvent<HTMLDivElement, MouseEvent>,friend:User) => {
         e.preventDefault()
         setPoints({ x: e.pageX, y: e.pageY });
         setCurrentFriend(friend)
@@ -63,7 +63,7 @@ const LandingPage = () => {
                                                     <FriendIconStyle onClick={() => handleFriendMessage(friend.email)}>
                                                         <ChatBubble strokeWidth={1} size={36}/>
                                                     </FriendIconStyle>
-                                                    <FriendIconStyle onContextMenu={(e) => { onContextMenu(e,friend) }}>
+                                                    <FriendIconStyle onClick={(e) => { handleFriendActions(e,friend) }}>
                                                         <MoreHorizontalFill strokeWidth={1} size={36} />
                                                     </FriendIconStyle>
                                                 </FriendIconContainer>
@@ -83,7 +83,7 @@ const LandingPage = () => {
                                                     <FriendIconStyle onClick={() => handleFriendMessage(friend.email)}>
                                                         <ChatBubble strokeWidth={1} size={36}/>
                                                     </FriendIconStyle>
-                                                    <FriendIconStyle onContextMenu={(e) => { onContextMenu(e,friend) }}>
+                                                    <FriendIconStyle onClick={(e) => { handleFriendActions(e,friend) }}>
                                                         <MoreHorizontalFill strokeWidth={1} size={36} />
                                                     </FriendIconStyle>
                                                 </FriendIconContainer>

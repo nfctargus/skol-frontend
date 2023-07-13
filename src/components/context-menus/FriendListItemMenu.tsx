@@ -14,12 +14,12 @@ type Props = {
     setShowFriendActionsMenu:Dispatch<React.SetStateAction<boolean>>;
 }
 const FriendListItemMenu:FC<Props> = ({friend,points,setShowFriendActionsMenu}) => {
-    const xOffset = points.x - 180;
+    const xOffset = 90;
     const navigate = useNavigate();
     const dispatch = useDispatch<AppDispatch>();
     const socket = useContext(SocketContext);
     const handleMessageFriend = () => {
-        navigate(`/friends/${friend.id}`);
+        navigate(`/chats/${friend.id}`);
     }
     const handleRemoveFriend = () => {
         dispatch(deleteFriendThunk(friend.id)).unwrap().then(({ data }) => {
