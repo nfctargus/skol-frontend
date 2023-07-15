@@ -1,14 +1,16 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { UserProfileParams } from '../../utils/types';
 import { useForm } from 'react-hook-form';
-import { postNewUserProfile } from '../../utils/api';
-import { FolderAdd } from 'akar-icons';
-import { Button, FormContainerStyle, UserProfilePageImageContainer, UserProfileAvatarSectionStyle, UserProfilePageStyle, UserProfilePageUploadLabel, InputContainerStyle, InputField, InputLabel } from '../../utils/styles';
+import { postUpdateUser } from '../../utils/api';
+import { Button, FormContainerStyle, UserProfilePageImageContainer, UserProfileAvatarSectionStyle, UserProfilePageStyle, UserProfilePageUploadLabel, InputContainerStyle, InputField, InputLabel, ChatUserAvatarStyle } from '../../utils/styles';
 import styles from './index.module.scss';
+import { AuthContext } from '../../utils/context/AuthContext';
+import { getUserInitials, hasProfilePicture } from '../../utils/helpers';
 const UserProfileForm = () => {
     const {register,handleSubmit,formState: {errors}} = useForm<UserProfileParams>();
     const [file, setFile] = useState<File>();
     const [imgPath,setImgPath] = useState('');
+    const { user } = useContext(AuthContext);
     const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { files } = e.target;
         if (files && files.length) {
@@ -19,19 +21,17 @@ const UserProfileForm = () => {
             }
         }
     };
-
     const onSubmit = (data:UserProfileParams) => {
+        console.log(data)
         const formData = new FormData();
         if(data.firstName) formData.append('firstName',data.firstName)
         if(data.lastName) formData.append('lastName',data.lastName)
         if(data.username) formData.append('username',data.username)
         if(file) formData.append('avatar', file)
-        if(formData.entries.length <= 0) return;
         
-        return postNewUserProfile(formData)
+        return postUpdateUser(formData)
         .then((response) => console.log(response))
         .catch((err) => console.log(err));
-
     };
     return (
         <UserProfilePageStyle>
@@ -40,7 +40,7 @@ const UserProfileForm = () => {
                 <h2>Manage your profile settings</h2>
                 <UserProfileAvatarSectionStyle>   
                     <UserProfilePageImageContainer>
-                        {imgPath ? <div><img src={imgPath} alt='Avatar'/></div> : <div><FolderAdd size={34} /></div>}
+                        {user && imgPath ? <div><img src={imgPath} alt='Avatar'/></div> : hasProfilePicture(user) ? <ChatUserAvatarStyle src={`../images/${user?.avatar}`}/> : <div className={styles.noAvatarContainer}>{getUserInitials(user!)}</div>}
                     </UserProfilePageImageContainer>
                     <UserProfilePageUploadLabel htmlFor='avatar'>Change Avatar</UserProfilePageUploadLabel> 
                     <input type='file' id='avatar' {...register('avatar', {onChange: (e) => {handleFileUpload(e)}})} style={{display:'none'}}/>

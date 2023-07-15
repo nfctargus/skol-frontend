@@ -18,10 +18,10 @@ const returnProfilePic = (user:User) => {
         <>
             {user ? (
                 <ChatUserAvatarContainer>
-                    {hasProfilePicture(user) ? (<ChatUserAvatarStyle src={`../images/${user?.profile?.avatar}`}/>) 
+                    {hasProfilePicture(user) ? (<ChatUserAvatarStyle src={`../images/${user?.avatar}`}/>) 
                     : (<ChatUserDefaultAvatarStyle>{getUserInitials(user)}</ChatUserDefaultAvatarStyle>)}
                 </ChatUserAvatarContainer>
-            ): <>User profile failed to load</>}
+            ): <>User failed to load</>}
         </>
     );
 }

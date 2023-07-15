@@ -15,12 +15,15 @@ export const LoginForm = () => {
         try {
             await postLoginUser(data);
             navigate('/chats');
-        } catch (err) {
-            console.log(err);
+        } catch (err:any) {
             toast.clearWaitingQueue();
-            toast("An error has occured during sign in. Please try again later.", { type: 'error', icon: true }); 
+            if(err.response.data.message) {
+                console.log(err.response.data.message)
+                toast(err.response.data.message, { type: 'error', icon: true }); 
+            } else {
+                toast("An error has occured during sign in. Please try again later.", { type: 'error', icon: true }); 
+            }
         }
-
     };
     return (
         <FormContainerStyle className={styles.form} onSubmit={handleSubmit(onSubmit)}>

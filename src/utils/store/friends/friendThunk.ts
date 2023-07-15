@@ -7,6 +7,6 @@ export const getFriendsThunk = createAsyncThunk("friends/getAll",() => {
 export const addFriendThunk = createAsyncThunk("friends/add",(email:string) => {
     return addFriend(email);
 });
-export const deleteFriendThunk = createAsyncThunk("friends`/delete",(id:number) => {
+export const deleteFriendThunk = createAsyncThunk("friends/delete",(id:number) => {
     return deleteFriend(id);
 });

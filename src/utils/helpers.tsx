@@ -31,7 +31,7 @@ export const getOtherUserFromFriend = (friend:Friend,user?:User) => {
     return friend?.userOne.id === user?.id ? friend?.userTwo : friend?.userOne;
 }
 export const hasProfilePicture = (user?:User) => {
-    if(user?.profile?.avatar) return true;
+    if(user?.avatar) return true;
     return false;
 }
 export const groupHasAvatar = (group?:GroupChat) => {
@@ -50,7 +50,7 @@ export const getGroupMembers = (group?:GroupChat) => {
 export const returnProfilePic = (user:User) => {
     return (
         <div>
-            {hasProfilePicture(user) ? (<ChatUserAvatarStyle src={`../images/${user?.profile?.avatar}`}/>) 
+            {hasProfilePicture(user) ? (<ChatUserAvatarStyle src={`../images/${user?.avatar}`}/>) 
             : (<ChatUserDefaultAvatarStyle>{getUserInitials(user)}</ChatUserDefaultAvatarStyle>)}
         </div>
     );

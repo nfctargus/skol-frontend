@@ -21,7 +21,7 @@ const ChatSideBarItem:FC<Props> = ({chat}) => {
     return (
         <ChatSideBarItemContainer onClick={() => navigate(`/chats/${chat.id}`)}>
             <ChatUserAvatarContainer>
-                {hasProfilePicture(recipient) ? <ChatUserAvatarStyle src={`../images/${recipient?.profile?.avatar}`}/> : <ChatUserDefaultAvatarStyle>{getUserInitials(recipient)}</ChatUserDefaultAvatarStyle>}
+                {hasProfilePicture(recipient) ? <ChatUserAvatarStyle src={`../images/${recipient?.avatar}`}/> : <ChatUserDefaultAvatarStyle>{getUserInitials(recipient)}</ChatUserDefaultAvatarStyle>}
             </ChatUserAvatarContainer>
             <div className={styles.chatSideBarLayout}>
                 <ChatSideBarItemStyle>

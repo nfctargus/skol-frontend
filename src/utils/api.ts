@@ -44,9 +44,7 @@ export const postGroupMessage = ({id,messageContent}:CreateMessageParams) => axi
 
 export const editGroupMessage = ({messageContent,chatId,messageId}: EditMessagePayload) => axiosClient.patch<EditGroupMessageResponse>(`/groups/${chatId}/messages`,{messageId,messageContent},config);
 
-export const postNewUserProfile = (data:FormData) => axiosClient.post(`/users/profiles`,data,{...config, headers: {'Content-Type': 'multipart/form-data'} });
-
-export const updateUserProfile = (data:FormData) => axiosClient.patch(`/users/profiles`,data,{...config, headers: {'Content-Type': 'multipart/form-data'} });
+export const postUpdateUser = (data:FormData) => axiosClient.post(`/users/update`,data,{...config, headers: {'Content-Type': 'multipart/form-data'} });
 
 export const uploadGroupProfilePicture = (id:number,data:FormData) => axiosClient.post(`/groups/${id}/avatar`,data,{...config, headers: {'Content-Type': 'multipart/form-data'} });
 

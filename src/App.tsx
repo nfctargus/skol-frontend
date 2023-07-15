@@ -13,7 +13,7 @@ import { AuthenticatedRoute } from './components/AuthenticatedRoute';
 import { User } from './utils/types';
 import { AuthContext } from './utils/context/AuthContext';
 import ActiveGroupChatPage from './components/pages/group-chats/ActiveGroupChatPage';
-import UserOnboardingForm from './components/forms/UserProfileForm';
+import UserProfileForm from './components/forms/UserProfileForm';
 import "react-tooltip/dist/react-tooltip.css";
 import { socket, SocketContext } from './utils/context/SocketContext';
 
@@ -31,7 +31,7 @@ function App() {
                             <Route path="groups" element={<ChatPage />}>
                                 <Route path=":id" element={<ActiveGroupChatPage />} />
                             </Route>
-                            <Route path="profile" element={<UserOnboardingForm />} />
+                            <Route path="profile" element={<UserProfileForm />} />
                         </Route>
                         
                         <Route path="/login" element={<LoginPage />} />

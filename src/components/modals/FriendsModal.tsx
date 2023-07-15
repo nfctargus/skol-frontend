@@ -5,6 +5,10 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../utils/store";
 import { addFriendThunk } from "../../utils/store/friends/friendThunk";
 import { SocketContext } from "../../utils/context/SocketContext";
+import { addFriendToPresence } from "../../utils/store/presence/presenceSlice";
+import { getOtherUserFromFriend } from "../../utils/helpers";
+import { AuthContext } from "../../utils/context/AuthContext";
+import { toast } from 'react-toastify';
 
 type Props = {
     setShowFriendsModal:Dispatch<React.SetStateAction<boolean>>;
@@ -14,10 +18,16 @@ const FriendsModal:FC<Props> = ({setShowFriendsModal}) => {
     const [emailInput,setEmailInput] = useState('');
     const dispatch = useDispatch<AppDispatch>();
     const socket = useContext(SocketContext);
+    const { user } = useContext(AuthContext);
     useEffect(() => {
         const handleKeydown = (e: KeyboardEvent) => e.key === 'Escape' && setShowFriendsModal(false);
+        const handleEnterKeydown = (e: KeyboardEvent) => e.key === 'Enter' && handleSubmit;
         window.addEventListener('keydown', handleKeydown);
-        return () => window.removeEventListener('keydown', handleKeydown);
+        window.addEventListener('keydown', handleEnterKeydown);
+        return () => {
+            window.removeEventListener('keydown', handleKeydown);
+            window.removeEventListener('keydown', handleEnterKeydown);
+        }
     }, []);
 
     const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -27,8 +37,21 @@ const FriendsModal:FC<Props> = ({setShowFriendsModal}) => {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => { 
         e.preventDefault();
-        dispatch(addFriendThunk(emailInput)).unwrap().then(({ data }) => socket.emit('onFriendAdded',{data}))
-        .catch((err) => console.log(err.data.message))
+        dispatch(addFriendThunk(emailInput)).unwrap().then(({ data }) => {
+            dispatch(addFriendToPresence(getOtherUserFromFriend(data,user)))
+            socket.emit('onFriendAdded',{data})
+        })
+        .catch((err) => {
+            if(err.message.includes('404')) {
+                toast.clearWaitingQueue();
+                toast("This user does not exist... at least in our database!", { type: 'error', icon: true }); 
+            } else if(err.message.includes('409')) {
+                toast.clearWaitingQueue();
+                toast("Uhh, you're already friends with this user", { type: 'error', icon: true }); 
+            } else {
+                console.log(err)
+            }
+        })
         .finally(() => {
             setEmailInput("");
             setShowFriendsModal(false);

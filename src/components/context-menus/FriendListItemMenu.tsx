@@ -7,6 +7,8 @@ import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../utils/store';
 import { deleteFriendThunk } from '../../utils/store/friends/friendThunk';
 import { SocketContext } from '../../utils/context/SocketContext';
+import { findOrCreateChatThunk } from '../../utils/store/chats/chatThunk';
+import { deleteFriendFromPresence } from '../../utils/store/presence/presenceSlice';
 
 type Props = {
     friend:User;
@@ -19,11 +21,14 @@ const FriendListItemMenu:FC<Props> = ({friend,points,setShowFriendActionsMenu}) 
     const dispatch = useDispatch<AppDispatch>();
     const socket = useContext(SocketContext);
     const handleMessageFriend = () => {
-        navigate(`/chats/${friend.id}`);
+        dispatch(findOrCreateChatThunk(friend.email)).unwrap().then(({data}) => {
+            if(data) navigate(`/chats/${data.id}`);
+        });
     }
     const handleRemoveFriend = () => {
         dispatch(deleteFriendThunk(friend.id)).unwrap().then(({ data }) => {
-            socket.emit('onFriendRemoved',data)
+            socket.emit('onFriendRemoved',data);
+            dispatch(deleteFriendFromPresence(friend.id));
             setShowFriendActionsMenu(false);
         }).catch((err) => console.log(err));
         

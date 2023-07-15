@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { hasProfilePicture, getUserInitials, formatUserPresence, getChatRecipient } from '../../../utils/helpers';
+import { hasProfilePicture, getUserInitials, getChatRecipient } from '../../../utils/helpers';
 import { ChatUserAvatarContainer, ChatUserAvatarStyle, ChatUserDefaultAvatarStyle, MessagePanelHeaderStyle } from '../../../utils/styles'
 import styles from './index.module.scss';
 import { useContext } from 'react';
@@ -19,14 +19,12 @@ const MessagePanelHeader = () => {
     return (
         <MessagePanelHeaderStyle>
                 <ChatUserAvatarContainer>
-                    {hasProfilePicture(recipient) ? (<ChatUserAvatarStyle src={`../images/${recipient?.profile?.avatar}`}/>) 
+                    {hasProfilePicture(recipient) ? (<ChatUserAvatarStyle src={`../images/${recipient?.avatar}`}/>) 
                     : (<ChatUserDefaultAvatarStyle>{getUserInitials(recipient)}</ChatUserDefaultAvatarStyle>)}
                 </ChatUserAvatarContainer>
                 <div className={styles.messagePanelUserInfo}>
                     <h1>{formattedName}</h1>
-                    {/* recipient.presence && formatUserPresence(recipient.presence) */}
                 </div>
-           
         </MessagePanelHeaderStyle>
     )
 }

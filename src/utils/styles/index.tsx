@@ -13,12 +13,8 @@ export const FormContainerStyle = styled.form`
     width: 50%;
     margin: 0 2rem;
 
-    @media screen and (max-width:768px) {
-        width: 90%;
-        margin: 0.5rem 0 4rem 0;
-    }
     h1 {
-        font-size:1.1rem;
+        font-size:2rem;
         text-align: center;
         margin:1rem;
         font-weight:500;
@@ -26,7 +22,7 @@ export const FormContainerStyle = styled.form`
     h2 {
         font-size:0.9rem;
         text-align: center;
-        margin-botom:0.5rem;
+        margin-bottom:0.5rem;
         font-weight:500;
     }
 `;
@@ -191,12 +187,13 @@ export const MessageInputContainerStyle = styled.form`
     box-sizing: border-box;
     border-radius: 1rem;
     width: 100%;
+    margin-top:0.5rem;
     padding: 1.5rem 2rem;
     display: flex;
     align-items: center;
     justify-content: center;
-
-    
+    background-color: #e8e8e8;
+    border-radius: 0;   
 `;
 export const MessageInputField = styled.input`
     width: 100%;
@@ -204,7 +201,7 @@ export const MessageInputField = styled.input`
     background:inherit;
     border-radius:0.5rem;
     padding:1rem 1rem;
-    border:1px solid #a4a4a475;
+    border:1.5px solid #353840b0;
     box-sizing: border-box;
     outline:none;
     &:focus {
@@ -948,6 +945,7 @@ export const UserProfilePageImageContainer = styled.div`
         object-fit:contain;
         border-radius:50%;
     }
+
 `;
 export const UserProfilePageUploadLabel = styled.label`
     display: block;

@@ -4,17 +4,14 @@ export type User = {
     username:string;
 	firstName: string;
 	lastName: string;
-    profile?:UserProfile;
+    avatar?:string;
     presence?:UserPresence;
 }
 export type UserPresence = {
     id:number;
     userPresence?:string;
 }
-export type UserProfile = {
-    id:number;
-    avatar?:string;
-}
+
 export type CreateUserParams = {
 	email: string;
 	firstName: string;

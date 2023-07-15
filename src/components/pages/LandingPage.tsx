@@ -94,8 +94,7 @@ const LandingPage = () => {
                             </LandingPageExpandableSection>
                     </>
                     ): <>You don't have any friends. Such sad, wow</>}
-                        
-                    
+
                 </LandingPageFriendSection>
             </LandingPageStyle>
         </>
